@@ -1,0 +1,90 @@
+mqtt:
+  enabled: False
+
+detectors:
+  ov:
+    type: openvino
+    device: AUTO
+    model:
+      path: /config/model_cache/openvino/yolox-tiny.xml
+
+logger:
+  default: info
+  logs:
+    frigate.events: info
+    peewee: info
+    ws4py: info
+
+model:
+  width: 416
+  height: 416
+  input_tensor: nchw
+  input_pixel_format: bgr
+  model_type: yolox
+  labelmap_path: /config/model_cache/openvino/coco_80cl.txt
+
+record:
+  enabled: True
+  retain:
+    days: 1
+  events:
+    retain:
+      default: 1
+
+snapshots:
+  enabled: True
+  timestamp: True
+  bounding_box: True
+  crop: True
+  quality: 70
+
+timestamp_style:
+  position: bl
+  effect: solid
+
+birdseye:
+  enabled: True
+  mode: continuous
+
+go2rtc:
+  streams:
+    webcam:
+      - ffmpeg:rtsp://4.tcp.eu.ngrok.io:14959/webCamStream#video=h264
+      - "ffmpeg:webcam#video=h264"
+#    front:
+#      - ffmpeg:rtsp://192.168.60.53:8000/webCamStream#video=h264
+#    back:
+#      - ffmpeg:rtsp://192.168.60.53:8000/webCamStream#video=h264
+#    aerial:
+#      - ffmpeg:rtsp://192.168.60.53:8000/webCamStream#video=h264
+
+cameras:
+  webcam:
+    ffmpeg:
+      hwaccel_args: preset-vaapi
+      inputs:
+        - path: rtsp://127.0.0.1:8554/webcam#video=h264
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+            - record
+    live:
+      height: 720
+    detect:
+      height: 720
+      width: 1280
+      fps: 5
+      enabled: True
+    objects:
+      track:
+        - person
+      filters:
+        person:
+          threshold: 0.1
+ui:
+  live_mode: jsmpeg
+  use_experimental: True
+  time_format: browser
+  date_style: short
+  time_style: medium
+  strftime_fmt: "%Y/%m/%d %H:%M"
