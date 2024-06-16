@@ -1,0 +1,101 @@
+// clang-format off
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <jpeglib.h>
+#include <setjmp.h>
+// clang-format on
+
+struct jpeg_error_mgr jerr;
+
+void encode_jpeg_to_y4m(FILE *input, FILE *output, int width, int height);
+void write_y4m_header(FILE *output, int width, int height, int frame_rate_num,
+                      int frame_rate_den);
+
+int main(int argc, char *argv[]) {
+  FILE *output;
+  int width, height, frame_rate_num, frame_rate_den;
+  char buf[BUFSIZ];
+  char *line;
+  FILE *input;
+
+  // Check if parameters and at least one input file are provided
+  if (argc < 5) {
+    fprintf(stderr, "Usage: %s <output_file> <width> <height> <frame-rate>\n",
+            argv[0]);
+    return 1;
+  }
+
+  // Get input parameters
+  width = atoi(argv[2]);
+  height = atoi(argv[3]);
+  frame_rate_num = atoi(argv[4]);
+  frame_rate_den = 1;
+
+  // Open output file
+  output = fopen(argv[1], "wb");
+
+  // Write Y4M header
+  write_y4m_header(output, width, height, frame_rate_num, frame_rate_den);
+
+  // Process input files
+  while (1) {
+    line = fgets(buf, sizeof buf, stdin);
+    if (line == NULL) {
+      break;
+    }
+    line[strlen(line) - 1] = '\0';
+    printf("Processing file: %s\n", line);
+    input = fopen(line, "rb");
+    if (input == NULL) {
+      fprintf(stderr, "Failed to open file: %s\n", line);
+      continue;
+    }
+
+    encode_jpeg_to_y4m(input, output, width, height);
+    fclose(input);
+  }
+
+  fclose(output);
+
+  return 0;
+}
+
+void encode_jpeg_to_y4m(FILE *input, FILE *output, int width, int height) {
+  struct jpeg_decompress_struct cinfo;
+  JSAMPARRAY buffer;
+  int row_stride;
+
+  // Set up error handling for libjpeg
+  cinfo.err = jpeg_std_error(&jerr);
+  jpeg_create_decompress(&cinfo);
+  jpeg_stdio_src(&cinfo, input);
+  jpeg_read_header(&cinfo, TRUE);
+  jpeg_start_decompress(&cinfo);
+
+  row_stride = width * cinfo.output_components;
+  buffer = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo, JPOOL_IMAGE,
+                                      row_stride, 1);
+
+  // Process image data
+  while (cinfo.output_scanline < cinfo.output_height) {
+    jpeg_read_scanlines(&cinfo, buffer, 1);
+
+    for (int x = 0; x < width; x += 2) {
+      // Write macropixel to output
+      fwrite(&buffer[0][x * cinfo.output_components], 1, 1, output);
+      fwrite(&buffer[0][(x * cinfo.output_components) + 1], 1, 1, output);
+      fwrite(&buffer[0][(x * cinfo.output_components) + 3], 1, 1, output);
+      fwrite(&buffer[0][(x * cinfo.output_components) + 2], 1, 1, output);
+    }
+  }
+
+  jpeg_finish_decompress(&cinfo);
+  jpeg_destroy_decompress(&cinfo);
+}
+
+void write_y4m_header(FILE *output, int width, int height, int frame_rate_num,
+                      int frame_rate_den) {
+  fprintf(output, "YUV4MPEG2 W%d H%d F%d:%d Ip A0:0\n", width, height,
+          frame_rate_num, frame_rate_den);
+}

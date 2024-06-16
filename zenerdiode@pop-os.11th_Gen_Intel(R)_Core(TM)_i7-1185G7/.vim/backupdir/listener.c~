@@ -1,0 +1,93 @@
+#include <X11/Xlib.h>
+#include <stdio.h>
+
+const char *EVENT_NAMES[] = {
+    "",
+    "",
+    "KeyPress",
+    "KeyRelease",
+    "ButtonPress",
+    "ButtonRelease",
+    "MotionNotify",
+    "EnterNotify",
+    "LeaveNotify",
+    "FocusIn",
+    "FocusOut",
+    "KeymapNotify",
+    "Expose",
+    "GraphicsExpose",
+    "NoExpose",
+    "VisibilityNotify",
+    "CreateNotify",
+    "DestroyNotify",
+    "UnmapNotify",
+    "MapNotify",
+    "MapRequest",
+    "ReparentNotify",
+    "ConfigureNotify",
+    "ConfigureRequest",
+    "GravityNotify",
+    "ResizeRequest",
+    "CirculateNotify",
+    "CirculateRequest",
+    "PropertyNotify",
+    "SelectionClear",
+    "SelectionRequest",
+    "SelectionNotify",
+    "ColormapNotify",
+    "ClientMessage",
+    "MappingNotify",
+    "GenericEvent",
+};
+
+int main() {
+  Display *display;
+  Window root_window;
+  XEvent event;
+
+  // Open a connection to the X server
+  display = XOpenDisplay(NULL);
+  if (display == NULL) {
+    fprintf(stderr, "Cannot open display\n");
+    return 1;
+  }
+
+  // Get the root window
+  root_window = DefaultRootWindow(display);
+
+  // Listen for events on the root window
+  XSelectInput(display, root_window,
+               PropertyChangeMask | SubstructureNotifyMask |
+                   VisibilityChangeMask);
+
+  while (1) {
+    // Wait for an event
+    XNextEvent(display, &event);
+
+    printf("Event: `%s` ", EVENT_NAMES[event.type]);
+    // Check if the event is a drag start event
+    if (event.type == ConfigureNotify) {
+      int width = event.xconfigure.width;
+      int height = event.xconfigure.height;
+      Window win = event.xconfigure.above;
+
+      printf("width: %d, height: %d, win: %ld, root: %ld\n", width, height, win,
+             root_window);
+
+    } else if (event.type == PropertyNotify) {
+      Atom type = event.xproperty.atom;
+      char *name = XGetAtomName(display, type);
+      //     Atom expt = XInternAtom(display, "XdndPosition", False);
+      //   printf("Atom(recv): %ld, Atom(expt): %ld\n", type, expt);
+      // You can perform additional actions here
+      printf("Atom name: %s\n", name);
+      XFree(name);
+    } else {
+      putchar('\n');
+    }
+  }
+
+  // Clean up
+  XCloseDisplay(display);
+  return 0;
+}

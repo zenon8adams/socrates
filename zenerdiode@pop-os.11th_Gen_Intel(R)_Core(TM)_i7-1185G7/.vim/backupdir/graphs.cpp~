@@ -1,0 +1,1371 @@
+﻿#include "indexed-priority-queue.hpp"
+#include <algorithm>
+#include <deque>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#define NEG_INF -10000000
+#define POS_INF -NEG_INF
+
+struct PairHash {
+  template <typename K, typename V>
+  std::size_t operator()(const std::pair<K, V> &obj) const {
+    return std::hash<K>{}(obj.first) ^ std::hash<V>{}(obj.second);
+  }
+};
+
+struct FlowHash {
+  std::size_t operator()(const std::tuple<std::string, int, int> &key) const {
+    return std::hash<std::string>{}(std::get<0>(key)) ^
+           std::hash<int>{}(std::get<1>(key)) ^
+           std::hash<int>{}(std::get<2>(key));
+  }
+};
+
+using Graph = std::map<std::string, std::unordered_set<std::string>>;
+using WGraph =
+    std::map<std::string,
+             std::unordered_set<std::pair<std::string, int>, PairHash>>;
+using FGraph =
+    std::map<std::string,
+             std::unordered_set<std::tuple<std::string, int, int>, FlowHash>>;
+
+class DFS {
+public:
+  DFS(const Graph &gh) : m_graph(gh) {}
+  std::size_t operator()(const std::string &at) {
+    dfs_stack_impl(at);
+    return visited.size();
+  }
+
+private:
+  void dfs_rec_impl(const std::string &at) {
+    if (visited[at])
+      return;
+    visited[at] = true;
+    for (const auto &path : m_graph[at])
+      dfs_rec_impl(path);
+  }
+  void dfs_stack_impl(const std::string &at) {
+    std::vector<std::string> to_trav(1, at);
+    while (!to_trav.empty()) {
+      auto last = to_trav.back();
+      to_trav.pop_back();
+      visited[last] = true;
+      for (const auto &path : m_graph[last]) {
+        if (visited[path])
+          continue;
+        to_trav.push_back(path);
+      }
+    }
+  }
+  std::unordered_map<std::string, bool> visited;
+  Graph m_graph;
+};
+template <typename Graph> class BFS {
+public:
+  BFS(const Graph &gh) : m_graph(gh) {}
+  auto operator()(const std::string &from, const std::string &to) {
+    std::deque<key_t> path(1, from);
+    std::unordered_map<key_t, key_t> reached;
+    std::unordered_map<key_t, bool> visited;
+    while (!path.empty()) {
+      auto top = path.front();
+      path.pop_front();
+      visited[top] = true;
+      for (const auto &neighbor : m_graph[top]) {
+        std::string dest;
+        if constexpr (is_weighted)
+          dest = neighbor.first;
+        else
+          dest = neighbor;
+        if (visited[dest])
+          continue;
+        path.push_back(dest);
+        reached[dest] = top;
+      }
+    }
+    std::deque<key_t> shortest;
+    for (key_t start = reached[to]; !start.empty(); start = reached[start])
+      shortest.push_front(start);
+    if (!shortest.empty())
+      shortest.push_back(to);
+    return shortest;
+  }
+
+private:
+  using key_t = typename Graph::key_type;
+  using val_t = typename Graph::value_type::second_type::key_type;
+  Graph m_graph;
+  static constexpr bool is_weighted = !std::is_same_v<key_t, val_t>;
+};
+
+template <typename Graph> class TopSort {
+public:
+  TopSort(const Graph &gh) : m_graph(gh) {}
+
+private:
+  auto topSort(const typename Graph::key_type &at) {
+    if (m_visited[at])
+      return;
+    m_visited[at] = true;
+    for (const auto &path : m_graph[at]) {
+      if constexpr (std::is_same_v<std::decay_t<decltype(path)>,
+                                   typename Graph::key_type>)
+        topSort(path);
+      else
+        topSort(path.first);
+    }
+    m_order.push_front(at);
+  }
+
+  std::deque<typename Graph::key_type> m_order;
+  std::unordered_map<typename Graph::key_type, bool> m_visited;
+  Graph m_graph;
+
+public:
+  auto operator()() {
+    for (const auto &path : m_graph)
+      if (!m_visited[path.first])
+        topSort(path.first);
+    return m_order;
+  }
+  static auto reversedGraph(const Graph &network) {
+    Graph repl;
+    for (const auto &from : network) {
+      for (const auto &to : from.second) {
+        if constexpr (std::is_same_v<std::decay_t<decltype(to)>,
+                                     typename Graph::key_type>)
+          repl[to].insert(from.first);
+        else
+          repl[to.first].emplace(from, to.second);
+      }
+    }
+    return repl;
+  }
+};
+
+Graph generateGraph(size_t depth) {
+  Graph network;
+  std::random_device dev;
+  std::mt19937 gen(dev());
+  std::uniform_int_distribution<int> dist(65, 65 + depth);
+
+  for (int count = depth; count; --count) {
+    for (int inner_count = depth; inner_count; --inner_count)
+      network[std::string(1, dist(gen))].insert(std::string(1, dist(gen)));
+  }
+  return network;
+}
+
+std::pair<std::string, std::string> split(const std::string &text, char with) {
+  size_t pos = text.find(with);
+  if (pos == std::string::npos)
+    return {text, ""};
+  return {text.substr(0, pos), text.substr(pos + 1)};
+}
+
+Graph buildGraph(const std::vector<std::string> &roads) {
+  Graph network;
+  for (const auto &road : roads) {
+    auto links = split(road, '-');
+    network[links.first].insert(links.second);
+    network[links.second].insert(links.first);
+  }
+  return network;
+}
+
+auto shortestWeightedPath(const WGraph &network) {
+  auto sorted{TopSort(network)()};
+  std::unordered_map<std::string, int> weighting;
+
+  for (auto it = sorted.cbegin(); it != sorted.cend(); ++it) {
+    auto path = network.find(*it);
+    if (path == network.cend())
+      continue;
+    auto weight = weighting[*it];
+    for (const auto &p : path->second)
+      if (!weighting[p.first])
+        weighting[p.first] = weight + p.second;
+      else
+        weighting[p.first] = std::min(weighting[p.first], weight + p.second);
+  }
+  return weighting;
+}
+
+void invert(WGraph &network) {
+  std::for_each(network.begin(), network.end(), [](auto &path) {
+    decltype(path.second) newval;
+    std::for_each(path.second.begin(), path.second.end(),
+                  [&newval](const auto &m) {
+                    newval.insert({m.first, m.second * -1});
+                  });
+    path.second.swap(newval);
+  });
+}
+
+auto longestWeightedPath(WGraph network) {
+  invert(network);
+  auto weighting = shortestWeightedPath(network);
+  for (auto &w : weighting)
+    w.second *= -1;
+  return weighting;
+}
+
+auto dijkstraImpl(const std::string &from, const WGraph &network) {
+  auto comp = [](const auto &l, const auto &r) { return l.second > r.second; };
+
+  std::priority_queue<std::pair<std::string, int>,
+                      std::vector<std::pair<std::string, int>>, decltype(comp)>
+      shortest(comp);
+  std::unordered_map<std::string, int> lookup;
+  std::unordered_map<std::string, std::string> prev;
+  lookup[from] = 0;
+  std::unordered_map<std::string, bool> visited;
+  shortest.push({from, 0});
+  while (!shortest.empty()) {
+    auto top = shortest.top();
+    shortest.pop();
+    visited[top.first] = true;
+    auto paths = network.find(top.first);
+    if (paths == network.cend())
+      continue;
+    for (const auto &p : paths->second) {
+      if (visited[p.first])
+        continue;
+      shortest.push(p);
+      if (lookup.find(p.first) == lookup.cend())
+        lookup[p.first] = lookup[top.first] + p.second;
+      else
+        lookup[p.first] =
+            std::min(lookup[p.first], lookup[top.first] + p.second);
+      prev[p.first] = top.first;
+    }
+  }
+  return std::pair{lookup, prev};
+}
+
+auto dijkstraEager(const std::string &from, const WGraph &network) {
+  IndexedPriorityQueue<std::string, size_t> shortest;
+  std::unordered_map<std::string, size_t> lookup;
+  std::unordered_map<std::string, std::string> prev;
+  std::unordered_map<std::string, bool> visited;
+
+  auto dprint = [](auto dt) {
+    while (!dt.empty()) {
+      auto top = dt.top();
+      std::cout << top.first << ", " << top.second << '\n';
+      dt.deleteMin();
+    }
+    putchar('\n');
+  };
+  shortest.insert(from, 0);
+  lookup[from] = 0;
+  while (!shortest.empty()) {
+    auto top = shortest.top();
+    auto paths = network.find(top.first);
+    shortest.deleteMin();
+    if (paths == network.cend())
+      continue;
+    visited[top.first] = true;
+    for (const auto &dest : paths->second) {
+      if (visited[dest.first])
+        continue;
+      dprint(shortest);
+      if (lookup.find(dest.first) == lookup.cend()) {
+        lookup[dest.first] = top.second + dest.second;
+        shortest.insert(dest.first, lookup[dest.first]);
+      } else {
+        lookup[dest.first] =
+            std::min(top.second + dest.second, lookup[dest.first]);
+        shortest.update(dest.first, lookup[dest.first]);
+      }
+      prev[dest.first] = top.first;
+    }
+  }
+  return std::pair{lookup, prev};
+}
+
+auto dijkstraShortestDistance(const std::string &from, const WGraph &network) {
+  return dijkstraEager(from, network).first;
+}
+
+auto dijkstraShortestPath(const std::string &from, const std::string &to,
+                          const WGraph &network) {
+  auto path_tree = dijkstraImpl(from, network).second;
+  std::deque<std::string> path;
+  for (auto p = path_tree.find(to); p != path_tree.cend();
+       p = path_tree.find(p->second))
+    path.push_front(p->second);
+  if (!path.empty())
+    path.push_back(to);
+  return path;
+}
+
+auto vertexCount(const WGraph &network) {
+  std::unordered_set<std::string> vertices;
+  for (const auto &src : network) {
+    vertices.emplace(src.first);
+    for (const auto &dest : src.second)
+      vertices.emplace(dest.first);
+  }
+  return vertices.size();
+}
+
+auto bellmanFord(const std::string &from, const WGraph &network) {
+  int n_vertices = vertexCount(network);
+  std::unordered_map<std::string, int> lookup;
+  auto bellmanFord_Impl = [&](int value) {
+    std::deque<std::string> edges;
+    for (int i = 0; i < n_vertices - 1; ++i) {
+      std::unordered_map<std::string, bool> visited;
+      edges.push_back(from);
+      while (!edges.empty()) {
+        auto cur_edge = edges.front();
+        auto paths = network.find(cur_edge);
+        if (paths != network.cend()) {
+          visited[cur_edge] = true;
+          for (const auto &p : paths->second) {
+            if (!visited[p.first])
+              edges.push_back(p.first);
+            if (lookup.find(p.first) == lookup.cend())
+              lookup[p.first] = lookup[cur_edge] + p.second;
+            else if (lookup[cur_edge] + p.second < lookup[p.first])
+              lookup[p.first] = std::min(value, lookup[cur_edge] + p.second);
+          }
+        }
+        edges.pop_front();
+      }
+    }
+  };
+
+  bellmanFord_Impl(POS_INF);
+  bellmanFord_Impl(NEG_INF);
+
+  return lookup;
+}
+
+auto assignID(std::unordered_map<size_t, std::string> &nid,
+              const WGraph &network) {
+  size_t node_count = 0;
+  std::unordered_map<std::string, bool> visited;
+  auto assign = [&](const auto &node) {
+    if (!visited[node]) {
+      nid[node_count++] = node;
+      visited[node] = true;
+    }
+  };
+
+  for (const auto &src : network) {
+    assign(src.first);
+    for (const auto &dest : src.second)
+      assign(dest.first);
+  }
+  return node_count;
+}
+
+using Matrix2D = std::vector<std::vector<int>>;
+
+void init(Matrix2D &dist,
+          const std::unordered_map<size_t, std::string> &node_id,
+          const WGraph &network) {
+  for (auto &dim : dist)
+    dim.resize(dist.size());
+  for (size_t i = 0; i < dist.size(); ++i) {
+    for (size_t j = 0; j < dist.size(); ++j) {
+      if (i == j)
+        continue;
+      auto from = node_id.find(i)->second, to = node_id.find(j)->second;
+      auto paths = network.find(from);
+      decltype(paths->second)::const_iterator pos;
+      if (paths == network.cend() ||
+          (pos = std::find_if(paths->second.cbegin(), paths->second.cend(),
+                              [&to](const auto &p) {
+                                return p.first == to;
+                              })) == paths->second.cend()) {
+        dist[i][j] = POS_INF;
+        continue;
+      }
+      dist[i][j] = pos->second;
+    }
+  }
+}
+
+auto adjacencyMatrixForm(const WGraph &network) {
+  std::unordered_map<size_t, std::string> node_id;
+  auto n = assignID(node_id, network);
+  Matrix2D dist(n);
+  init(dist, node_id, network);
+  return std::pair{node_id, dist};
+}
+
+auto floydWarshall(const WGraph &network) {
+  auto dist{adjacencyMatrixForm(network).second};
+
+  for (size_t i = 0; i < dist.size(); ++i) {
+    for (size_t j = 0; j < dist.size(); ++j) {
+      for (size_t k = 0; k < dist.size(); ++k) {
+        if (i == j || i == k || j == k)
+          continue;
+        dist[j][k] = std::min(dist[j][k], dist[j][i] + dist[i][k]);
+      }
+    }
+  }
+  return dist;
+}
+
+class BridgeFinder {
+public:
+  BridgeFinder(const Graph &gh) : m_graph(gh) { (*this)(); }
+  auto bridges() const { return m_bridges; }
+  auto articulationPoints() const { return m_articulation_pts; }
+
+private:
+  void operator()() {
+    labelNodes(m_graph.cbegin()->first);
+    m_lowlink_id = m_link_id;
+    assignLowLink(m_graph.cbegin()->first);
+  }
+
+  void labelNodes(const std::string &at) {
+    if (m_link_id.find(at) != m_link_id.cend())
+      return;
+    m_link_id[at] = m_cur_id++;
+    for (const auto &path : m_graph[at]) {
+      m_graph[path].erase(at);
+      labelNodes(path);
+    }
+  }
+  int assignLowLink(const std::string &cur) {
+    if (m_visited[cur])
+      return m_lowlink_id[cur];
+    m_visited[cur] = true;
+    for (const auto &path : m_graph[cur]) {
+      m_lowlink_id[cur] = std::min(m_lowlink_id[cur], assignLowLink(path));
+      if (m_link_id[cur] < m_lowlink_id[path])
+        m_bridges.emplace_back(cur, path);
+      if (m_lowlink_id[path] >= m_link_id[cur] && m_graph[cur].size() > 1)
+        m_articulation_pts.insert(cur);
+    }
+    return m_lowlink_id[cur];
+  }
+  std::unordered_map<std::string, bool> m_visited;
+  std::unordered_map<std::string, int> m_link_id, m_lowlink_id;
+  std::vector<std::pair<std::string, std::string>> m_bridges;
+  std::unordered_set<std::string> m_articulation_pts;
+  size_t m_cur_id{0};
+  Graph m_graph;
+};
+
+class SCCFinder {
+public:
+  SCCFinder(const Graph &graph) : m_graph(graph) {}
+
+  auto tarjanSearch() {
+    for (const auto &path : m_graph)
+      if (!m_visited[path.first])
+        tarjanSearch(path.first);
+    if (!m_reached.empty()) {
+      m_sccs.push_back({});
+      while (!m_reached.empty()) {
+        m_sccs.back().push_back(m_reached.back());
+        m_reached.pop_back();
+      }
+    }
+    return m_sccs;
+  }
+  auto kosarajuSearch() {
+    auto rev_graph = TopSort<Graph>::reversedGraph(m_graph);
+    auto trav_order = TopSort(rev_graph)();
+    for (const auto &path : trav_order)
+      if (!m_visited[path]) {
+        m_sccs.push_back({});
+        kosarajuSearch(path);
+      }
+    return m_sccs;
+  }
+
+private:
+  void kosarajuSearch(const std::string &from) {
+    if (m_visited[from])
+      return;
+    m_visited[from] = true;
+    for (const auto &to : m_graph[from])
+      kosarajuSearch(to);
+    m_sccs.back().push_back(from);
+  }
+
+  void tarjanSearch(const std::string &from) {
+    if (!m_visited[from]) {
+      m_visited[from] = true;
+      m_link_id[from] = m_lowlink_id[from] = m_cur_id++;
+      m_reached.push_back(from);
+    } else {
+      if (std::find(m_reached.cbegin(), m_reached.cend(), from) ==
+          m_reached.cend())
+        return;
+      m_sccs.push_back({});
+      while (!m_reached.empty()) {
+        auto last = m_reached.back();
+        m_lowlink_id[last] = std::min(m_lowlink_id[last], m_lowlink_id[from]);
+        m_sccs.back().push_back(last);
+        m_reached.pop_back();
+        if (m_sccs.back().back() == from)
+          break;
+      }
+      return;
+    }
+
+    for (const auto &to : m_graph[from])
+      tarjanSearch(to);
+  }
+  std::unordered_map<std::string, bool> m_visited;
+  std::unordered_map<std::string, int> m_link_id, m_lowlink_id;
+  std::vector<std::vector<std::string>> m_sccs;
+  std::vector<std::string> m_reached;
+  size_t m_cur_id{0};
+  Graph m_graph;
+};
+
+class SalesMan {
+public:
+  SalesMan(const WGraph &network) : m_graph(network) {
+    auto p{adjacencyMatrixForm(m_graph)};
+    m_conv = p.first;
+    m_cost_map = p.second;
+  }
+  auto minimumJourneyStats(const std::string &from) {
+    m_start = placeID(from);
+    return mJC_Impl(m_start, starterPack(m_start));
+  }
+
+private:
+  std::size_t placeID(const std::string &path) {
+    return std::find_if(m_conv.cbegin(), m_conv.cend(),
+                        [&path](const auto &p) { return p.second == path; })
+        ->first;
+  }
+  std::pair<std::size_t, std::deque<std::string>>
+  mJC_Impl(std::size_t from, const std::vector<std::size_t> &dest) {
+    if (dest.empty())
+      return std::pair{m_cost_map[from][m_start], std::deque<std::string>{}};
+
+    std::size_t min_cost{POS_INF};
+    std::deque<std::string> path;
+    std::size_t selected;
+    for (auto to : dest) {
+      auto cost = m_cost_map[from][to];
+      auto remaining = mJC_Impl(to, newPath(dest, to));
+      cost += remaining.first;
+
+      if (cost < min_cost) {
+        min_cost = cost;
+        path = remaining.second;
+        selected = to;
+      }
+    }
+    path.push_front(m_conv[selected]);
+    return {min_cost, path};
+  }
+  std::vector<std::size_t> starterPack(std::size_t ignore) {
+    std::vector<std::size_t> initial;
+    for (const auto &kv : m_conv)
+      if (kv.first != ignore)
+        initial.push_back(kv.first);
+    return initial;
+  }
+  std::vector<size_t> newPath(std::vector<size_t> old_p, std::size_t ignore) {
+    old_p.erase(std::remove_if(old_p.begin(), old_p.end(),
+                               [&](const auto &e) { return e == ignore; }),
+                old_p.end());
+    return old_p;
+  }
+
+  WGraph m_graph;
+  std::unordered_map<size_t, std::string> m_conv;
+  std::unordered_map<std::string, std::string> m_path_taken;
+  std::deque<std::string> m_route;
+  Matrix2D m_cost_map;
+  std::size_t m_start;
+};
+
+class EulerNetworkNavigator {
+public:
+  EulerNetworkNavigator(const Graph &network) : m_graph(network) {}
+  bool hasEulerPath() {
+    std::unordered_map<std::string, std::pair<std::size_t, std::size_t>>
+        counter;
+    size_t in{0}, out{0};
+    auto pred = [&](const auto &degree) {
+      int in_diff = degree.second.first - degree.second.second,
+          out_diff = degree.second.second - degree.second.first;
+      if (in_diff == 1) {
+        ++in;
+        m_end = degree.first;
+      }
+      if (out_diff == 1) {
+        ++out;
+        m_start = degree.first;
+      }
+    };
+    for (const auto &src : m_graph) {
+      for (const auto &dest : src.second) {
+        ++counter[src.first].second;
+        ++counter[dest].first;
+        ++m_trav_count;
+      }
+    }
+    std::for_each(counter.cbegin(), counter.cend(), pred);
+    return in < 2 && out < 2;
+  }
+  auto eulerPath() {
+    if (hasEulerPath()) {
+      if (!m_start.empty()) {
+        eulerPath(m_start);
+        m_euler_path.push_back(m_end);
+      } else {
+        eulerPath(m_graph.cbegin()->first);
+        m_euler_path.push_back(m_euler_path.front());
+      }
+    }
+    return m_euler_path;
+  }
+  void eulerPath(const std::string &from) {
+    if (m_trav_count == 0)
+      return;
+
+    for (const auto &to : m_graph[from]) {
+      if (contains(from, to))
+        continue;
+      m_visited[from].push_back(to);
+      --m_trav_count;
+      eulerPath(to);
+      m_euler_path.push_front(from);
+    }
+  }
+
+private:
+  bool contains(const std::string &src, const std::string &dest) {
+    auto visited = m_visited[src];
+    return std::find(visited.cbegin(), visited.cend(), dest) != visited.cend();
+  }
+  Graph m_graph;
+  std::unordered_map<std::string, std::vector<std::string>> m_visited;
+  std::deque<std::string> m_euler_path;
+  std::size_t m_trav_count{0};
+  std::string m_start, m_end;
+};
+
+auto primMST(WGraph network) {
+  using itype = std::tuple<std::string, std::string, int>;
+  int min_cost{0};
+  std::vector<std::string> route;
+  std::unordered_map<std::string, bool> visited;
+  auto less_than = [](const auto &l, const auto &r) {
+    return std::get<2>(l) < std::get<2>(r);
+  };
+  std::multiset<itype, decltype(less_than)> edge_order(less_than);
+
+  auto from = network.cbegin()->first;
+  auto first_node_edges = network.find(from)->second;
+  auto to = first_node_edges.cbegin()->first;
+  auto cost = first_node_edges.cbegin()->second;
+  edge_order.emplace(from, to, cost);
+  route.push_back(from);
+  while (!edge_order.empty()) {
+    edge_order.erase(edge_order.begin());
+    visited[from] = true;
+    for (const auto &dest : network[from]) {
+      if (visited[dest.first])
+        continue;
+      edge_order.emplace(from, dest.first, dest.second);
+    }
+    if (edge_order.empty())
+      break;
+    auto top = *edge_order.cbegin();
+    if (visited[std::get<1>(top)])
+      continue;
+    from = std::get<1>(top);
+    cost = std::get<2>(top);
+    min_cost += cost;
+    route.push_back(from);
+  }
+  return std::pair{min_cost, route};
+}
+
+auto primMST_Eager(WGraph network) {
+  using itype = std::tuple<std::string, std::string, int>;
+  int min_cost{0};
+  std::vector<std::string> route;
+  std::unordered_map<std::string, bool> visited;
+  auto less_than = [](const auto &l, const auto &r) {
+    return std::get<2>(l) < std::get<2>(r);
+  };
+  IndexedPriorityQueue<std::string, itype, decltype(less_than)> edge_order(
+      less_than);
+
+  auto from = network.cbegin()->first;
+  auto first_node_edges = network.find(from)->second;
+  auto to = first_node_edges.cbegin()->first;
+  auto cost = first_node_edges.cbegin()->second;
+  edge_order.insert(to, {from, to, cost});
+  route.push_back(from);
+  while (!edge_order.empty()) {
+    edge_order.deleteMin();
+    visited[from] = true;
+    for (const auto &dest : network[from]) {
+      if (visited[dest.first])
+        continue;
+      if (edge_order.contains(dest.first)) {
+        auto value = edge_order[dest.first];
+        if (dest.second < std::get<2>(value)) {
+          std::get<2>(value) = dest.second;
+          edge_order.update(dest.first, value);
+        }
+      } else
+        edge_order.insert(dest.first, {from, dest.first, dest.second});
+    }
+    if (edge_order.empty())
+      break;
+    auto top = edge_order.top().second;
+    if (visited[std::get<1>(top)])
+      continue;
+    from = std::get<1>(top);
+    cost = std::get<2>(top);
+    min_cost += cost;
+    route.push_back(from);
+  }
+  return std::pair{min_cost, route};
+}
+
+void trim(std::string &sample) {
+  char *begin = sample.data(), *end = sample.data() + sample.size() - 1;
+  while (begin < end) {
+    if (*begin == ' ')
+      ++begin;
+    if (*end == ' ')
+      --end;
+    if (*begin != ' ' && *end != ' ')
+      break;
+  }
+  sample.assign(begin, end + 1);
+}
+
+auto splitAll(const std::string &stmt, char at) {
+  std::vector<std::string> parts;
+  size_t prev{0}, pos{0};
+  while ((pos = stmt.find(at, pos)) != stmt.npos) {
+    parts.push_back(stmt.substr(prev, pos - prev));
+    prev = ++pos;
+  }
+  if (!parts.empty())
+    parts.push_back(stmt.substr(prev, pos - prev));
+  return parts;
+}
+
+void link(std::string src, Graph &network) {
+  bool op_seen{false};
+  std::string left, right;
+  trim(src);
+
+  for (auto i = 0u; i < src.size(); ++i) {
+    if (src[i] == '|')
+      op_seen = true;
+    else if (std::isalnum(src[i]) || src[i] == '~')
+      (op_seen ? right : left) += src[i];
+  }
+  auto to_imply = [&](const auto &left, const auto &right) {
+    if (left.front() == '~')
+      network[left.substr(1)].insert(right);
+    else
+      network['~' + left].insert(right);
+  };
+  to_imply(left, right);
+  to_imply(right, left);
+}
+
+auto graphFrom2SATs(const std::string &cmd) {
+  Graph network;
+  for (const auto &stmt : splitAll(cmd, ','))
+    link(stmt, network);
+  return network;
+}
+
+bool containsContradiction(const std::vector<std::string> &cmpts) {
+  std::unordered_set<std::string> dummy;
+  size_t tracker{0};
+  while (tracker == dummy.size() && tracker < cmpts.size()) {
+    auto cmpt = cmpts[tracker++];
+    if (cmpt.front() == '~')
+      cmpt.erase(0, 1);
+    dummy.insert(cmpt);
+  }
+  return dummy.size() == tracker;
+}
+
+bool twoSATsHasNoContradiction(
+    const std::vector<std::vector<std::string>> &sccs) {
+  for (const auto &cs : sccs)
+    if (containsContradiction(cs))
+      return false;
+  return true;
+}
+
+auto collateWeight(const WGraph &network) {
+  std::unordered_map<std::pair<std::string, std::string>, int, PairHash>
+      weights;
+  for (const auto &paths : network)
+    for (const auto &path : paths.second)
+      weights[{paths.first, path.first}] = path.second;
+  return weights;
+}
+
+template <typename Weighting, typename Container>
+int bottleNeck(const Weighting &weight, const Container &paths) {
+  int w_min{POS_INF};
+  for (std::size_t i = 1; i < paths.size(); ++i)
+    w_min = std::min(w_min, weight.find({paths[i - 1], paths[i]})->second);
+  return w_min;
+}
+
+template <typename Weighting, typename Container>
+void flood(Weighting &weight, const Container &paths, int incr) {
+  for (std::size_t i = 1; i < paths.size(); ++i)
+    weight[{paths[i - 1], paths[i]}] -= incr;
+}
+
+template <typename Weighting, typename Container>
+void compute_effect(const Weighting &weight, WGraph &network,
+                    const Container &paths) {
+  for (std::size_t i = 1; i < paths.size(); ++i) {
+    auto &reachable = network[paths[i - 1]];
+    auto pos = std::find_if(reachable.begin(), reachable.end(),
+                            [&](auto &e) { return e.first == paths[i]; });
+    auto k = pos->first;
+    auto new_w = weight.find({paths[i - 1], paths[i]})->second;
+    reachable.erase(pos);
+    if (new_w > 0)
+      reachable.emplace(k, new_w);
+  }
+}
+
+template <typename Weighting>
+auto maximizedFlowGraph(const WGraph &initial, const Weighting &cur_weight) {
+  FGraph flow_graph;
+  for (const auto &paths : initial)
+    for (const auto &path : paths.second)
+      flow_graph[paths.first].emplace(
+          path.first,
+          path.second - cur_weight.find({paths.first, path.first})->second,
+          path.second);
+  return flow_graph;
+}
+
+enum FlowState { INITIAL, RUNNING };
+
+auto leftmost_one(unsigned dword) {
+  dword = (dword | (dword >> 4));
+  dword = (dword | (dword >> 3));
+  dword = (dword | (dword >> 2));
+  dword = (dword | (dword >> 1));
+
+  return dword & ~(dword >> 1);
+}
+
+using namespace std::literals::string_literals;
+
+auto capacityScaledPath(const WGraph &network, std::string source,
+                        const std::string &dest, FlowState state,
+                        size_t &delta) {
+  if (state == INITIAL) {
+    delta = leftmost_one(delta);
+    state = RUNNING;
+  } else if (state == RUNNING && delta > 0)
+    delta >>= 1;
+  else
+    return std::vector<std::string>{};
+  std::unordered_map<std::string, bool> visited;
+  auto any_match = [&](const auto &p) {
+    auto matches = network.find(p);
+    if (matches == network.cend())
+      return ""s;
+    for (const auto &m : matches->second) {
+      if (!visited[m.first] && m.second >= delta) {
+        visited[m.first] = true;
+        return m.first;
+      }
+    }
+    return ""s;
+  };
+
+  std::vector<std::string> path;
+  while (source != dest) {
+    auto next = any_match(source);
+    if (next.empty()) {
+      if (delta > 0) {
+        delta >>= 1;
+        printf("Delta: %zu\n", delta);
+        continue;
+      }
+      break;
+    }
+    if (path.empty())
+      path.push_back(source);
+    path.push_back(source = next);
+  }
+  std::cout << "Next path: ";
+  for (const auto &p : path)
+    std::cout << p << ";   ";
+  putchar('\n');
+  return (path.empty() || path.back() != dest) ? std::vector<std::string>{}
+                                               : path;
+}
+
+auto fordFulkersonMaxFlow(const std::string &source, const std::string &dest,
+                          WGraph network) {
+  auto initial = network;
+  // auto path = BFS( network )( source, dest ); //Edmords-Karp Improvement.
+  auto weighting = collateWeight(network);
+  size_t delta = std::accumulate(
+      weighting.cbegin(), weighting.cend(), 0,
+      [](auto prev, auto m) { return std::max(prev, m.second); });
+  auto path = capacityScaledPath(network, source, dest, INITIAL, delta);
+  auto max_flow = 0u;
+  while (!path.empty()) {
+    auto loading_value = bottleNeck(weighting, path);
+    max_flow += loading_value;
+    flood(weighting, path, loading_value);
+    compute_effect(weighting, network, path);
+    // path = BFS( network )( source, dest );
+    path = capacityScaledPath(network, source, dest, RUNNING, delta);
+  }
+  return std::pair{max_flow, maximizedFlowGraph(initial, weighting)};
+}
+
+auto maximumCardinalityMatch(const Graph &network) {
+  const char *src = "s", *dest = "t";
+  WGraph w_network;
+  for (const auto &from : network) {
+    w_network[src].emplace(from.first, 1);
+    for (const auto &to : from.second) {
+      w_network[from.first].emplace(to, 1);
+      w_network[to].emplace(dest, 1);
+    }
+  }
+
+  return fordFulkersonMaxFlow(src, dest, std::move(w_network));
+}
+
+struct Coord {
+  int x{NEG_INF}, y{NEG_INF};
+};
+
+struct Mouse {
+  std::string id;
+  std::size_t radius{0};
+  Coord pos;
+};
+
+struct Hole {
+  std::string id;
+  std::size_t cap{0};
+  Coord pos;
+};
+
+template <typename MouseContainer, typename HoleContainer>
+auto maximumMousePerHole(const MouseContainer &mc, const HoleContainer &hc) {
+  auto dist = [](const auto &p1, const auto &p2) {
+    return std::sqrt((p1.x - p2.x) * (p1.x - p2.x) +
+                     (p1.y - p2.y) * (p1.y - p2.y));
+  };
+
+  const char *src = "s", *dest = "t";
+  WGraph network;
+  for (const auto &m : mc) {
+    network[src].emplace(m.id, 1);
+    for (const auto &h : hc) {
+      if (dist(m.pos, h.pos) <= m.radius)
+        network[m.id].emplace(h.id, h.cap);
+      network[h.id].emplace(dest, h.cap);
+    }
+  }
+  return fordFulkersonMaxFlow(src, dest, std::move(network)).second;
+}
+
+auto elementaryMathProblem(const std::vector<std::pair<int, int>> &scope) {
+#define JOIN_TOKEN(op)                                                         \
+  std::to_string(rank[i].first) + " " #op " " +                                \
+      std::to_string(rank[i].second) + " = " + response
+  WGraph w_network;
+  const char *src = "s", *dest = "t";
+  std::vector<std::pair<int, int>> rank(scope.size());
+  size_t rcount = 0;
+  for (const auto &[l, r] : scope) {
+    rank[rcount] = {l, r};
+    auto sidx = '#' + std::to_string(rcount++);
+    w_network[src].emplace(sidx, 1);
+    for (const auto &res : {std::to_string(l + r), std::to_string(l * r),
+                            std::to_string(l - r)}) {
+
+      w_network[sidx].emplace(res, 1);
+      w_network[res].emplace(dest, 1);
+    }
+  }
+  auto flow_graph =
+      fordFulkersonMaxFlow(src, dest, std::move(w_network)).second;
+  std::string resp_model;
+  for (size_t i = 0; i < rcount; ++i) {
+    std::string sidx = '#' + std::to_string(i);
+    std::string response;
+    for (const auto &result : flow_graph[sidx])
+      if (std::get<1>(result) == 1) {
+        response = std::get<0>(result);
+        break;
+      }
+    if (response.empty())
+      return response;
+    else if (!resp_model.empty())
+      resp_model += '\n';
+
+    auto value = atoi(response.data());
+    if (rank[i].first * rank[i].second == value)
+      resp_model += JOIN_TOKEN(*);
+    else if (rank[i].first + rank[i].second == value)
+      resp_model += JOIN_TOKEN(+);
+    else
+      resp_model += JOIN_TOKEN(-);
+  }
+  return resp_model;
+}
+
+int main() {
+  {
+    Graph network;
+    network["A"] = {"B", "C", "D"};
+    network["B"] = {"A", "C"};
+    network["C"] = {"B"};
+    network["D"] = {"B", "C"};
+    DFS dfs(network);
+    std::cout << dfs("A") << '\n';
+  }
+
+  /*{
+          const std::vector<std::string> roads = {
+               "Alice's House-Bob's House", "Alice's House-Cabin",
+               "Alice's House-Post Office", "Bob's House-Town Hall",
+               "Daria's House-Ernie's House", "Daria's House-Town Hall",
+               "Ernie's House-Grete's House", "Grete's House-Farm",
+               "Grete's House-Shop", "Marketplace-Farm",
+               "Marketplace-Post Office", "Marketplace-Shop",
+               "Marketplace-Town Hall", "Shop-Town Hall"
+          };
+
+          Graph network{ buildGraph( roads ) };
+
+          for( const auto& paths : network )
+          {
+              std::cout << paths.first << ": ";
+              for( const auto& path : paths.second )
+                      std::cout << path << " ; ";
+              putchar('\n');
+          }
+          putchar('\n');
+          std::string start{ "Bob's House" },
+                      end{ "Daria's House" };
+          for( const auto& p : BFS( network )( start, end ) )
+              std::cout << p << " ; ";
+  }*/
+
+  /* {
+       Graph network;
+           network["1"] = { "2", "5" };
+           network["2"] = { "3" };
+           network["5"] = { "3", "4" };
+           network["6"] = { "1", "5" };
+           network["0"] = { "1", "2" };
+
+           auto sorted{ TopSort( network )() };
+           for( const auto& elm : sorted )
+               std::cout << elm << " ";
+    }*/
+
+  {
+    WGraph network;
+    network["A"] = {{"B", 3}, {"C", 6}};
+    network["B"] = {{"C", 4}, {"D", 4}, {"E", 11}};
+    network["C"] = {{"D", 8}, {"G", 11}};
+    network["D"] = {{"E", -4}, {"F", 5}, {"G", 2}};
+    network["E"] = {{"H", 9}};
+    network["F"] = {{"H", 1}};
+    network["G"] = {{"H", 2}};
+
+    std::cout << "Shortest Weighted Path:\n";
+    for (const auto &w : shortestWeightedPath(network))
+      std::cout << w.first << " ==> " << w.second << '\n';
+    putchar('\n');
+
+    std::cout << "Longest Weighted Path:\n";
+    for (const auto &w : longestWeightedPath(network))
+      std::cout << w.first << " ==> " << w.second << '\n';
+  }
+
+  /*{
+       WGraph network;
+       network["0"] = { {"1", 4}, {"2", 1} };
+       network["1"] = { {"3", 1} };
+       network["2"] = { {"1", 2}, {"3", 5} };
+       network["3"] = { {"4", 3} };
+
+       auto dist = dijkstraShortestDistance( "0", network );
+       for( const auto& p : dist )
+               std::cout << '(' << p.first << ", " << p.second <<") ";
+       putchar('\n');
+       for( const auto& p : dijkstraShortestPath( "0", "5", network ) )
+               std::cout << p <<' ';
+       putchar('\n');
+   }*/
+
+  /*{
+      WGraph network;
+      network["0"] = { {"1", 5 } };
+      network["1"] = { {"2", 20 }, {"5", 30 }, {"6", 60 } };
+      network["2"] = { {"3", 10 }, {"4", 75 } };
+      network["3"] = { {"2", -15 } };
+      network["4"] = { {"9", 100 } };
+      network["5"] = { {"4", 25}, {"6", 5 }, {"8", 50 } };
+      network["6"] = { {"7", -50 } };
+      network["7"] = { {"8", -10 } };
+
+
+      auto dist = bellmanFord( "0", network );
+      for( const auto& p : dist )
+              std::cout << '(' << p.first << ", " << p.second <<") ";
+      putchar('\n');
+  }*/
+
+  /*{
+      WGraph network;
+      network["1"] = { {"2", 9}, {"3", -4} };
+      network["2"] = { {"1", 6}, {"4", 2} };
+      network["3"] = { {"2", 5} };
+      network["4"] = { {"3", 1} };
+
+      //auto ssap = floydWarshall( network );
+  }*/
+
+  /*{
+      Graph network;
+      network["A"] = { "B", "C" };
+      network["B"] = { "A", "C" };
+      network["C"] = { "A", "B", "D", "E" };
+      network["D"] = { "C", "F" };
+      network["F"] = { "D" };
+      network["E"] = { "C", "G", "H" };
+      network["G"] = { "E", "I" };
+      network["H"] = { "E", "I" };
+      network["I"] = { "G", "H" };
+
+      BridgeFinder bridge_finder( network );
+      //for( const auto& bridge : bridge_finder.bridges() )
+      //	std::cout << bridge.first << " --- " << bridge.second <<'\n';
+      for( const auto& art_pt : bridge_finder.articulationPoints() )
+              std::cout << art_pt <<'\n';
+  }*/
+
+  /*{
+      Graph network;
+      /network["A"] = { "B", "C" };
+      network["B"] = { "A", "D" };
+      network["C"] = { "D" };
+      network["D"] = { "E", "F" };
+      network["E"] = { "C", "F", "G" };
+      network["F"] = { "H" };
+      network["G"] = { "F" };
+      network["H"] = { "G" };/
+      ///////////////////////////////////
+      network["1"] = {"3"};
+      network["2"] = {"4", "10"};
+      network["3"] = {"5", "11"};
+      network["4"] = {"7"};
+      network["5"] = {"1", "7", "9"};
+      network["6"] = {"10"};
+      network["7"] = {"9"};
+      network["8"] = {"6"};
+      network["9"] = {"2", "4", "8"};
+      network["10"] = {"8"};
+      network["11"] = {"6", "8"};
+      SCCFinder sccs_finder( network );
+      auto sccs{ sccs_finder.kosarajuSearch() };
+      for( const auto& cmts : sccs )
+      {
+              for( const auto& elm : cmts )
+                      std::cout << elm << ' ';
+              putchar('\n');
+      }
+      /{
+              auto network = graphFrom2SATs( "p1 | p2, ~p2 | ~p3, ~p1 | p3, p3 |
+  ~p2, ~p3 | p2" ); SCCFinder sccs_finder( network ); auto sccs{
+  sccs_finder.kosarajuSearch() }; std::cout  << "2SATs has contradiction: " <<
+  std::boolalpha
+                         << twoSATsHasNoContradiction( sccs ) <<'\n';
+
+      }/
+  }*/
+
+  /*{
+      WGraph network;
+      network["A"] = { {"B", 4}, {"C", 1}, {"D",  9} };
+      network["B"] = { {"A",  3}, {"C", 6}, {"D", 11} };
+      network["C"] = { {"A",  4}, {"B",  1}, {"D",  2} };
+      network["D"] = { {"A",  6}, {"B", 5}, {"C",  -4} };
+
+      SalesMan man( network );
+      auto journey_details = man.minimumJourneyStats( "A" );
+      auto cost  = journey_details.first;
+      auto route = journey_details.second;
+      std::cout << "Journey cost: " << cost
+                << ", route: ";
+      for( const auto& place : route )
+              std::cout << place << "  ";
+  }*/
+
+  /*{
+      Graph network;
+      network["1"] = { "1", "2", "3" };
+      network["2"] = { "4" };
+      network["3"] = { "4", "5" };
+      network["4"] = { "1", "3", "4" };
+      network["5"] = { "4" };
+
+      EulerNetworkNavigator nav( network );
+      for( const auto& p : nav.eulerPath() )
+              std::cout << p << ' ';
+  }*/
+
+  /*{
+      WGraph network;
+      network["0"] = { {"1", 10}, {"2", 1}, {"3", 4} };
+      network["1"] = { {"0", 10}, {"2", 3}, {"4", 0} };
+      network["2"] = { {"0", 1}, {"1", 3}, {"3", 2}, {"5", 8} };
+      network["3"] = { {"0", 4}, {"2", 2}, {"5", 2}, {"6", 7} };
+      network["4"] = { {"1", 0}, {"5", 1}, {"7", 8} };
+      network["5"] = { {"2", 8}, {"3", 2}, {"4", 1}, {"6", 6}, {"7", 9} };
+      network["6"] = { {"3", 7}, {"5", 6}, {"7", 12} };
+      network["7"] = { {"4", 8}, {"5", 9}, {"6", 12} };
+      ////////////////////////////////////////////////////////////////////
+      network["0"] = { {"1", 9}, {"2", 0}, {"3", 5}, {"5", 7} };
+      network["1"] = { {"0", 8}, {"3", -2}, {"4", 3}, {"6", 4} };
+      network["2"] = { {"0", 0}, {"5", 6} };
+      network["3"] = { {"0", 5}, {"1", -2}, {"5", 2}, {"6", 3} };
+      network["4"] = { {"1", 3}, {"6", 6} };
+      network["5"] = { {"0", 7}, {"2", 6}, {"3", 2}, {"6", 1} };
+      network["6"] = { {"1", 4}, {"3", 3}, {"4", 6}, {"5", 1} };
+
+      auto mininum_spanning_tree = primMST_Eager( network );
+      std::cout << "Cost: " << mininum_spanning_tree.first <<'\n';
+      for( const auto& route : mininum_spanning_tree.second )
+              std::cout << route <<' ';
+      putchar('\n');
+  }*/
+
+  {
+    WGraph network;
+    /*network["s"] = { {"0", 7}, {"1", 2}, {"2", 1} };
+    network["0"] = { {"3", 2}, {"4", 4} };
+    network["1"] = { {"4", 5}, {"5", 6} };
+    network["2"] = { {"3", 4}, {"7", 8} };
+    network["3"] = { {"6", 7}, {"7", 1} };
+    network["4"] = { {"5", 8}, {"6", 3}, {"8", 3} };
+    network["5"] = { {"8", 3} };
+    network["6"] = { {"t", 1} };
+    network["7"] = { {"t", 3} };
+    network["8"] = { {"t", 4} };*/
+    ////////////////////////////////////
+    /*network["s"] = { {"0", 10}, {"1", 5}, {"2", 10} };
+    network["0"] = { {"3", 10} };
+    network["1"] = { {"2", 10} };
+    network["2"] = { {"5", 15} };
+    network["3"] = { {"0", 20}, {"6", 15} };
+    network["4"] = { {"1", 15}, {"3", 3} };
+    network["5"] = { {"4", 4}, {"8", 10} };
+    network["6"] = { {"7", 10}, {"t", 15} };
+    network["7"] = { {"4", 10}, {"5", 7} };
+    network["8"] = { {"t", 10} };
+
+
+    auto details = fordFulkersonMaxFlow( "s", "t", network );
+    std::cout << "Max flow: " << details.first <<'\n'
+              << "Net flow graph:\n";
+    for( const auto& p1 : details.second )
+    {
+            std::cout << p1.first <<": ";
+            for( const auto& [ p2, f, c ] : p1.second )
+                    std::cout << p2 << " -> " << f << '/' << c << ";  ";
+            putchar('\n');
+    }*/
+  }
+  /*{
+      Graph network;
+      network["P1"] = { "B2", "B3" };
+      network["P2"] = { "B2", "B3", "B4" };
+      network["P3"] = { "B1", "B2", "B3", "B5" };
+      network["P4"] = { "B3" };
+      network["P5"] = { "B3", "B4", "B5" };
+
+      auto details = maximumCardinalityMatch( network );
+      std::cout << "Max flow: " << details.first <<'\n'
+                << "Net flow graph:\n";
+      for( const auto& p1 : details.second )
+      {
+              std::cout << p1.first <<": ";
+              for( const auto& [ p2, f, c ] : p1.second )
+                      std::cout << p2 << " -> " << f << '/' << c << ";  ";
+              putchar('\n');
+      }
+  }*/
+  /*{
+      std::vector<Mouse> mice_col {
+              { "M1",  3, { 0, 1 } },
+              { "M2",  1, { 0, 5 } },
+              { "M3",  3, { 0, 8 } },
+              { "M4",  1, { 2, 9 } },
+              { "M5",  4, { 3, 0 } },
+              { "M6",  1, { 3, 3 } },
+              { "M7",  2, { 3, 5 } },
+              { "M8",  1, { 4, 5 } },
+              { "M9",  3, { 5, 2 } },
+              { "M10", 2, { 5, 7 } }
+      };
+      std::vector<Hole> hole_col {
+              { "H1", 3, { 1, 6 } },
+              { "H2", 2, { 2, 3 } },
+              { "H3", 1, { 3, 8 } },
+              { "H4", 2, { 5, 1 } },
+      };
+
+      auto flow_graph = maximumMousePerHole( mice_col, hole_col );
+
+      for( const auto& p1 : flow_graph )
+      {
+              std::cout << p1.first <<": ";
+              for( const auto& [ p2, f, c ] : p1.second )
+                      std::cout << p2 << " -> " << f << '/' << c << ";  ";
+              putchar('\n');
+      }
+  }*/
+  /*{
+      std::cout << elementaryMathProblem( { {2, 1}, {1, 2}, {2, 1}, {1, 2}, {2,
+  1} } ) <<'\n';
+  }*/
+}

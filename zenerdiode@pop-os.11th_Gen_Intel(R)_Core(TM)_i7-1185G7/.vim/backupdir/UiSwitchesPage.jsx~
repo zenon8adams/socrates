@@ -1,0 +1,518 @@
+import { useNavigate } from "react-router-dom";
+function UiSwitchesPage() {
+const navigate = useNavigate();
+const navigateTo = (event, page) => {	
+event.preventDefault();	
+navigate(page);	
+}
+
+
+  return (<>
+    {/*  Left Panel  */}
+
+    <aside id="left-panel" className="left-panel">
+        <nav className="navbar navbar-expand-sm navbar-default">
+
+            <div id="main-menu" className="main-menu collapse navbar-collapse">
+                <ul className="nav navbar-nav">
+                    <li>
+                        <a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/')}><i className="menu-icon fa fa-laptop"></i>Dashboard </a>
+                    </li>
+                    <li className="menu-title">UI elements</li>{/*  /.menu-title  */}
+                    <li className="menu-item-has-children active dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-cogs"></i>Components</a>
+                        <ul className="sub-menu children dropdown-menu">                            <li><i className="fa fa-puzzle-piece"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uibuttonspage')}>Buttons</a></li>
+                            <li><i className="fa fa-id-badge"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uibadgespage')}>Badges</a></li>
+                            <li><i className="fa fa-bars"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uitabspage')}>Tabs</a></li>
+
+                            <li><i className="fa fa-id-card-o"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uicardspage')}>Cards</a></li>
+                            <li><i className="fa fa-exclamation-triangle"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uialertspage')}>Alerts</a></li>
+                            <li><i className="fa fa-spinner"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uiprogressbarpage')}>Progress Bars</a></li>
+                            <li><i className="fa fa-fire"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uimodalspage')}>Modals</a></li>
+                            <li><i className="fa fa-book"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uiswitchespage')}>Switches</a></li>
+                            <li><i className="fa fa-th"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uigridspage')}>Grids</a></li>
+                            <li><i className="fa fa-file-word-o"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/uitypgraphypage')}>Typography</a></li>
+                        </ul>
+                    </li>
+                    <li className="menu-item-has-children dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-table"></i>Tables</a>
+                        <ul className="sub-menu children dropdown-menu">
+                            <li><i className="fa fa-table"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/tablesbasicpage')}>Basic Table</a></li>
+                            <li><i className="fa fa-table"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/tablesdatapage')}>Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li className="menu-item-has-children dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-th"></i>Forms</a>
+                        <ul className="sub-menu children dropdown-menu">
+                            <li><i className="menu-icon fa fa-th"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/formsbasicpage')}>Basic Form</a></li>
+                            <li><i className="menu-icon fa fa-th"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/formsadvancedpage')}>Advanced Form</a></li>
+                        </ul>
+                    </li>
+
+                    <li className="menu-title">Icons</li>{/*  /.menu-title  */}
+
+                    <li className="menu-item-has-children dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-tasks"></i>Icons</a>
+                        <ul className="sub-menu children dropdown-menu">
+                            <li><i className="menu-icon fa fa-fort-awesome"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/fontfontawesomepage')}>Font Awesome</a></li>
+                            <li><i className="menu-icon ti-themify-logo"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/fontthemifypage')}>Themefy Icons</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/widgetspage')}> <i className="menu-icon ti-email"></i>Widgets </a>
+                    </li>
+                    <li className="menu-item-has-children dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <ul className="sub-menu children dropdown-menu">
+                            <li><i className="menu-icon fa fa-line-chart"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/chartschartjspage')}>Chart JS</a></li>
+                            <li><i className="menu-icon fa fa-area-chart"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/chartsflotpage')}>Flot Chart</a></li>
+                            <li><i className="menu-icon fa fa-pie-chart"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/chartspeitypage')}>Peity Chart</a></li>
+                        </ul>
+                    </li>
+
+                    <li className="menu-item-has-children dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-area-chart"></i>Maps</a>
+                        <ul className="sub-menu children dropdown-menu">
+                            <li><i className="menu-icon fa fa-map-o"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/mapsgmappage')}>Google Maps</a></li>
+                            <li><i className="menu-icon fa fa-street-view"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/mapsvectorpage')}>Vector Maps</a></li>
+                        </ul>
+                    </li>
+                    <li className="menu-title">Extras</li>{/*  /.menu-title  */}
+                    <li className="menu-item-has-children dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle"> <i className="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul className="sub-menu children dropdown-menu">
+                            <li><i className="menu-icon fa fa-sign-in"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/pageloginpage')}>Login</a></li>
+                            <li><i className="menu-icon fa fa-sign-in"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/pageregisterpage')}>Register</a></li>
+                            <li><i className="menu-icon fa fa-paper-plane"></i><a href="javascript:void(0);" onClick={(e) => navigateTo(e, '/pagesforgetpage')}>Forget Pass</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>{/*  /.navbar-collapse  */}
+        </nav>
+    </aside>{/*  /#left-panel  */}
+
+    {/*  Left Panel  */}
+
+    {/*  Right Panel  */}
+
+    <div id="right-panel" className="right-panel">
+
+        {/*  Header */}
+        <header id="header" className="header">
+            <div className="top-left">
+                <div className="navbar-header">
+                    <a className="navbar-brand" href="./"><img src="/assets/images/logo.png" alt="Logo"/></a>
+                    <a className="navbar-brand hidden" href="./"><img src="/assets/images/logo2.png" alt="Logo"/></a>
+                    <a id="menuToggle" className="menutoggle"><i className="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div className="top-right">
+                <div className="header-menu">
+                    <div className="header-left">
+                        <button className="search-trigger"><i className="fa fa-search"></i></button>
+                        <div className="form-inline">
+                            <form className="search-form">
+                                <input aria-label="Search" className="form-control mr-sm-2" type="text" placeholder="Search ..."/>
+                                <button className="search-close" type="submit"><i className="fa fa-close"></i></button>
+                            </form>
+                        </div>
+
+                        <div className="dropdown for-notification">
+                            <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="btn btn-secondary dropdown-toggle" type="button" id="notification">
+                                <i className="fa fa-bell"></i>
+                                <span className="count bg-danger">3</span>
+                            </button>
+                            <div aria-labelledby="notification" className="dropdown-menu">
+                                <p className="red">You have 3 Notification</p>
+                                <a className="dropdown-item media" href="#">
+                                    <i className="fa fa-check"></i>
+                                    <p>Server #1 overloaded.</p>
+                                </a>
+                                <a className="dropdown-item media" href="#">
+                                    <i className="fa fa-info"></i>
+                                    <p>Server #2 overloaded.</p>
+                                </a>
+                                <a className="dropdown-item media" href="#">
+                                    <i className="fa fa-warning"></i>
+                                    <p>Server #3 overloaded.</p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="dropdown for-message">
+                            <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="btn btn-secondary dropdown-toggle" type="button" id="message">
+                                <i className="fa fa-envelope"></i>
+                                <span className="count bg-primary">4</span>
+                            </button>
+                            <div aria-labelledby="message" className="dropdown-menu">
+                                <p className="red">You have 4 Mails</p>
+                                <a className="dropdown-item media" href="#">
+                                    <span className="photo media-left"><img alt="avatar" src="/assets/images/avatar/1.jpg"/></span>
+                                    <div className="message media-body">
+                                        <span className="name float-left">Jonathan Smith</span>
+                                        <span className="time float-right">Just now</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a className="dropdown-item media" href="#">
+                                    <span className="photo media-left"><img alt="avatar" src="/assets/images/avatar/2.jpg"/></span>
+                                    <div className="message media-body">
+                                        <span className="name float-left">Jack Sanders</span>
+                                        <span className="time float-right">5 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
+                                </a>
+                                <a className="dropdown-item media" href="#">
+                                    <span className="photo media-left"><img alt="avatar" src="/assets/images/avatar/3.jpg"/></span>
+                                    <div className="message media-body">
+                                        <span className="name float-left">Cheryl Wheeler</span>
+                                        <span className="time float-right">10 minutes ago</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a className="dropdown-item media" href="#">
+                                    <span className="photo media-left"><img alt="avatar" src="/assets/images/avatar/4.jpg"/></span>
+                                    <div className="message media-body">
+                                        <span className="name float-left">Rachel Santos</span>
+                                        <span className="time float-right">15 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="user-area dropdown float-right">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" className="dropdown-toggle active">
+                            <img className="user-avatar rounded-circle" src="/assets/images/admin.jpg" alt="User Avatar"/>
+                        </a>
+
+                        <div className="user-menu dropdown-menu">
+                            <a className="nav-link" href="#"><i className="fa fa-user"></i>My Profile</a>
+
+                            <a className="nav-link" href="#"><i className="fa fa-bell-o"></i>Notifications <span className="count">13</span></a>
+
+                            <a className="nav-link" href="#"><i className="fa fa-cog"></i>Settings</a>
+
+                            <a className="nav-link" href="#"><i className="fa fa-power-off"></i>Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>{/*  /header  */}
+        {/*  Header */}
+
+        <div className="breadcrumbs">
+            <div className="breadcrumbs-inner">
+                <div className="row m-0">
+                    <div className="col-sm-4">
+                        <div className="page-header float-left">
+                            <div className="page-title">
+                                <h1>Dashboard</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-8">
+                        <div className="page-header float-right">
+                            <div className="page-title">
+                                <ol className="breadcrumb text-right">
+                                    <li><a href="#">Dashboard</a></li>
+                                    <li><a href="#">UI Elements</a></li>
+                                    <li className="active">Switches</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="content">
+            <div className="animated fadeIn">
+                <div className="row">
+
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <i className="mr-2 fa fa-check-square-o"></i>
+                                <strong className="card-title">3d Switch</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-3d switch-primary mr-3"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-3d switch-secondary mr-3"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-3d switch-success mr-3"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-3d switch-warning mr-3"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-3d switch-info mr-3"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-3d switch-danger mr-3"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch Default</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-default switch-primary mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-default switch-secondary mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-default switch-success mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-default switch-warning mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-default switch-info mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                                <label className="switch switch-default switch-danger mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch Default - Pills</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-default switch-pill switch-primary mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-pill switch-secondary mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-pill switch-success mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-pill switch-warning mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-pill switch-info mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-pill switch-danger mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch Outline</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-default switch-primary-outline mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-secondary-outline mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-success-outline mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-warning-outline mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-info-outline mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-danger-outline mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch Outline - Pills</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-default switch-primary-outline switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-secondary-outline switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-success-outline switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-warning-outline switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-info-outline switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-danger-outline switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch Outline Alternative</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-default switch-primary-outline-alt mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-secondary-outline-alt mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-success-outline-alt mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-warning-outline-alt mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-info-outline-alt mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-danger-outline-alt mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch Outline Alternative - Pills</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-default switch-primary-outline-alt switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-secondary-outline-alt switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-success-outline-alt switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-warning-outline-alt switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-info-outline-alt switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-default switch-danger-outline-alt switch-pill mr-2"><input type="checkbox" className="switch-input"/> <span className="switch-label"></span> <span className="switch-handle"></span></label>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch with Text</strong>
+                            </div>
+                            <div className="card-body">
+                                <label className="switch switch-text switch-primary"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-secondary"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-success"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-warning"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-info"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-danger"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong className="card-title">Switch with Text - Pills</strong>
+                            </div>
+                            <div className="card-body">
+
+                                <label className="switch switch-text switch-primary switch-pill"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-secondary switch-pill"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-success switch-pill"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-warning switch-pill"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-info switch-pill"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                                <label className="switch switch-text switch-danger switch-pill"><input type="checkbox" className="switch-input"/> <span data-on="On" data-off="Off" className="switch-label"></span> <span className="switch-handle"></span></label>
+
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <strong v-if="headerText" className="card-title">Sizes</strong>
+                            </div>
+                            <div className="card-body p-0">
+                                <table className="table table-hover table-striped table-align-middle mb-0">
+                                    <thead>
+                                        <tr><th>Size</th>
+                                        <th>Example</th>
+                                        <th>CSS Class</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Large
+                                            </td>
+                                            <td>
+                                                <basix-switch variant="primary" :checked="true" type="3d" size="lg">
+                                            </basix-switch></td>
+                                            <td>
+                                                Add following code <code>size="lg"</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Default
+                                            </td>
+                                            <td>
+                                                <basix-switch variant="primary" :checked="true" type="3d">
+                                            </basix-switch></td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Small
+                                            </td>
+                                            <td>
+                                                <basix-switch variant="primary" :checked="true" type="3d" size="sm">
+                                            </basix-switch></td>
+                                            <td>
+                                                Add following code <code>size="sm"</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Extra small
+                                            </td>
+                                            <td>
+                                                <basix-switch variant="primary" :checked="true" type="3d" size="xs">
+                                            </basix-switch></td>
+                                            <td>
+                                                Add following code <code>size="xs"</code>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>{/* /.col */}
+                </div>
+
+            </div>{/*  .animated  */}
+
+        </div>{/*  .content  */}
+
+    <div className="clearfix"></div>
+
+    <footer className="site-footer">
+        <div className="footer-inner bg-white">
+            <div className="row">
+                <div className="col-sm-6">
+                    Copyright © 2018 Ela Admin
+                </div>
+                <div className="col-sm-6 text-right">
+                    Designed by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    </div>{/*  /#right-panel  */}
+
+    {/*  Right Panel  */}
+
+    
+    
+    
+    
+    
+
+
+
+
+</>);
+}
+
+export default UiSwitchesPage;

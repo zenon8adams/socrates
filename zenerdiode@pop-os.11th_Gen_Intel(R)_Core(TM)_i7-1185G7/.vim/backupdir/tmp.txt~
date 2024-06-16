@@ -1,0 +1,829 @@
+commit ee506f0722292f40adf234d21064da66d22baf29
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Wed Dec 27 23:26:17 2023 +0100
+
+    Source/fix: Drag extending past monitor size
+    
+    When a small image is loaded and the edge of the
+    image viewer is dragged or moved, it extends past
+    the bounding edge of the active monitor.
+    
+    Close button color has been updated to a brighter
+    color.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 624ed99e187b3d3152acc0da27017e88dbfb4620
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sat Dec 23 14:46:24 2023 +0100
+
+    Source/Minor: Improve startup time for pixzzle
+    
+    The time it takes for the shot tool to be activated
+    has been improved by implementing thumbnail cache.
+    The caching system saves a thumbnail image the
+    first time the image is loaded into the
+    `ThumbnailViewer`. This is the file/image that is
+    loaded at every other time.
+    
+    We also save an indicator as an ancilliary chunk
+    in the png screenshot that assists us in determining
+    which thumbnail ought to be blurred. Thumbnails
+    smaller in size than the `ThumbnailViewer`'s size
+    are always blurred.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 2ae9e1f5bb83fa67c40959f34ef50e5ee4c9d3f5
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Wed Dec 20 10:16:03 2023 +0100
+
+    Source/Minor: Load shots based on order taken
+    
+    Make sure to arrange all screenshots in the
+    thumbnail based on order in which it was
+    taken. Also the first shot shown in big view
+    is same as the latest shot taken.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 274697ebb7b48ace491094634ab872a442636704
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Wed Dec 20 09:20:12 2023 +0100
+
+    Source/Fix: Window vertical expansion glitch
+    
+    When the window is dragged vertically and it hits
+    the top and bottom boundary, it tends to bounce
+    irregularly around that boundary giving off visual
+    artifacts. To fix this, we use only update some
+    endpoints based on if we are in drag mode or resize
+    mode.
+    
+    Remove registered signal handlers for the `shutter`.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 8251ee0fa6ded455b50be70071cf4f2963df8b9f
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sat Dec 9 18:32:45 2023 +0100
+
+    Source/feat: Implement copying of current image
+    
+    User can use Ctrl+C and Ctrl+Shift+C to copy
+    the current image in the big view. Ctrl+C copies
+    the whole image, Ctrl+Shift+C copies the section
+    currently visible in the viewport.
+    
+    Fixed issues pointed out by gnome reviewer in
+    preparation for alpha-v2 release. This includes:
+    - Removal of deprecated modules
+    - Disposal of connection handlers
+    - Removal of incompatible library imports
+    - Proper initialization of translation
+    
+    Fix issue regarding vertical expansion glitch.
+    When the window is dragged such that it touches
+    both ends of the screen. It extends out of its
+    containing view.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 6b2697f93bcee5cb0a4d291119274172fd449334
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Mon Nov 20 01:31:53 2023 +0100
+
+    Add logo to project description
+
+commit 160139c25b03ae3be1b443994e8229664639e895
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Nov 20 01:26:13 2023 +0100
+
+    Project/Description: Add logo to project
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit a29212c228c95656e674b9325c986bc72add8076
+Merge: b15b1b9 e0e9d19
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Mon Nov 20 00:13:39 2023 +0100
+
+    Merge branch 'master' into dev
+
+commit b15b1b99d812f7fe647a6dd2a8e0a81410c9db91
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:47:19 2023 +0100
+
+    Source/Minor: Turn off debug logs for release mode
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 8a6a9cac03c008ddc61268c59ed6bbb683d9b844
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:22:16 2023 +0100
+
+    Release: Bump release to version v1-alpa1
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit ad00e5bad1f19ed24417170a6a17dee8addff69f
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:17:26 2023 +0100
+
+    Source/Fix: Resolve sticky cursor on drag
+    
+    If window is in drag mode and the cursor gets captured
+    by a button, vfunc_key_release_event will not be
+    triggered. The old implementation depends on this
+    event to be fired before releasing the cursor. To fix
+    this, we listen to enter-event on all buttons and
+    release the cursor on receiving such event.
+    
+    Window tiling mode is disabled due to implementation
+    flaw. If would certainly be fixed in the next release.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit d57017166a4bcdc86060dc81adf56713198accf8
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:15:20 2023 +0100
+
+    Add image to project description
+
+commit 94ff07ca64ed137ce415294bc37f5706e174f4f6
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:09:37 2023 +0100
+
+    README/Description: Add image illustration
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 5d3906fe5bcf2799236e13543233a1aa5e599790
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 17 22:11:53 2023 +0100
+
+    Source/Fix: Faulty swap view implementation
+    
+    The view swap left and right combo box options
+    sometimes swaps views in opposite order to
+    what is originally intended.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit cffb0f2e718d61c7a892c580ad6e07e856e60348
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 17 02:49:15 2023 +0100
+
+    Source/feat: Support for custom theming and config
+    
+    Nearly all sections of the main viewer can be customized
+    to suit user's taste. The keybinding for toggling
+    pixzzle can be changed from the default. Any key combo
+    can be bound other than the page rotation control keys
+    `Ctrl+R` and `Ctrl+L`. A reset button is also provided
+    to restore user to original installation theme in case
+    theming goes wrong. Directional panning control is also
+    a customizable property for users preferring alternate
+    panning direction other than natural.
+    
+    Gnome's top panel has been accounted for during dragging
+    of the viewer. We don't allow pixzzle to expand past the
+    top panel.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 0602a92e72968ca45d03acbfd13d0d7f0cbb8929
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:08:50 2023 +0100
+
+    Add instruction for running
+
+commit ea9127e2f2fb59c6fcdba9967432e06fcc125e90
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 17 02:49:15 2023 +0100
+
+    Source/feat: Support for custom theming and config
+    
+    Nearly all sections of the main viewer can be customized
+    to suit user's taste. The keybinding for toggling
+    pixzzle can be changed from the default. Any key combo
+    can be bound other than the page rotation control keys
+    `Ctrl+R` and `Ctrl+L`. A reset button is also provided
+    to restore user to original installation theme in case
+    theming goes wrong. Directional panning control is also
+    a customizable property for users preferring alternate
+    panning direction other than natural.
+    
+    Gnome's top panel has been accounted for during dragging
+    of the viewer. We don't allow pixzzle to expand past the
+    top panel.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit db0c3494b412e37c47c7d2bc5d1162a575499f3d
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Nov 13 02:28:33 2023 +0100
+
+    Source/feat: Implement page rotation
+    
+    The orientation of pages can be changed
+    by pressing Ctrl+R for clockwise rotation
+    and Ctrl+L for anti-clockwise rotation.
+    Each orientation keeps track of the
+    current panning state. Panning to position
+    before rotation restores the panned state
+    on returning to the same orientation.
+    
+    Setup rotation animation for the settings
+    button giving live to the MainViewer.
+    
+    The MainViewer has been configured to be
+    constrained by the position of the gnome
+    panel. The `Expand` indicator has been
+    modified to follow suite.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 251fa84904e3f0c165885c784ea9577a0b5d3feb
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Nov 13 02:26:43 2023 +0100
+
+    Config/Minor: Set project url
+    
+    The project website is now visible from the metadata.json
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit b8abf434e43a1b0d89ef025355f6d2c2dc90d46b
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Thu Nov 9 12:38:29 2023 +0100
+
+    Source/Minor: Convert shortcut to toggle control
+    
+    The activate control trigger has been turned into
+    toggle control. When it is pressed, it toggles
+    the viewer between opened and closed states.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 1feb13aaf770f34c4cc429bad7728e1e38188a61
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Tue Nov 7 11:55:37 2023 +0100
+
+    Source/feat: Implement full screen mode.
+    
+    The top, left and right edges have been made into
+    hotspots for expansion. The top makes the view
+    go into full screen mode, the left snaps the view
+    to the left half of the screen right half for the
+    right snap gesture.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 24052d7d9e0a3d31899d728fda8395af1d688a99
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 5 19:34:12 2023 +0100
+
+    Source/Minor: Implement smart window adjustment
+    
+    The width of the main view is controlled by
+    the previous image loaded and the next
+    image to be loaded. If the window size
+    is adjusted to fit the view.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 29af3708e35308e197b83715870fb19ebc31b651
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sat Nov 4 02:24:41 2023 +0100
+
+    Source/feat: Add panning to big view
+    
+    In addition to dragging the mainviewer
+    to reveal more detail, the user may
+    prefer to use a small screen and pan
+    to the section they want to view.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit fedf59d5a7805ea9b4abf4966bdc3a10892d30a8
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sat Nov 4 00:08:12 2023 +0100
+
+    Source/Minor: Set minimum expand size
+    
+    We set a minimum size for the main-viewer
+    to prevent it from reducing the image
+    reducing the big view such that it
+    becomes unreasonably small.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit cc8b9959bf1ac81656ac20652d38590a4ef469be
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 3 21:27:41 2023 +0100
+
+    Source/Fix: Resolve big view expand crashes
+    
+    The upscale window crashes as a result
+    of repeated reconstruction of
+    `Clutter.ImageContent` element. This
+    has been superseded by `Clutter.Canvas`.
+    
+    The wrong comment about BlurEffect has
+    been removed and replaced with
+    `Shell.BlurEffect`.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit ed503c953ea0330c1dad2497f68789943c15d99c
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Thu Nov 2 23:29:17 2023 +0100
+
+    Source/Minor: Build separate thumbnail view
+    
+    The UI has been redesigned with a new idea of
+    thumbnails. Each shots taken are stored
+    in the `USER_CACHE_DIR` which resolves
+    to ~/.cache on debian. These are loaded into
+    a viewport which displays a tiny thumbnail.
+    Any of the entries in the side view when
+    clicked, expands into a bigger view pane.
+    
+    Upcoming:
+        - Implement a smarter expansion mechanism
+          for the side view. Currently, the
+          view expands in an horrible manner.
+        - Improve hacks in code.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 04d8d99cf6469cf4997b4e8c9045e8b983cfa2c5
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Tue Oct 31 22:37:57 2023 +0100
+
+    Source/feat: Connect main-view with shutter-view
+    
+    By clicking on the `Add New` button, the user
+    will transition into the view to take a new shot
+    and back to the main view if exit controls are
+    triggered from the shutter view.
+    
+    `.prettierrc` formatting style guide has been
+    added.
+    
+    The cursor restoration issue has been fixed.
+    See @985959
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 636174a247f290609f051b2486eda4174e1ca0d4
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Oct 29 23:58:31 2023 +0100
+
+    Source/feat: Implementation of main view scaffold
+    
+    The main viewer scaffolding has been integrated
+    into this. This includes:
+    - The exit button
+    - The inner container where all screenshots
+      will be placed.
+    - The move mechanism has been which has been
+      reduced to approx. the thickness of the
+      close button.
+    
+    Coming Up:
+    - Fix for restoration of default cursor
+      when the main viewer losses focus.
+    - A working implementation of
+      scroll view loaded with all
+      screenshots already taken.
+    - Plus features defined in @2f704aae
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit e0e9d194f5404b6b4643036c8365cb5d9a4384b0
+Merge: cac867f 58d7479
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:48:58 2023 +0100
+
+    Merge pull request #7 from zenon8adams/dev
+    
+    Source/Minor: Turn off debug logs for release mode
+
+commit 58d74793fedb5b561a09d6b52a188349f7aabb30
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:47:19 2023 +0100
+
+    Source/Minor: Turn off debug logs for release mode
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit cac867f4ace0aa50c28f66617550b4f0a513e3b5
+Merge: 1151586 1c3afad
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:42:49 2023 +0100
+
+    Merge pull request #6 from zenon8adams/dev
+    
+    Release version 1.0
+
+commit 1c3afad45aff45e55a45fac63ada2621c9d3fdb4
+Merge: 26d5372 1151586
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:40:45 2023 +0100
+
+    Merge branch 'master' into dev
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 26d5372879f13965dd6d1dd9d0093b9b81b187c0
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:37:45 2023 +0100
+
+    Project/Description: Update project slogan
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit b0ef3547b0328e428b5bcd87a41f58a400eef0d2
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:22:16 2023 +0100
+
+    Release: Bump release to version 1
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit f6bec206338f22023d3cc2ff8086553355620564
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:17:26 2023 +0100
+
+    Source/Fix: Resolve sticky cursor on drag
+    
+    If window is in drag mode and the cursor gets captured
+    by a button, vfunc_key_release_event will not be
+    triggered. The old implementation depends on this
+    event to be fired before releasing the cursor. To fix
+    this, we listen to enter-event on all buttons and
+    release the cursor on receiving such event.
+    
+    Window tiling mode is disabled due to implementation
+    flaw. If would certainly be fixed in the next release.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 19f9f30a1a5fef77d1ab22a003a139ceac9b1088
+Merge: e2b306f 64f20cc
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:15:35 2023 +0100
+
+    Merge pull request #5 from zenon8adams/project-description
+    
+    Add image to project description
+
+commit 64f20cc916669dc6d8364b98f759b1092542dac1
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:15:20 2023 +0100
+
+    Add image to project description
+
+commit e2b306f2845c96c32fbb342d6c9f636d909f12b2
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:09:37 2023 +0100
+
+    README/Description: Add image illustration
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit bd325c3436ebd7b03313118f4921b130869b3f30
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 17 22:11:53 2023 +0100
+
+    Source/Fix: Faulty swap view implementation
+    
+    The view swap left and right combo box options
+    sometimes swaps views in opposite order to
+    what is originally intended.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit ebedf8a3455d50ef84f331749aa2097cba067ca1
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 17 02:49:15 2023 +0100
+
+    Source/feat: Support for custom theming and config
+    
+    Nearly all sections of the main viewer can be customized
+    to suit user's taste. The keybinding for toggling
+    pixzzle can be changed from the default. Any key combo
+    can be bound other than the page rotation control keys
+    `Ctrl+R` and `Ctrl+L`. A reset button is also provided
+    to restore user to original installation theme in case
+    theming goes wrong. Directional panning control is also
+    a customizable property for users preferring alternate
+    panning direction other than natural.
+    
+    Gnome's top panel has been accounted for during dragging
+    of the viewer. We don't allow pixzzle to expand past the
+    top panel.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 432115ed5e80c9f53eee9ba9505c3c283c1048f5
+Merge: 9ad085d d09c877
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:09:09 2023 +0100
+
+    Merge pull request #4 from zenon8adams/project-description
+    
+    Add instruction for running
+
+commit d09c8777691d0689a38ba570ecec5da0082ef6a5
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 19 23:08:50 2023 +0100
+
+    Add instruction for running
+
+commit 9ad085d51d39e6f5c646927455f6c0b54ed2e07b
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 17 02:49:15 2023 +0100
+
+    Source/feat: Support for custom theming and config
+    
+    Nearly all sections of the main viewer can be customized
+    to suit user's taste. The keybinding for toggling
+    pixzzle can be changed from the default. Any key combo
+    can be bound other than the page rotation control keys
+    `Ctrl+R` and `Ctrl+L`. A reset button is also provided
+    to restore user to original installation theme in case
+    theming goes wrong. Directional panning control is also
+    a customizable property for users preferring alternate
+    panning direction other than natural.
+    
+    Gnome's top panel has been accounted for during dragging
+    of the viewer. We don't allow pixzzle to expand past the
+    top panel.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 50d38ae2ce63679df5b1d0aac8d83fd8f9f7acc0
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Nov 13 02:28:33 2023 +0100
+
+    Source/feat: Implement page rotation
+    
+    The orientation of pages can be changed
+    by pressing Ctrl+R for clockwise rotation
+    and Ctrl+L for anti-clockwise rotation.
+    Each orientation keeps track of the
+    current panning state. Panning to position
+    before rotation restores the panned state
+    on returning to the same orientation.
+    
+    Setup rotation animation for the settings
+    button giving live to the MainViewer.
+    
+    The MainViewer has been configured to be
+    constrained by the position of the gnome
+    panel. The `Expand` indicator has been
+    modified to follow suite.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 65acf08ce8ecefdf7a049f0b2583cc2b24a0abc3
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Nov 13 02:26:43 2023 +0100
+
+    Config/Minor: Set project url
+    
+    The project website is now visible from the metadata.json
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 1151586367d32c5af4c9ed89855404c5b4f3187b
+Merge: 3ef5583 3cdb08e
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 12 22:47:40 2023 +0100
+
+    Merge pull request #3 from zenon8adams/project-description
+    
+    Update project description
+
+commit 3cdb08e64e6d4057d6386bc0cf58768408ef90a0
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Sun Nov 12 22:47:25 2023 +0100
+
+    Update project description
+
+commit ccd7f0947e48516b12b488f92f8b462468749813
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Thu Nov 9 12:38:29 2023 +0100
+
+    Source/Minor: Convert shortcut to toggle control
+    
+    The activate control trigger has been turned into
+    toggle control. When it is pressed, it toggles
+    the viewer between opened and closed states.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 778530cff1c959e70a10f3a1fa3b3bb493d69ad8
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Tue Nov 7 11:55:37 2023 +0100
+
+    Source/feat: Implement full screen mode.
+    
+    The top, left and right edges have been made into
+    hotspots for expansion. The top makes the view
+    go into full screen mode, the left snaps the view
+    to the left half of the screen right half for the
+    right snap gesture.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit a992d0c1c482d02ab8ef2ec7c31c7c45b905a513
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Nov 5 19:34:12 2023 +0100
+
+    Source/Minor: Implement smart window adjustment
+    
+    The width of the main view is controlled by
+    the previous image loaded and the next
+    image to be loaded. If the window size
+    is adjusted to fit the view.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 0ee01d8f1a3ebec17f9a9beebb3ed5d7a9b07f2c
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sat Nov 4 02:24:41 2023 +0100
+
+    Source/feat: Add panning to big view
+    
+    In addition to dragging the mainviewer
+    to reveal more detail, the user may
+    prefer to use a small screen and pan
+    to the section they want to view.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit cc9407cf4b0e161450085c1a88103451e8b75f75
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sat Nov 4 00:08:12 2023 +0100
+
+    Source/Minor: Set minimum expand size
+    
+    We set a minimum size for the main-viewer
+    to prevent it from reducing the image
+    reducing the big view such that it
+    becomes unreasonably small.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit a731679951e1552be1c5a6db5023793f20ba7a19
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Fri Nov 3 21:27:41 2023 +0100
+
+    Source/Fix: Resolve big view expand crashes
+    
+    The upscale window crashes as a result
+    of repeated reconstruction of
+    `Clutter.ImageContent` element. This
+    has been superseded by `Clutter.Canvas`.
+    
+    The wrong comment about BlurEffect has
+    been removed and replaced with
+    `Shell.BlurEffect`.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 5073d5d8868c55ad747bd978beea6181d33d571c
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Thu Nov 2 23:29:17 2023 +0100
+
+    Source/Minor: Build separate thumbnail view
+    
+    The UI has been redesigned with a new idea of
+    thumbnails. Each shots taken are stored
+    in the `USER_CACHE_DIR` which resolves
+    to ~/.cache on debian. These are loaded into
+    a viewport which displays a tiny thumbnail.
+    Any of the entries in the side view when
+    clicked, expands into a bigger view pane.
+    
+    Upcoming:
+        - Implement a smarter expansion mechanism
+          for the side view. Currently, the
+          view expands in an horrible manner.
+        - Improve hacks in code.
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit c2c422dd2019b233d9d6480d3c424993a444e6bc
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Tue Oct 31 22:37:57 2023 +0100
+
+    Source/feat: Connect main-view with shutter-view
+    
+    By clicking on the `Add New` button, the user
+    will transition into the view to take a new shot
+    and back to the main view if exit controls are
+    triggered from the shutter view.
+    
+    `.prettierrc` formatting style guide has been
+    added.
+    
+    The cursor restoration issue has been fixed.
+    See @985959
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 98595923bfd65aa1678e3420d9351189adae1b5f
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Sun Oct 29 23:58:31 2023 +0100
+
+    Source/feat: Implementation of main view scaffold
+    
+    The main viewer scaffolding has been integrated
+    into this. This includes:
+    - The exit button
+    - The inner container where all screenshots
+      will be placed.
+    - The move mechanism has been which has been
+      reduced to approx. the thickness of the
+      close button.
+    
+    Coming Up:
+    - Fix for restoration of default cursor
+      when the main viewer losses focus.
+    - A working implementation of
+      scroll view loaded with all
+      screenshots already taken.
+    - Plus features defined in @2f704aae
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 2f704aae7a1cdbe08dfe10a9a1a97723dfd7904d
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Oct 23 23:53:24 2023 +0100
+
+    Source/feat: Develop screenshot part of pixzzle
+    
+    The capture mechanism of pixzzle has been designed
+    and integrated into this commit. It is just an
+    adaptation of the gnome-shell builtin screenshot
+    tool with a lot of edits.
+    
+    Coming up next:
+    - The structure of the side-view
+    - A stack-view + list-view of all shots
+    - Control key trigger activation to split the views
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit 3ef5583548689297aa5672403b2d3139d5e217f4
+Merge: a6d5de9 943d1e2
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Tue Oct 24 00:09:04 2023 +0100
+
+    Merge pull request #2 from zenon8adams/dev
+    
+    Source/feat: Develop screensot part of pixzzle
+
+commit 943d1e2a984dfd06623b9fa931210059296c356c
+Author: Meekness Adesina <zenon8adams@gmail.com>
+Date:   Mon Oct 23 23:53:24 2023 +0100
+
+    Source/feat: Develop screensot part of pixzzle
+    
+    The capture mechanism of pixzzle has been designed
+    and integrated into this commit. It is just an
+    adaptation of the gnome-shell builtin screenshot
+    tool with a lot of edits.
+    
+    Coming up next:
+    - The structure of the side-view
+    - A stack-view + list-view of all shots
+    - Control key trigger activation to split the views
+    
+    Signed-off-by: Meekness Adesina <zenon8adams@gmail.com>
+
+commit a6d5de9acb2b879946a5e3ed7439bc0f891b7ce9
+Merge: 6f599a6 b54f65c
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Tue Oct 24 00:04:58 2023 +0100
+
+    Merge pull request #1 from zenon8adams/dev-1
+    
+    Update project description
+
+commit b54f65cb7bd1e42ff8499b1074f21e3a451c6047
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Tue Oct 24 00:03:57 2023 +0100
+
+    Update project description
+
+commit 6f599a6d34be20cd2dfc577361c348641bbf0008
+Author: Adesina Meekness <zenon8adams@gmail.com>
+Date:   Mon Oct 23 22:47:18 2023 +0100
+
+    Initial commit

@@ -1,0 +1,32 @@
+#include <glib.h>
+#include <cstdio>
+
+void efficient_append(GSList **list, GSList **list_end, gpointer data) {
+	g_return_if_fail(list != NULL);
+	g_return_if_fail(list_end != NULL);
+	if (*list == NULL) {
+		g_assert(*list_end == NULL);
+		*list	  = g_slist_append(*list, data);
+		*list_end = *list;
+	} else {
+		*list_end = g_slist_append(*list_end, data)->next;
+	}
+}
+
+int main() {
+	GSList *list	 = NULL;
+	GSList *list_end = NULL;
+	efficient_append(&list, &list_end, g_strdup("Foo"));
+	efficient_append(&list, &list_end, g_strdup("Bar"));
+	efficient_append(&list, &list_end, g_strdup("Baz"));
+
+	g_slist_foreach(
+		list,
+		+[](gpointer data, gpointer) {
+			auto *str = reinterpret_cast<const char *>(data);
+			printf("%s\n", str);
+		},
+		nullptr);
+
+	g_slist_free_full(list, g_free);
+}

@@ -1,0 +1,14 @@
+from calamari_ocr.ocr import Predictor
+from calamari_ocr.ocr.datasets import create_dataset, DataSetMode
+
+# Create a predictor using a pre-trained model
+predictor = Predictor(checkpoint='path_to_your_model')
+
+# Create a dataset from your image (replace 'image.png' with your image)
+dataset = create_dataset('image.png', DataSetMode.EVAL)
+
+# Use the predictor to recognize text
+for sample in dataset:
+    prediction = predictor.predict_sample(sample)
+    print('Recognized text:', prediction.sentence)
+    print('Positions:', prediction.positions)

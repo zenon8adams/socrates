@@ -1,0 +1,2454 @@
+[2023-08-26 12:20:26.281 PM] info: 	
+
+ ======================================================================================================================================================================================================== 
+
+
+
+[2023-08-26 12:20:26.647 PM] info: 	{ hTmLid: 'vvveb-input-textinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.649 PM] info: 	{ hTmLid: 'vvveb-input-textareainput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.649 PM] info: 	{ hTmLid: 'vvveb-input-checkboxinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.650 PM] info: 	{ hTmLid: 'vvveb-input-radioinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.650 PM] info: 	{ hTmLid: 'vvveb-input-radiobuttoninput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.650 PM] info: 	{ hTmLid: 'vvveb-input-toggle', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.651 PM] info: 	{ hTmLid: 'vvveb-input-header', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.651 PM] info: 	{ hTmLid: 'vvveb-input-select', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.652 PM] info: 	{ hTmLid: 'vvveb-input-icon-select', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.652 PM] info: 	{ hTmLid: 'vvveb-input-html-list-select', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.652 PM] info: 	{ hTmLid: 'vvveb-input-html-list-dropdown', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.653 PM] info: 	{ hTmLid: 'vvveb-input-dateinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.653 PM] info: 	{ hTmLid: 'vvveb-input-listinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.653 PM] info: 	{ hTmLid: 'vvveb-input-grid', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.654 PM] info: 	{ hTmLid: 'vvveb-input-textvalue', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.654 PM] info: 	{ hTmLid: 'vvveb-input-rangeinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.654 PM] info: 	{ hTmLid: 'vvveb-input-imageinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.654 PM] info: 	{ hTmLid: 'vvveb-input-imageinput-gallery', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.655 PM] info: 	{ hTmLid: 'vvveb-input-videoinput-gallery', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.655 PM] info: 	{ hTmLid: 'vvveb-input-colorinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.655 PM] info: 	{
+  hTmLid: 'vvveb-input-bootstrap-color-picker-input',
+  hTmLtype: 'text/html'
+} text/html undefined
+[2023-08-26 12:20:26.655 PM] info: 	{ hTmLid: 'vvveb-input-numberinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.656 PM] info: 	{ hTmLid: 'vvveb-input-button', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.656 PM] info: 	{ hTmLid: 'vvveb-input-cssunitinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.656 PM] info: 	{ hTmLid: 'vvveb-filemanager-folder', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.656 PM] info: 	{ hTmLid: 'vvveb-filemanager-page', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.656 PM] info: 	{ hTmLid: 'vvveb-filemanager-component', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.656 PM] info: 	{ hTmLid: 'vvveb-breadcrumb-navigaton-item', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.657 PM] info: 	{ hTmLid: 'vvveb-input-sectioninput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.657 PM] info: 	{ hTmLid: 'vvveb-property', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.657 PM] info: 	{ hTmLid: 'vvveb-input-autocompletelist', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.657 PM] info: 	{ hTmLid: 'vvveb-input-tagsinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.657 PM] info: 	{ hTmLid: 'vvveb-input-noticeinput', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.658 PM] info: 	{ hTmLid: 'vvveb-section', hTmLtype: 'text/html' } text/html undefined
+[2023-08-26 12:20:26.658 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
+  hTmLintegrity: 'sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js
+[2023-08-26 12:20:26.658 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hotkeys/0.2.0/jquery.hotkeys.min.js',
+  hTmLintegrity: 'sha512-njd096AjZyGuWOttOsHolCOFjq9Xg9txZTl6Pd7FOpwf1nyBDsOXpS1cd184l/EWy5ekDJZldDMQPs9bLCSAtQ==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/jquery.hotkeys/0.2.0/jquery.hotkeys.min.js
+[2023-08-26 12:20:26.658 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js',
+  hTmLintegrity: 'sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js
+[2023-08-26 12:20:26.658 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js',
+  hTmLintegrity: 'sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js
+[2023-08-26 12:20:26.658 PM] info: 	{ hTmLsrc: 'libs/builder/builder.js' } text/javascript libs/builder/builder.js
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/builder/undo.js' } text/javascript libs/builder/undo.js
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/builder/inputs.js' } text/javascript libs/builder/inputs.js
+[2023-08-26 12:20:26.659 PM] info: 	{} text/javascript undefined
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/media/media.js' } text/javascript libs/media/media.js
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/media/openverse.js' } text/javascript libs/media/openverse.js
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/builder/plugin-media.js' } text/javascript libs/builder/plugin-media.js
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/builder/plugin-google-fonts.js' } text/javascript libs/builder/plugin-google-fonts.js
+[2023-08-26 12:20:26.659 PM] info: 	{ hTmLsrc: 'libs/builder/components-common.js' } text/javascript libs/builder/components-common.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/components-html.js' } text/javascript libs/builder/components-html.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/plugin-aos.js' } text/javascript libs/builder/plugin-aos.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/components-elements.js' } text/javascript libs/builder/components-elements.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/section.js' } text/javascript libs/builder/section.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/components-bootstrap5.js' } text/javascript libs/builder/components-bootstrap5.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/components-widgets.js' } text/javascript libs/builder/components-widgets.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/sections-bootstrap4.js' } text/javascript libs/builder/sections-bootstrap4.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/blocks-bootstrap4.js' } text/javascript libs/builder/blocks-bootstrap4.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/codemirror/lib/codemirror.js' } text/javascript libs/codemirror/lib/codemirror.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/codemirror/lib/xml.js' } text/javascript libs/codemirror/lib/xml.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/codemirror/lib/formatting.js' } text/javascript libs/codemirror/lib/formatting.js
+[2023-08-26 12:20:26.660 PM] info: 	{ hTmLsrc: 'libs/builder/plugin-codemirror.js' } text/javascript libs/builder/plugin-codemirror.js
+[2023-08-26 12:20:26.660 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+  hTmLintegrity: 'sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js
+[2023-08-26 12:20:26.661 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js',
+  hTmLintegrity: 'sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
+[2023-08-26 12:20:26.661 PM] info: 	{ hTmLsrc: 'libs/builder/plugin-jszip.js' } text/javascript libs/builder/plugin-jszip.js
+[2023-08-26 12:20:26.661 PM] info: 	{
+  referrerpolicy: 'no-referrer',
+  hTmLsrc: 'https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js',
+  hTmLintegrity: 'sha512-TToQDr91fBeG4RE5RjMl/tqNAo35hSRR4cbIFasiV2AAMQ6yKXXYhdSdEpUcRE6bqsTiB+FPLPls4ZAFMoK5WA==',
+  hTmLcrossOrigin: 'anonymous'
+} text/javascript https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js
+[2023-08-26 12:20:26.661 PM] info: 	{} text/javascript undefined
+[2023-08-26 12:20:26.677 PM] info: 	All scripts:  [
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3300.html',
+    content: '<div>\n' +
+      '\t\t<input name="{%=key%}" type="text" class="form-control"/>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3301.html',
+    content: '<div>\n' +
+      `\t\t<textarea name="{%=key%}" {% if (typeof rows !== 'undefined') { %} rows="{%=rows%}" {% } else { %} rows="3" {% } %} class="form-control"/>\n` +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3302.html',
+    content: `<div class="form-check{% if (typeof className !== 'undefined') { %} {%=className%}{% } %}">\n` +
+      '\t\t  <input name="{%=key%}" class="form-check-input" type="checkbox" id="{%=key%}_check">\n' +
+      `\t\t  <label class="form-check-label" for="{%=key%}_check">{% if (typeof text !== 'undefined') { %} {%=text%} {% } %}</label>\n` +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3303.html',
+    content: '<div>\n' +
+      '\t\n' +
+      '\t\t{% for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\n' +
+      `\t\t<label class="form-check-input  {% if (typeof inline !== 'undefined' && inline == true) { %}custom-control-inline{% } %}"  title="{%=options[i].title%}">\n` +
+      '\t\t  <input name="{%=key%}" class="form-check-input" type="radio" value="{%=options[i].value%}" id="{%=key%}{%=i%}" {%if (options[i].checked) { %}checked="{%=options[i].checked%}"{% } %}>\n' +
+      '\t\t  <label class="form-check-label" for="{%=key%}{%=i%}">{%=options[i].text%}</label>\n' +
+      '\t\t</label>\n' +
+      '\n' +
+      '\t\t{% } %}\n' +
+      '\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3304.html',
+    content: '<div class="btn-group {%if (extraclass) { %}{%=extraclass%}{% } %} clearfix" role="group">\n' +
+      "\t\t{% var namespace = 'rb-' + Math.floor(Math.random() * 100); %}\n" +
+      '\t\t\n' +
+      '\t\t{% for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\n' +
+      '\t\t<input name="{%=key%}" class="btn-check" type="radio" value="{%=options[i].value%}" id="{%=namespace%}{%=key%}{%=i%}" {%if (options[i].checked) { %}checked="{%=options[i].checked%}"{% } %} autocomplete="off">\n' +
+      '\t\t<label class="btn btn-outline-primary {%if (options[i].extraclass) { %}{%=options[i].extraclass%}{% } %}" for="{%=namespace%}{%=key%}{%=i%}" title="{%=options[i].title%}">\n' +
+      '\t\t  {%if (options[i].icon) { %}<i class="{%=options[i].icon%}"></i>{% } %}\n' +
+      '\t\t  {%=options[i].text%}\n' +
+      '\t\t</label>\n' +
+      '\n' +
+      '\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3305.html',
+    content: '<div class="form-check form-switch">\n' +
+      '        <input \n' +
+      '\t\ttype="checkbox" \n' +
+      '\t\tname="{%=key%}" \n' +
+      '\t\tvalue="{%=on%}" \n' +
+      '\t\t{%if (off) { %} data-value-off="{%=off%}" {% } %}\n' +
+      '\t\t{%if (on) { %} data-value-on="{%=on%}" {% } %} \n' +
+      '\t\tclass="form-check-input" type="checkbox" role="switch"\n' +
+      '\t\tid="{%=key%}">\n' +
+      '        <label class="form-check-label"for="{%=key%}">\n' +
+      '        </label>\n' +
+      '    </div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3306.html',
+    content: '<h6 class="header">{%=header%}</h6>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3307.html',
+    content: '<div>\n' +
+      '\n' +
+      '\t\t<select class="form-select" name="{%=key%}">\n' +
+      '\t\t\t{% var optgroup = false; for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\t\t\t\t{% if (options[i].optgroup) {  %}\n' +
+      '\t\t\t\t\t{% if (optgroup) {  %}\n' +
+      '\t\t\t\t\t\t</optgroup>\n' +
+      '\t\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\t<optgroup label="{%=options[i].optgroup%}">\n' +
+      '\t\t\t\t{% optgroup = true; } else { %}\n' +
+      '\t\t\t<option value="{%=options[i].value%}" \n' +
+      '\t\t\t\t{% \n' +
+      '\t\t\t\t\tfor (attr in options[i]) {\n' +
+      '\t\t\t\t\t\t\tif (attr != "value" && attr != "text") {\n' +
+      '\t\t\t\t\t\t %} \n' +
+      '\t\t\t\t\t\t\t{%=attr%}={%=options[i][attr]%} \n' +
+      '\t\t\t\t\t\t{% } \n' +
+      '\t\t\t\t\t} %}>\n' +
+      '\t\t\t{%=options[i].text%}</option>\n' +
+      '\t\t\t{% } } %}\n' +
+      '\t\t</select>\n' +
+      '\t\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3308.html',
+    content: '<div class="input-list-select">\n' +
+      '\t\t\n' +
+      '\t\t<div class="elements">\n' +
+      '\t\t\t<div class="row">\n' +
+      '\t\t\t\t{% for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\t\t\t\t<div class="col">\n' +
+      '\t\t\t\t\t<div class="element">\n' +
+      '\t\t\t\t\t\t{%=options[i].value%}\n' +
+      '\t\t\t\t\t\t<label>{%=options[i].text%}</label>\n' +
+      '\t\t\t\t\t</div>\n' +
+      '\t\t\t\t</div>\n' +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t</div>\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3309.html',
+    content: '<div class="input-html-list-select">\n' +
+      '\t\t\n' +
+      '\t\t<div class="current-element">\n' +
+      '\t\t\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t<div class="popup">\n' +
+      '\t\t\t<select class="form-select">\n' +
+      '\t\t\t\t{% var optgroup = false; for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\t\t\t\t\t{% if (options[i].optgroup) {  %}\n' +
+      '\t\t\t\t\t\t{% if (optgroup) {  %}\n' +
+      '\t\t\t\t\t\t\t</optgroup>\n' +
+      '\t\t\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\t\t<optgroup label="{%=options[i].optgroup%}">\n' +
+      '\t\t\t\t\t{% optgroup = true; } else { %}\n' +
+      '\t\t\t\t\t<option value="{%=options[i].value%}">{%=options[i].text%}</option>\n' +
+      '\t\t\t\t{% } } %}\n' +
+      '\t\t\t</select>\n' +
+      '\t\t\t\n' +
+      '\t\t      <div class="search">\n' +
+      '\t\t\t\t  <input class="form-control search" placeholder="Search elements" type="text">\n' +
+      '\t\t\t\t  <button class="clear-backspace">\n' +
+      '\t\t\t\t\t  <i class="la la-times"></i>\n' +
+      '\t\t\t\t  </button>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t\t\n' +
+      '\t\t\t<div class="elements">\n' +
+      '\t\t\t\t\t{%=elements%}\n' +
+      '\t\t\t\t</div>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3310.html',
+    content: '<div class="input-html-list-select" {% if (typeof id !== "undefined") { %} id={%=id%} {% } %}>\n' +
+      '\t\t\n' +
+      '\t\t<div class="current-element">\n' +
+      '\t\t\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t<div class="popup">\n' +
+      '\t\t\t<select class="form-select">\n' +
+      '\t\t\t\t{% var optgroup = false; for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\t\t\t\t\t{% if (options[i].optgroup) {  %}\n' +
+      '\t\t\t\t\t\t{% if (optgroup) {  %}\n' +
+      '\t\t\t\t\t\t\t</optgroup>\n' +
+      '\t\t\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\t\t<optgroup label="{%=options[i].optgroup%}">\n' +
+      '\t\t\t\t\t{% optgroup = true; } else { %}\n' +
+      '\t\t\t\t\t<option value="{%=options[i].value%}">{%=options[i].text%}</option>\n' +
+      '\t\t\t\t{% } } %}\n' +
+      '\t\t\t</select>\n' +
+      '\t\t\t\n' +
+      '\t\t      <div class="search">\n' +
+      '\t\t\t\t  <input class="form-control search" placeholder="Search elements" type="text">\n' +
+      '\t\t\t\t  <button class="clear-backspace">\n' +
+      '\t\t\t\t\t  <i class="la la-times"></i>\n' +
+      '\t\t\t\t  </button>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t\t\n' +
+      '\t\t\t<div class="elements">\n' +
+      '\t\t\t\t\t{%=elements%}\n' +
+      '\t\t\t\t</div>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3311.html',
+    content: '<div>\n' +
+      '\t\t<input name="{%=key%}" type="date" class="form-control" \n' +
+      `\t\t\t{% if (typeof min_date === 'undefined') { %} min="{%=min_date%}" {% } %} {% if (typeof max_date === 'undefined') { %} max="{%=max_date%}" {% } %}\n` +
+      '\t\t/>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3312.html',
+    content: '<div class="row">\n' +
+      '\n' +
+      '\t\t{% for ( var i = 0; i < options.length; i++ ) { %}\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\t<div class="input-group">\n' +
+      '\t\t\t\t<input name="{%=key%}_{%=i%}" type="text" class="form-control" value="{%=options[i].text%}"/>\n' +
+      '\t\t\t\t<div class="input-group-append">\n' +
+      '\t\t\t\t\t<button class="input-group-text btn btn-sm btn-danger">\n' +
+      '\t\t\t\t\t\t<i class="la la-trash la-lg"></i>\n' +
+      '\t\t\t\t\t</button>\n' +
+      '\t\t\t\t</div>\n' +
+      '\t\t\t  </div>\n' +
+      '\t\t\t  <br/>\n' +
+      '\t\t</div>\n' +
+      '\t\t{% } %}\n' +
+      '\n' +
+      '\n' +
+      "\t\t{% if (typeof hide_remove === 'undefined') { %}\n" +
+      '\t\t<div class="col-12">\n' +
+      '\t\t\n' +
+      '\t\t\t<button class="btn btn-sm btn-outline-primary">\n' +
+      '\t\t\t\t<i class="la la-trash la-lg"></i> Add new\n' +
+      '\t\t\t</button>\n' +
+      '\t\t\t\n' +
+      '\t\t</div>\n' +
+      '\t\t{% } %}\n' +
+      '\t\t\t\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3313.html',
+    content: '<div class="row">\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\n' +
+      '\t\t\t<label>Extra small</label>\n' +
+      '\t\t\t<select class="form-select" name="col">\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t\t<option value="">None</option>\n' +
+      '\t\t\t\t{% for ( var i = 1; i <= 12; i++ ) { %}\n' +
+      `\t\t\t\t<option value="{%=i%}" {% if ((typeof col !== 'undefined') && col == i) { %} selected {% } %}>{%=i%}</option>\n` +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\t<label>Small</label>\n' +
+      '\t\t\t<select class="form-select" name="col-sm">\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t\t<option value="">None</option>\n' +
+      '\t\t\t\t{% for ( var i = 1; i <= 12; i++ ) { %}\n' +
+      `\t\t\t\t<option value="{%=i%}" {% if ((typeof col_sm !== 'undefined') && col_sm == i) { %} selected {% } %}>{%=i%}</option>\n` +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\t<label>Medium</label>\n' +
+      '\t\t\t<select class="form-select" name="col-md">\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t\t<option value="">None</option>\n' +
+      '\t\t\t\t{% for ( var i = 1; i <= 12; i++ ) { %}\n' +
+      `\t\t\t\t<option value="{%=i%}" {% if ((typeof col_md !== 'undefined') && col_md == i) { %} selected {% } %}>{%=i%}</option>\n` +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\t<label>Large</label>\n' +
+      '\t\t\t<select class="form-select" name="col-lg">\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t\t<option value="">None</option>\n' +
+      '\t\t\t\t{% for ( var i = 1; i <= 12; i++ ) { %}\n' +
+      `\t\t\t\t<option value="{%=i%}" {% if ((typeof col_lg !== 'undefined') && col_lg == i) { %} selected {% } %}>{%=i%}</option>\n` +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\t<label>Extra large </label>\n' +
+      '\t\t\t<select class="form-select" name="col-xl">\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t\t<option value="">None</option>\n' +
+      '\t\t\t\t{% for ( var i = 1; i <= 12; i++ ) { %}\n' +
+      `\t\t\t\t<option value="{%=i%}" {% if ((typeof col_lg !== 'undefined') && col_lg == i) { %} selected {% } %}>{%=i%}</option>\n` +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      '\t\t<div class="col-6">\n' +
+      '\t\t\t<label>Extra extra large</label>\n' +
+      '\t\t\t<select class="form-select" name="col-xxl">\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t\t<option value="">None</option>\n' +
+      '\t\t\t\t{% for ( var i = 1; i <= 12; i++ ) { %}\n' +
+      `\t\t\t\t<option value="{%=i%}" {% if ((typeof col_lg !== 'undefined') && col_lg == i) { %} selected {% } %}>{%=i%}</option>\n` +
+      '\t\t\t\t{% } %}\n' +
+      '\t\t\t\t\n' +
+      '\t\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t\t\n' +
+      "\t\t{% if (typeof hide_remove === 'undefined') { %}\n" +
+      '\t\t<div class="col-12">\n' +
+      '\t\t\n' +
+      '\t\t\t<button class="btn btn-sm btn-outline-light text-danger">\n' +
+      '\t\t\t\t<i class="la la-trash la-lg"></i> Remove\n' +
+      '\t\t\t</button>\n' +
+      '\t\t\t\n' +
+      '\t\t</div>\n' +
+      '\t\t{% } %}\n' +
+      '\t\t\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3314.html',
+    content: '<div class="row">\n' +
+      '\t\t<div class="col-6 mb-1">\n' +
+      '\t\t\t<label>Value</label>\n' +
+      '\t\t\t<input name="value" type="text" value="{%=value%}" class="form-control" autocomplete="off" />\n' +
+      '\t\t</div>\n' +
+      '\n' +
+      '\t\t<div class="col-6 mb-1">\n' +
+      '\t\t\t<label>Text</label>\n' +
+      '\t\t\t<input name="text" type="text" value="{%=text%}" class="form-control" autocomplete="off" />\n' +
+      '\t\t</div>\n' +
+      '\n' +
+      "\t\t{% if (typeof hide_remove === 'undefined') { %}\n" +
+      '\t\t<div class="col-12">\n' +
+      '\t\t\n' +
+      '\t\t\t<button class="btn btn-sm btn-outline-light text-danger">\n' +
+      '\t\t\t\t<i class="la la-trash la-lg"></i> Remove\n' +
+      '\t\t\t</button>\n' +
+      '\t\t\t\n' +
+      '\t\t</div>\n' +
+      '\t\t{% } %}\n' +
+      '\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3315.html',
+    content: '<div class="input-range">\n' +
+      '\t\t\n' +
+      '\t\t<input name="{%=key%}" type="range" min="{%=min%}" max="{%=max%}" step="{%=step%}" class="form-range" data-input-value/>\n' +
+      '\t\t<input name="{%=key%}" type="number" min="{%=min%}" max="{%=max%}" step="{%=step%}" class="form-control" data-input-value/>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3316.html',
+    content: '<div>\n' +
+      '\t\t<input name="{%=key%}" type="text" class="form-control"/>\n' +
+      '\t\t<input name="file" type="file" class="form-control"/>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3317.html',
+    content: '<div>\n' +
+      '\t\t<img id="thumb-{%=key%}" class="img-thumbnail p-0" data-target-input="#input-{%=key%}" data-target-thumb="#thumb-{%=key%}" style="cursor:pointer" src="" width="225" height="225">\n' +
+      '\t\t<input name="{%=key%}" type="text" class="form-control mt-1" id="input-{%=key%}"/>\n' +
+      '\t\t<button name="button" class="btn btn-primary btn-sm btn-icon mt-2" data-target-input="#input-{%=key%}" data-target-thumb="#thumb-{%=key%}"><i class="la la-image la-lg"></i>&ensp;<span>Set image</span></button>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3318.html',
+    content: '<div>\n' +
+      '\t\t<video id="thumb-v{%=key%}" class="img-thumbnail p-0" data-target-input="#input-v{%=key%}" data-target-thumb="#thumb-v{%=key%}" style="cursor:pointer" src="" width="225" height="225" playsinline loop muted controls></video>\n' +
+      '\t\t<input name="v{%=key%}" type="text" class="form-control mt-1" id="input-v{%=key%}"/>\n' +
+      '\t\t<button name="button" class="btn btn-primary btn-sm btn-icon mt-2" data-target-input="#vinput-v{%=key%}" data-target-thumb="#thumb-v{%=key%}"><i class="la la-video la-lg"></i>&ensp;<span>Set video</span></button>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3319.html',
+    content: '<div>\n' +
+      `\t\t<input name="{%=key%}" type="color" {% if (typeof value !== 'undefined' && value != false) { %} value="{%=value%}" {% } %}  pattern="#[a-f0-9]{6}" class="form-control form-control-color"/>\n` +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3320.html',
+    content: '<div>\n' +
+      '\t\t<div id="cp2" class="input-group" title="Using input value">\n' +
+      `\t\t  <input name="{%=key%}" type="text" {% if (typeof value !== 'undefined' && value != false) { %} value="{%=value%}" {% } %}\t class="form-control"/>\n` +
+      '\t\t  <span class="input-group-append">\n' +
+      '\t\t\t<span class="input-group-text colorpicker-input-addon"><i></i></span>\n' +
+      '\t\t  </span>\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3321.html',
+    content: '<div>\n' +
+      '\t\t<input name="{%=key%}" type="number" value="{%=value%}" \n' +
+      `\t\t\t  {% if (typeof min !== 'undefined' && min != false) { %}min="{%=min%}"{% } %} \n` +
+      `\t\t\t  {% if (typeof max !== 'undefined' && max != false) { %}max="{%=max%}"{% } %} \n` +
+      `\t\t\t  {% if (typeof step !== 'undefined' && step != false) { %}step="{%=step%}"{% } %} \n` +
+      '\t\tclass="form-control"/>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3322.html',
+    content: '<div>\n' +
+      '\t\t<button class="btn btn-sm btn-primary">\n' +
+      `\t\t\t<i class="la  {% if (typeof icon !== 'undefined') { %} {%=icon%} {% } else { %} la-plus {% } %} la-lg"></i> {%=text%}\n` +
+      '\t\t</button>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3323.html',
+    content: '<div class="input-group css-unit" id="cssunit-{%=key%}">\n' +
+      `\t\t<input name="number" type="number"  {% if (typeof value !== 'undefined' && value != false) { %} value="{%=value%}" {% } %} \n` +
+      `\t\t\t  {% if (typeof min !== 'undefined' && min != false) { %}min="{%=min%}"{% } %} \n` +
+      `\t\t\t  {% if (typeof max !== 'undefined' && max != false) { %}max="{%=max%}"{% } %} \n` +
+      `\t\t\t  {% if (typeof step !== 'undefined' && step != false) { %}step="{%=step%}"{% } %} \n` +
+      '\t\tclass="form-control"/>\n' +
+      '\t\t <div class="input-group-append">\n' +
+      '\t\t<select class="form-select small-arrow" name="unit">\n' +
+      '\t\t\t<option value="em">em</option>\n' +
+      '\t\t\t<option value="rem">rem</option>\n' +
+      '\t\t\t<option value="px">px</option>\n' +
+      '\t\t\t<option value="%">%</option>\n' +
+      '\t\t\t<option value="vw">vw</option>\n' +
+      '\t\t\t<option value="vh">vh</option>\n' +
+      '\t\t\t<option value="ex">ex</option>\n' +
+      '\t\t\t<option value="ch">ch</option>\n' +
+      '\t\t\t<option value="cm">cm</option>\n' +
+      '\t\t\t<option value="mm">mm</option>\n' +
+      '\t\t\t<option value="in">in</option>\n' +
+      '\t\t\t<option value="pt">pt</option>\n' +
+      '\t\t\t<option value="auto">auto</option>\n' +
+      '\t\t</select>\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3324.html',
+    content: '<li data-folder="{%=folder%}" class="folder">\n' +
+      '\t\t<label for="{%=folder%}"><span>{%=folderTitle%}</span></label> <input type="checkbox" id="{%=folder%}" />\n' +
+      '\t\t<ol></ol>\n' +
+      '\t</li>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3325.html',
+    content: `<li data-url="{%=url%}" data-file="{%=file%}" data-page="{%=name%}" class="file{% if (typeof className !== 'undefined') { %} {%=className%}{% } %}">\n` +
+      `\t\t<label for="{%=name%}" {% if (typeof description !== 'undefined') { %} title="{%=description%}" {% } %}>\n` +
+      '\t\t\t<span>{%=title%}</span>\n' +
+      '\t\t\t<div class="file-actions">\n' +
+      '\t\t\t\t<button href="#" class="delete btn btn-outline-danger" title="Delete"><i class="la la-trash"></i></button>\n' +
+      '\t\t\t\t<button href="#" class="rename btn btn-outline-primary" title="Rename"><i class="la la-pen"></i></button>\n' +
+      '\t\t\t\t<button href="#" class="duplicate btn btn-outline-primary" title="Clone"><i class="la la-copy"></i></button>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t</label> <input type="checkbox" id="{%=name%}" />\n' +
+      '\t\t<!-- <ol></ol> -->\n' +
+      '\t</li>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3326.html',
+    content: '<li data-url="{%=url%}" data-component="{%=name%}" class="component">\n' +
+      '\t\t<a href="{%=url%}"><span>{%=title%}</span></a>\n' +
+      '\t</li>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3327.html',
+    content: `<li class="breadcrumb-item"><a href="#" {% if (typeof className !== 'undefined') { %}class="{%=className%}"{% } %}>{%=name%}</a></li>`
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3328.html',
+    content: `<label class="header" data-header="{%=key%}" for="header_{%=key%}" {% if (typeof group !== 'undefined' && group != null) { %}data-group="{%=group%}" {% } %}><span>{%=header%}</span> <div class="header-arrow"></div></label> \n` +
+      `\t\t<input class="header_check" type="checkbox" {% if (typeof expanded !== 'undefined' && expanded == false) { %} {% } else { %}checked="true"{% } %} id="header_{%=key%}"> \n` +
+      `\t\t<div class="section row" data-section="{%=key%}" {% if (typeof group !== 'undefined' && group != null) { %}data-group="{%=group%}" {% } %}></div>`
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3329.html',
+    content: `<div class="mb-3 {% if (typeof col !== 'undefined' && col != false) { %} col-sm-{%=col%} {% } else { %}row{% } %} {% if (typeof inline !== 'undefined' && inline == true) { %}inline{% } %} " data-key="{%=key%}" {% if (typeof group !== 'undefined' && group != null) { %}data-group="{%=group%}" {% } %}>\n` +
+      '\t\t\n' +
+      `\t\t{% if (typeof name !== 'undefined' && name != false) { %}<label class="{% if (typeof inline === 'undefined' ) { %}col-sm-4{% } %} form-label" for="input-model">{%=name%}</label>{% } %}\n` +
+      '\t\t\n' +
+      `\t\t<div class="{% if (typeof inline === 'undefined') { %}col-sm-{% if (typeof name !== 'undefined' && name != false) { %}8{% } else { %}12{% } } %} input"></div>\n` +
+      '\t\t\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3330.html',
+    content: '<div>\n' +
+      '\t\t<input name="{%=key%}" type="text" class="form-control"/>\n' +
+      '\t\t<div class="form-control autocomplete-list" style="min-height: 150px; overflow: auto;">\n' +
+      '                  </div>\n' +
+      '                  </div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3331.html',
+    content: '<div>\n' +
+      '\t\t<div class="form-control tags-input" style="height:auto;">\n' +
+      '\t\t\t\t\n' +
+      '\n' +
+      '\t\t\t\t<input name="{%=key%}" type="text" class="form-control" style="border:none;min-width:60px;"/>\n' +
+      '                  </div>\n' +
+      '                  </div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3332.html',
+    content: '<div>\n' +
+      '\t\t<div class="alert alert-dismissible fade show alert-{%=type%}" role="alert" style="">\t\t  \n' +
+      '\t\t\t<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>\t\t  \n' +
+      '\t\t\t<h6><b>{%=title%}</b></h6> \n' +
+      '\t\t\t\n' +
+      '\t\t\t{%=text%}\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLObjectElement {},
+    isInline: true,
+    mime: 'text/html',
+    scriptName: 'sc-3333.html',
+    content: '{% var suffix = Math.floor(Math.random() * 10000); %}\n' +
+      '\n' +
+      '\t<div class="section-item" draggable="true">\n' +
+      '\t\t<div class="controls">\n' +
+      '\t\t\t<div class="handle"></div>\n' +
+      '\t\t\t<div class="info">\n' +
+      '\t\t\t\t<div class="name">{%=name%} \n' +
+      '\t\t\t\t\t<div class="type">{%=type%}</div>\n' +
+      '\t\t\t\t</div>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t\t<div class="buttons">\n' +
+      '\t\t\t\t<a class="delete-btn" href="" title="Remove section"><i class="la la-trash text-danger"></i></a>\n' +
+      '\t\t\t\t<!-- \n' +
+      '\t\t\t\t<a class="up-btn" href="" title="Move element up"><i class="la la-arrow-up"></i></a>\n' +
+      '\t\t\t\t<a class="down-btn" href="" title="Move element down"><i class="la la-arrow-down"></i></a>\n' +
+      '\t\t\t\t-->\n' +
+      '\t\t\t\t<a class="properties-btn" href="" title="Properties"><i class="la la-cog"></i></a>\n' +
+      '\t\t</div>\n' +
+      '\t\t</div>\n' +
+      '\n' +
+      '\n' +
+      '\t\t<input class="header_check" type="checkbox" id="section-components-{%=suffix%}">\n' +
+      '\n' +
+      '\t\t<label for="section-components-{%=suffix%}"> \n' +
+      '\t\t\t<div class="header-arrow"></div>\n' +
+      '\t\t</label>\n' +
+      '\t\t\n' +
+      '\t\t<div class="tree">\n' +
+      '\t\t\t<ol >\n' +
+      '\t\t\t\t<li data-component="Products" class="file">\t\t\t\t\t\t\t\n' +
+      '\t\t\t\t\t<label for="idNaN" style="background-image:url(/js/vvvebjs/icons/products.svg)"><span>Products</span></label>\t\t\t\t\t\t\t\n' +
+      '\t\t\t\t\t<input type="checkbox" id="idNaN">\n' +
+      '\t\t\t\t</li>\n' +
+      '\t\t\t\t<li data-component="Posts" class="file">\t\t\t\t\t\t\t\n' +
+      '\t\t\t\t\t<label for="idNaN" style="background-image:url(/js/vvvebjs/icons/posts.svg)"><span>Posts</span></label>\t\t\t\t\t\t\t\n' +
+      '\t\t\t\t\t<input type="checkbox" id="idNaN">\n' +
+      '\t\t\t\t</li>\n' +
+      '\t\t\t</ol>\n' +
+      '\t\t</div>\n' +
+      '\t</div>'
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hotkeys/0.2.0/jquery.hotkeys.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/builder.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/undo.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/inputs.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: true,
+    mime: 'text/javascript',
+    scriptName: 'sc-3334.js',
+    content: "window.mediaPath = '../../media';\n" +
+      "\t\t\tVvveb.themeBaseUrl = 'demo/landing/';"
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/media/media.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/media/openverse.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/plugin-media.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/plugin-google-fonts.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/components-common.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/components-html.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/plugin-aos.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/components-elements.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/section.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/components-bootstrap5.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/components-widgets.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/sections-bootstrap4.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/blocks-bootstrap4.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/codemirror/lib/codemirror.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/codemirror/lib/xml.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/codemirror/lib/formatting.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/plugin-codemirror.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'libs/builder/plugin-jszip.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: false,
+    mime: 'text/javascript',
+    scriptName: 'https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js',
+    content: ''
+  },
+  {
+    script: HTMLScriptElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    },
+    isInline: true,
+    mime: 'text/javascript',
+    scriptName: 'sc-3335.js',
+    content: "let renameUrl = '/save?action=rename';\n" +
+      "\t\t\tlet deleteUrl = '/save?action=delete';\n" +
+      '\n' +
+      '\t\t\tconst templatePage = { name: "template", title: "Template", url: "/new-page-blank-template.html", file: "/new-page-blank-template.html" };\n' +
+      '\n' +
+      '\t\t\tlet pages =\n' +
+      '\t\t\t\t[\n' +
+      `\t\t\t\t\t// {name:"album", title:"Album",  url: "demo/album/index.html", file: "demo/album/index.html", folder:"content", assets: ['demo/album/album.css']}\n` +
+      '\t\t\t\t\t//uncomment php code below and rename file to .php extension to load saved html files in the editor or use editor.php\n' +
+      '\t\t\t\t];\n' +
+      '\n' +
+      '\t\t\t$(function () {\n' +
+      '\n' +
+      '\t\t\t\tVvveb.Gui.init();\n' +
+      '\t\t\t\tVvveb.FileManager.init();\n' +
+      '\t\t\t\tVvveb.SectionList.init();\n' +
+      '\t\t\t\tVvveb.Breadcrumb.init();\n' +
+      '\n' +
+      '\n' +
+      '\n' +
+      '\t\t\t\t$.ajax({\n' +
+      '\t\t\t\t\ttype: "POST",\n' +
+      '\t\t\t\t\turl: "/bootstrap", //set your server side save script url\n' +
+      '\t\t\t\t\tsuccess: function (raw) {\n' +
+      '\t\t\t\t\t\tthis.pages.concat(JSON.parse(raw));\n' +
+      '\t\t\t\t\t\tif (this.pages.length !== 0) {\n' +
+      '\t\t\t\t\t\t\tconst firstPage = pages[0];\n' +
+      '\t\t\t\t\t\t\tVvveb.Builder.init(pages[firstPage]["url"], function () {\n' +
+      '\t\t\t\t\t\t\t\t//load code after page is loaded here\n' +
+      '\t\t\t\t\t\t\t});\n' +
+      '\t\t\t\t\t\t\tVvveb.FileManager.loadPage(pages[firstPage]["name"]);\n' +
+      '\t\t\t\t\t\t\tVvveb.FileManager.addPages(pages);\n' +
+      '\t\t\t\t\t\t}\n' +
+      '\t\t\t\t\t},\n' +
+      '\t\t\t\t\terror: function (err) {\n' +
+      '\t\t\t\t\t\tVvveb.Builder.init(templatePage["url"], function () {\n' +
+      '\t\t\t\t\t\t\t//load code after page is loaded here\n' +
+      '\t\t\t\t\t\t});\n' +
+      '\t\t\t\t\t\tVvveb.FileManager.loadPage(templatePage["name"]);\n' +
+      '\t\t\t\t\t},\n' +
+      '\t\t\t\t});\n' +
+      '\n' +
+      '\t\t\t\tpages.push(templatePage);\n' +
+      '\n' +
+      '\t\t\t\tVvveb.FileManager.addPages(pages);\n' +
+      '\t\t\t\t// Vvveb.FileManager.loadPage(templatePage["name"]);\n' +
+      '\t\t\t\t// Vvveb.Breadcrumb.init();\n' +
+      '\n' +
+      '\t\t\t\t//if url has #no-right-panel set one panel demo\n' +
+      '\t\t\t\tif (window.location.hash.indexOf("no-right-panel") != -1) {\n' +
+      '\t\t\t\t\tVvveb.Gui.toggleRightColumn();\n' +
+      '\t\t\t\t}\n' +
+      '\t\t\t});'
+  }
+]
+[2023-08-26 12:20:26.677 PM] info: 	All styles:  []
+[2023-08-26 12:20:26.705 PM] info: 	[
+  {
+    source: 'href',
+    value: 'favicon.ico',
+    isHTMLElement: false,
+    element: { rel: 'icon', href: 'favicon.ico' }
+  },
+  {
+    source: 'href',
+    value: 'css/editor.css',
+    isHTMLElement: false,
+    element: { href: 'css/editor.css', rel: 'stylesheet' }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/builder.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/builder.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/undo.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/undo.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/inputs.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/inputs.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/media/media.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/media/media.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/media/openverse.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/media/openverse.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-media.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/plugin-media.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-google-fonts.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/plugin-google-fonts.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-common.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/components-common.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-html.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/components-html.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-aos.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/plugin-aos.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-elements.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/components-elements.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/section.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/section.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-bootstrap5.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/components-bootstrap5.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-widgets.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/components-widgets.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/sections-bootstrap4.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/sections-bootstrap4.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/blocks-bootstrap4.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/blocks-bootstrap4.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/codemirror/lib/codemirror.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/codemirror/lib/codemirror.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/codemirror/lib/xml.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/codemirror/lib/xml.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/codemirror/lib/formatting.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/codemirror/lib/formatting.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-codemirror.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/plugin-codemirror.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-jszip.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'libs/builder/plugin-jszip.js',
+      content: ''
+    }
+  },
+  {
+    source: 'src',
+    value: 'img/logo.png',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  },
+  {
+    source: 'src',
+    value: 'libs/builder/icons/file-manager-layout.svg',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  },
+  {
+    source: 'src',
+    value: 'libs/builder/icons/left-column-layout.svg',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  },
+  {
+    source: 'src',
+    value: 'libs/builder/icons/right-column-layout.svg',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  }
+]
+[2023-08-26 12:20:39.043 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/favicon.ico destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/favicon.ico
+[2023-08-26 12:20:39.062 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/css/editor.css destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/css/editor.css
+[2023-08-26 12:20:39.063 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/builder.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/builder.js
+[2023-08-26 12:20:39.063 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/undo.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/undo.js
+[2023-08-26 12:20:39.064 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/inputs.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/inputs.js
+[2023-08-26 12:20:39.064 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/media/media.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/media/media.js
+[2023-08-26 12:20:39.064 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/media/openverse.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/media/openverse.js
+[2023-08-26 12:20:39.065 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-media.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/plugin-media.js
+[2023-08-26 12:20:39.065 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-google-fonts.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/plugin-google-fonts.js
+[2023-08-26 12:20:39.066 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/components-common.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/components-common.js
+[2023-08-26 12:20:39.066 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/components-html.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/components-html.js
+[2023-08-26 12:20:39.066 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-aos.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/plugin-aos.js
+[2023-08-26 12:20:39.066 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/components-elements.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/components-elements.js
+[2023-08-26 12:20:39.067 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/section.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/section.js
+[2023-08-26 12:20:39.067 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/components-bootstrap5.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/components-bootstrap5.js
+[2023-08-26 12:20:39.067 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/components-widgets.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/components-widgets.js
+[2023-08-26 12:20:39.068 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/sections-bootstrap4.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/sections-bootstrap4.js
+[2023-08-26 12:20:39.068 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/blocks-bootstrap4.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/blocks-bootstrap4.js
+[2023-08-26 12:20:39.069 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/codemirror.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/lib/codemirror.js
+[2023-08-26 12:20:39.069 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/xml.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/lib/xml.js
+[2023-08-26 12:20:39.070 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/formatting.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/lib/formatting.js
+[2023-08-26 12:20:39.070 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-codemirror.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/plugin-codemirror.js
+[2023-08-26 12:20:39.070 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-jszip.js destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/builder/plugin-jszip.js
+[2023-08-26 12:20:39.070 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/img/logo.png destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/img/logo.png
+[2023-08-26 12:20:39.070 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/file-manager-layout.svg destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/icons/file-manager-layout.svg
+[2023-08-26 12:20:39.071 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/left-column-layout.svg destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/icons/left-column-layout.svg
+[2023-08-26 12:20:39.071 PM] info: 	RealPath:  /home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/right-column-layout.svg destPath:  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/assets/icons/right-column-layout.svg
+[2023-08-26 12:20:39.074 PM] info: 	ResolvedAssetsPath {
+  'favicon.ico': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/favicon.ico',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/favicon.ico',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs',
+    base: 'favicon.ico',
+    ext: '.ico',
+    name: 'favicon',
+    extv2: 'ico'
+  },
+  'css/editor.css': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/css/editor.css',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/css/editor.css',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/css',
+    base: 'editor.css',
+    ext: '.css',
+    name: 'editor',
+    extv2: 'css'
+  },
+  'libs/builder/builder.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/builder.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/builder.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'builder.js',
+    ext: '.js',
+    name: 'builder',
+    extv2: 'js'
+  },
+  'libs/builder/undo.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/undo.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/undo.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'undo.js',
+    ext: '.js',
+    name: 'undo',
+    extv2: 'js'
+  },
+  'libs/builder/inputs.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/inputs.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/inputs.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'inputs.js',
+    ext: '.js',
+    name: 'inputs',
+    extv2: 'js'
+  },
+  'libs/media/media.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/media/media.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/media/media.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/media',
+    base: 'media.js',
+    ext: '.js',
+    name: 'media',
+    extv2: 'js'
+  },
+  'libs/media/openverse.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/media/openverse.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/media/openverse.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/media',
+    base: 'openverse.js',
+    ext: '.js',
+    name: 'openverse',
+    extv2: 'js'
+  },
+  'libs/builder/plugin-media.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-media.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-media.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'plugin-media.js',
+    ext: '.js',
+    name: 'plugin-media',
+    extv2: 'js'
+  },
+  'libs/builder/plugin-google-fonts.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-google-fonts.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-google-fonts.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'plugin-google-fonts.js',
+    ext: '.js',
+    name: 'plugin-google-fonts',
+    extv2: 'js'
+  },
+  'libs/builder/components-common.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-common.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-common.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'components-common.js',
+    ext: '.js',
+    name: 'components-common',
+    extv2: 'js'
+  },
+  'libs/builder/components-html.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-html.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-html.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'components-html.js',
+    ext: '.js',
+    name: 'components-html',
+    extv2: 'js'
+  },
+  'libs/builder/plugin-aos.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-aos.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-aos.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'plugin-aos.js',
+    ext: '.js',
+    name: 'plugin-aos',
+    extv2: 'js'
+  },
+  'libs/builder/components-elements.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-elements.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-elements.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'components-elements.js',
+    ext: '.js',
+    name: 'components-elements',
+    extv2: 'js'
+  },
+  'libs/builder/section.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/section.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/section.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'section.js',
+    ext: '.js',
+    name: 'section',
+    extv2: 'js'
+  },
+  'libs/builder/components-bootstrap5.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-bootstrap5.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-bootstrap5.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'components-bootstrap5.js',
+    ext: '.js',
+    name: 'components-bootstrap5',
+    extv2: 'js'
+  },
+  'libs/builder/components-widgets.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-widgets.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/components-widgets.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'components-widgets.js',
+    ext: '.js',
+    name: 'components-widgets',
+    extv2: 'js'
+  },
+  'libs/builder/sections-bootstrap4.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/sections-bootstrap4.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/sections-bootstrap4.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'sections-bootstrap4.js',
+    ext: '.js',
+    name: 'sections-bootstrap4',
+    extv2: 'js'
+  },
+  'libs/builder/blocks-bootstrap4.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/blocks-bootstrap4.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/blocks-bootstrap4.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'blocks-bootstrap4.js',
+    ext: '.js',
+    name: 'blocks-bootstrap4',
+    extv2: 'js'
+  },
+  'libs/codemirror/lib/codemirror.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/codemirror.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/codemirror.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib',
+    base: 'codemirror.js',
+    ext: '.js',
+    name: 'codemirror',
+    extv2: 'js'
+  },
+  'libs/codemirror/lib/xml.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/xml.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/xml.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib',
+    base: 'xml.js',
+    ext: '.js',
+    name: 'xml',
+    extv2: 'js'
+  },
+  'libs/codemirror/lib/formatting.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/formatting.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib/formatting.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/codemirror/lib',
+    base: 'formatting.js',
+    ext: '.js',
+    name: 'formatting',
+    extv2: 'js'
+  },
+  'libs/builder/plugin-codemirror.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-codemirror.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-codemirror.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'plugin-codemirror.js',
+    ext: '.js',
+    name: 'plugin-codemirror',
+    extv2: 'js'
+  },
+  'libs/builder/plugin-jszip.js': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-jszip.js',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/plugin-jszip.js',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder',
+    base: 'plugin-jszip.js',
+    ext: '.js',
+    name: 'plugin-jszip',
+    extv2: 'js'
+  },
+  'img/logo.png': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/img/logo.png',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/img/logo.png',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/img',
+    base: 'logo.png',
+    ext: '.png',
+    name: 'logo',
+    extv2: 'png'
+  },
+  'libs/builder/icons/file-manager-layout.svg': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/file-manager-layout.svg',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/file-manager-layout.svg',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons',
+    base: 'file-manager-layout.svg',
+    ext: '.svg',
+    name: 'file-manager-layout',
+    extv2: 'svg'
+  },
+  'libs/builder/icons/left-column-layout.svg': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/left-column-layout.svg',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/left-column-layout.svg',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons',
+    base: 'left-column-layout.svg',
+    ext: '.svg',
+    name: 'left-column-layout',
+    extv2: 'svg'
+  },
+  'libs/builder/icons/right-column-layout.svg': {
+    original: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/right-column-layout.svg',
+    realpath: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons/right-column-layout.svg',
+    version: null,
+    root: '/',
+    dir: '/home/zenerdiode/Downloads/VvvebJs/libs/builder/icons',
+    base: 'right-column-layout.svg',
+    ext: '.svg',
+    name: 'right-column-layout',
+    extv2: 'svg'
+  }
+} Modified-Modifiables [
+  {
+    source: 'href',
+    value: 'favicon.ico',
+    isHTMLElement: false,
+    element: { rel: 'icon', href: 'assets/favicon.ico' }
+  },
+  {
+    source: 'href',
+    value: 'css/editor.css',
+    isHTMLElement: false,
+    element: { href: 'assets/css/editor.css', rel: 'stylesheet' }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/builder.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/builder.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/undo.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/undo.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/inputs.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/inputs.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/media/media.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/media/media.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/media/openverse.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/media/openverse.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-media.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/plugin-media.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-google-fonts.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/plugin-google-fonts.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-common.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/components-common.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-html.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/components-html.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-aos.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/plugin-aos.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-elements.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/components-elements.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/section.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/section.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-bootstrap5.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/components-bootstrap5.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/components-widgets.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/components-widgets.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/sections-bootstrap4.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/sections-bootstrap4.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/blocks-bootstrap4.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/blocks-bootstrap4.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/codemirror/lib/codemirror.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/lib/codemirror.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/codemirror/lib/xml.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/lib/xml.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/codemirror/lib/formatting.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/lib/formatting.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-codemirror.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/plugin-codemirror.js',
+      content: ''
+    }
+  },
+  {
+    source: 'scriptName',
+    value: 'libs/builder/plugin-jszip.js',
+    isHTMLElement: false,
+    element: {
+      script: [HTMLScriptElement],
+      isInline: false,
+      mime: 'text/javascript',
+      scriptName: 'assets/builder/plugin-jszip.js',
+      content: ''
+    }
+  },
+  {
+    source: 'src',
+    value: 'img/logo.png',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  },
+  {
+    source: 'src',
+    value: 'libs/builder/icons/file-manager-layout.svg',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  },
+  {
+    source: 'src',
+    value: 'libs/builder/icons/left-column-layout.svg',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  },
+  {
+    source: 'src',
+    value: 'libs/builder/icons/right-column-layout.svg',
+    isHTMLElement: true,
+    element: HTMLImageElement {
+      [Symbol(SameObject caches)]: [Object: null prototype]
+    }
+  }
+]
+[2023-08-26 12:20:39.075 PM] info: 	Args:
+[2023-08-26 12:20:39.076 PM] info: 	Tag: ROOT_ATTRIBUTES
+[2023-08-26 12:20:39.076 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.076 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.076 PM] info: 	replacement:  data-bs-theme='auto' lang='en' 
+
+
+[2023-08-26 12:20:39.076 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>@{META_CONTENT}@{LINK_CONTENT}
+    <title>@{TITLE_CONTENT}</title>@{SCRIPT_INCLUDE}
+  </head>
+  <body>
+    <div id='root'></div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+  </body>
+</html>
+
+
+
+[2023-08-26 12:20:39.077 PM] info: 	emplaceStyle() -- isEmpty(content):  /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/index.css
+[2023-08-26 12:20:39.077 PM] info: 	Args:
+[2023-08-26 12:20:39.078 PM] info: 	Tag: TITLE_CONTENT
+[2023-08-26 12:20:39.078 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.078 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.078 PM] info: 	replacement: VvvebJs 
+
+
+[2023-08-26 12:20:39.078 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>@{META_CONTENT}@{LINK_CONTENT}
+    <title>VvvebJs</title>@{SCRIPT_INCLUDE}
+  </head>
+  <body>
+    <div id='root'></div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+  </body>
+</html>
+
+
+
+[2023-08-26 12:20:39.079 PM] info: 	overrideSet(): given ---  [
+  { charset: 'utf-8' },
+  { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+  {
+    name: 'viewport',
+    content: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+  },
+  {
+    'http-equiv': '”Content-Security-Policy”',
+    content: '”default-src',
+    '’unsafe-inline’;”': ''
+  },
+  { name: 'description', content: '' },
+  { name: 'author', content: '' }
+] , standard:  [
+  { name: 'viewport', content: 'width=device-width, initial-scale=' },
+  { name: 'theme-color', content: '#000000' },
+  {
+    name: 'description',
+    content: 'Web site created using ReactifyHTML'
+  }
+]
+[2023-08-26 12:20:39.079 PM] info: 	FinalSet ---  [
+  {
+    name: 'viewport',
+    content: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+  },
+  { name: 'theme-color', content: '#000000' },
+  { name: 'description', content: '' },
+  { charset: 'utf-8' },
+  { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+  {
+    'http-equiv': '”Content-Security-Policy”',
+    content: '”default-src',
+    '’unsafe-inline’;”': ''
+  },
+  { name: 'author', content: '' }
+]
+[2023-08-26 12:20:39.080 PM] info: 	Args:
+[2023-08-26 12:20:39.080 PM] info: 	Tag: META_CONTENT
+[2023-08-26 12:20:39.080 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.080 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.080 PM] info: 	replacement: 
+<meta name='viewport' content='width=device-width... 
+
+
+[2023-08-26 12:20:39.080 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>
+<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
+<meta name='theme-color' content='#000000'/>
+<meta name='description' content=''/>
+<meta charset='utf-8'/>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+<meta http-equiv='”Content-Security-Policy”' content='”default-src' ’unsafe-inline’;”=''/>
+<meta name='author' content=''/>
+@{LINK_CONTENT}
+    <title>VvvebJs</title>@{SCRIPT_INCLUDE}
+  <...
+[2023-08-26 12:20:39.080 PM] info: 	overrideSet(): given ---  [
+  { rel: 'icon', href: 'assets/favicon.ico' },
+  {
+    rel: 'stylesheet',
+    href: 'https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.css',
+    integrity: 'sha512-TfnGOYsHIBHwx3Yg6u6jCWhqz79osu5accjEmw8KYID9zfWChaGyjDCmJIdy9fJjpvl9zXxZamkLam0kc5p/YQ==',
+    crossorigin: 'anonymous',
+    referrerpolicy: 'no-referrer'
+  },
+  { href: 'assets/css/editor.css', rel: 'stylesheet' }
+] , standard:  [
+  { rel: 'icon', href: 'favicon.ico' },
+  { rel: 'apple-touch-icon', href: 'logo192.png' },
+  { rel: 'manifest', href: 'manifest.json' }
+]
+[2023-08-26 12:20:39.080 PM] info: 	FinalSet ---  [
+  { rel: 'icon', href: 'assets/favicon.ico' },
+  { rel: 'apple-touch-icon', href: 'logo192.png' },
+  { rel: 'manifest', href: 'manifest.json' },
+  {
+    rel: 'stylesheet',
+    href: 'https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.css',
+    integrity: 'sha512-TfnGOYsHIBHwx3Yg6u6jCWhqz79osu5accjEmw8KYID9zfWChaGyjDCmJIdy9fJjpvl9zXxZamkLam0kc5p/YQ==',
+    crossorigin: 'anonymous',
+    referrerpolicy: 'no-referrer'
+  },
+  { href: 'assets/css/editor.css', rel: 'stylesheet' }
+]
+[2023-08-26 12:20:39.081 PM] info: 	Args:
+[2023-08-26 12:20:39.081 PM] info: 	Tag: LINK_CONTENT
+[2023-08-26 12:20:39.081 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.081 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.081 PM] info: 	replacement: 
+<link rel='icon' href='assets/favicon.ico'/>
+<lin... 
+
+
+[2023-08-26 12:20:39.081 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>
+<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
+<meta name='theme-color' content='#000000'/>
+<meta name='description' content=''/>
+<meta charset='utf-8'/>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+<meta http-equiv='”Content-Security-Policy”' content='”default-src' ’unsafe-inline’;”=''/>
+<meta name='author' content=''/>
+
+<link rel='icon' href='assets/favicon.ico'/>
+<link rel='apple-...
+[2023-08-26 12:20:39.087 PM] info: 	Args:
+[2023-08-26 12:20:39.087 PM] info: 	Tag: SCRIPT_INCLUDE
+[2023-08-26 12:20:39.087 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.087 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.087 PM] info: 	replacement: 
+	<script src='text/sc-3300.html' type='text/html'... 
+
+
+[2023-08-26 12:20:39.087 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>
+<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
+<meta name='theme-color' content='#000000'/>
+<meta name='description' content=''/>
+<meta charset='utf-8'/>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+<meta http-equiv='”Content-Security-Policy”' content='”default-src' ’unsafe-inline’;”=''/>
+<meta name='author' content=''/>
+
+<link rel='icon' href='assets/favicon.ico'/>
+<link rel='apple-...
+[2023-08-26 12:20:39.089 PM] info: 	Args:
+[2023-08-26 12:20:39.089 PM] info: 	Tag: APP_CONTENT
+[2023-08-26 12:20:39.089 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.089 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.089 PM] info: 	replacement: 
+
+	<div id="vvveb-builder">
+		<div id="top-panel">... 
+
+
+[2023-08-26 12:20:39.089 PM] info: 	Result:
+ import logo from './logo.svg';@{HOOKS_INCLUDE}@{STYLE_INCLUDE}
+
+function App() {@{HOOKS_CONTENT}
+
+  return (<>
+
+	<div id="vvveb-builder">
+		<div id="top-panel">
+			<img src="img/logo.png" alt="Vvveb" className="float-start" id="logo"/>
+
+			<div className="btn-group float-start" role="group">
+				<button data-vvveb-action="toggleFileManager" data-bs-toggle="button" aria-pressed="false" className="btn btn-light" title="Toggle file manager" id="toggle-file-manager-btn">
+					<img src="libs/builder/...
+[2023-08-26 12:20:39.090 PM] info: 	Args:
+[2023-08-26 12:20:39.090 PM] info: 	Tag: ENV_PRESENT
+[2023-08-26 12:20:39.090 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.090 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.090 PM] info: 	replacement: . 
+
+
+[2023-08-26 12:20:39.090 PM] info: 	Result:
+ const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const zlib              = require('zlib');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack           = require('webpack');
+
+const Modes = {
+    DEVELOPMENT: 'development',
+    PRODUCTION: 'production',
+};
+
+module.exports = () => {
+    const isProduction = Modes.PRODUCTION;
+    if ('.') {
+        require('dote...
+[2023-08-26 12:20:39.090 PM] info: 	Args:
+[2023-08-26 12:20:39.090 PM] info: 	Tag: ASSETS_DIR
+[2023-08-26 12:20:39.091 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.091 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.091 PM] info: 	replacement: assets 
+
+
+[2023-08-26 12:20:39.091 PM] info: 	Result:
+ const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const zlib              = require('zlib');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack           = require('webpack');
+
+const Modes = {
+    DEVELOPMENT: 'development',
+    PRODUCTION: 'production',
+};
+
+module.exports = () => {
+    const isProduction = Modes.PRODUCTION;
+    if ('.') {
+        require('dote...
+[2023-08-26 12:20:39.091 PM] info: 	Args:
+[2023-08-26 12:20:39.091 PM] info: 	Tag: BUILD_DIR
+[2023-08-26 12:20:39.091 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.091 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.091 PM] info: 	replacement: build 
+
+
+[2023-08-26 12:20:39.091 PM] info: 	Result:
+ const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const zlib              = require('zlib');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack           = require('webpack');
+
+const Modes = {
+    DEVELOPMENT: 'development',
+    PRODUCTION: 'production',
+};
+
+module.exports = () => {
+    const isProduction = Modes.PRODUCTION;
+    if ('.') {
+        require('dote...
+[2023-08-26 12:20:39.091 PM] info: 	resourcePath {
+  src: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/src',
+  public: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/public',
+  webpack: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/webpack.config.js',
+  style: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/src/index.css',
+  script: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/src/index.js',
+  root: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/public/index.html',
+  app: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/templates/javascript/react-app/src/App.js',
+  srcB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src',
+  publicB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public',
+  webpackB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js',
+  styleB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/index.css',
+  rootB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html',
+  scriptB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/index.js',
+  appB: '/home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js'
+}
+[2023-08-26 12:20:39.092 PM] info: 	Args:
+[2023-08-26 12:20:39.092 PM] info: 	Tag: STYLE_INCLUDE
+[2023-08-26 12:20:39.092 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.092 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.092 PM] info: 	replacement:  
+
+
+[2023-08-26 12:20:39.092 PM] info: 	Result:
+ import logo from './logo.svg';@{HOOKS_INCLUDE}
+
+function App() {@{HOOKS_CONTENT}
+
+  return (<>
+
+	<div id="vvveb-builder">
+		<div id="top-panel">
+			<img src="img/logo.png" alt="Vvveb" className="float-start" id="logo"/>
+
+			<div className="btn-group float-start" role="group">
+				<button data-vvveb-action="toggleFileManager" data-bs-toggle="button" aria-pressed="false" className="btn btn-light" title="Toggle file manager" id="toggle-file-manager-btn">
+					<img src="libs/builder/icons/file-manag...
+[2023-08-26 12:20:39.093 PM] info: 	Args:
+[2023-08-26 12:20:39.093 PM] info: 	Tag: STYLE_INCLUDE
+[2023-08-26 12:20:39.093 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/index.js
+[2023-08-26 12:20:39.093 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/index.js
+[2023-08-26 12:20:39.093 PM] info: 	replacement:  
+
+
+[2023-08-26 12:20:39.093 PM] info: 	Result:
+ import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+report...
+[2023-08-26 12:20:39.093 PM] info: 	Args:
+[2023-08-26 12:20:39.093 PM] info: 	Tag: HOOKS_CONTENT
+[2023-08-26 12:20:39.093 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.093 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.093 PM] info: 	replacement:  
+
+
+[2023-08-26 12:20:39.093 PM] info: 	Result:
+ import logo from './logo.svg';@{HOOKS_INCLUDE}
+
+function App() {
+
+  return (<>
+
+	<div id="vvveb-builder">
+		<div id="top-panel">
+			<img src="img/logo.png" alt="Vvveb" className="float-start" id="logo"/>
+
+			<div className="btn-group float-start" role="group">
+				<button data-vvveb-action="toggleFileManager" data-bs-toggle="button" aria-pressed="false" className="btn btn-light" title="Toggle file manager" id="toggle-file-manager-btn">
+					<img src="libs/builder/icons/file-manager-layout.svg" w...
+[2023-08-26 12:20:39.094 PM] info: 	Args:
+[2023-08-26 12:20:39.094 PM] info: 	Tag: HOOKS_INCLUDE
+[2023-08-26 12:20:39.094 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.094 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/src/App.js
+[2023-08-26 12:20:39.094 PM] info: 	replacement:  
+
+
+[2023-08-26 12:20:39.094 PM] info: 	Result:
+ import logo from './logo.svg';
+
+function App() {
+
+  return (<>
+
+	<div id="vvveb-builder">
+		<div id="top-panel">
+			<img src="img/logo.png" alt="Vvveb" className="float-start" id="logo"/>
+
+			<div className="btn-group float-start" role="group">
+				<button data-vvveb-action="toggleFileManager" data-bs-toggle="button" aria-pressed="false" className="btn btn-light" title="Toggle file manager" id="toggle-file-manager-btn">
+					<img src="libs/builder/icons/file-manager-layout.svg" width="20px" heig...
+[2023-08-26 12:20:39.095 PM] info: 	Args:
+[2023-08-26 12:20:39.095 PM] info: 	Tag: SCRIPT_INCLUDE
+[2023-08-26 12:20:39.095 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.095 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.095 PM] info: 	replacement:  
+
+
+[2023-08-26 12:20:39.095 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>
+<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
+<meta name='theme-color' content='#000000'/>
+<meta name='description' content=''/>
+<meta charset='utf-8'/>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+<meta http-equiv='”Content-Security-Policy”' content='”default-src' ’unsafe-inline’;”=''/>
+<meta name='author' content=''/>
+
+<link rel='icon' href='assets/favicon.ico'/>
+<link rel='apple-...
+[2023-08-26 12:20:39.096 PM] info: 	Args:
+[2023-08-26 12:20:39.096 PM] info: 	Tag: ROOT_ATTRIBUTES
+[2023-08-26 12:20:39.096 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.096 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/public/index.html
+[2023-08-26 12:20:39.096 PM] info: 	replacement:  lang="en" 
+
+
+[2023-08-26 12:20:39.096 PM] info: 	Result:
+ <!DOCTYPE html>
+<html data-bs-theme='auto' lang='en'>
+  <head>
+<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
+<meta name='theme-color' content='#000000'/>
+<meta name='description' content=''/>
+<meta charset='utf-8'/>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+<meta http-equiv='”Content-Security-Policy”' content='”default-src' ’unsafe-inline’;”=''/>
+<meta name='author' content=''/>
+
+<link rel='icon' href='assets/favicon.ico'/>
+<link rel='apple-...
+[2023-08-26 12:20:39.096 PM] info: 	Args:
+[2023-08-26 12:20:39.096 PM] info: 	Tag: ENV_PRESENT
+[2023-08-26 12:20:39.096 PM] info: 	readPath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.096 PM] info: 	writePath: /home/zenerdiode/Downloads/incoming/rebuild/html-2-jsx-conv/ReactifyHTML/build/webpack.config.js
+[2023-08-26 12:20:39.096 PM] info: 	replacement:  
+
+
+[2023-08-26 12:20:39.096 PM] info: 	Result:
+ const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const zlib              = require('zlib');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack           = require('webpack');
+
+const Modes = {
+    DEVELOPMENT: 'development',
+    PRODUCTION: 'production',
+};
+
+module.exports = () => {
+    const isProduction = Modes.PRODUCTION;
+    if ('.') {
+        require('dote...
+[2023-08-26 12:20:39.097 PM] info: 	
+
+ ======================================================================================================================================================================================================== 
+
+
+

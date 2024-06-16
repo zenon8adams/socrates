@@ -1,0 +1,73 @@
+#include <math.h>
+#include <stdalign.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+  int8_t y, cb, cr;
+} YCbCr;
+
+static YCbCr rgb_conveter(int r, int g, int b) {
+  return (YCbCr){
+      .y = 16 + (65.738 * r + 129.057 * g + 25.064 * b) / 256,
+      .cb = 128 + (-37.945 * r - 74.494 * g + 112.439 * b) / 256,
+      .cr = 128 + (112.439 * r - 94.154 * g - 18.285 * b) / 256,
+  };
+}
+
+static void randomize_color(int *red, int *green, int *blue) {
+  *red = rand() % 256;
+  *green = rand() % 256;
+  *blue = rand() % 256;
+}
+
+static int gcd(int one, int other) {
+  return other == 0 ? one : gcd(other, one % other);
+}
+
+int main(void) {
+  const int fps = 25;
+  const int width = 384;
+  const int height = 288;
+  const int duration = 10;
+  const int frames_count = fps * duration;
+
+  int red, green, blue;
+  YCbCr space;
+  char *pixel;
+  FILE *file = fopen("output.yuv", "w");
+  size_t c420_chroma_size = ((width + 1) / 2) * ((height + 1) / 2);
+  size_t c420_y_plane_size = width * height;
+  size_t c420_u_plane_size = c420_chroma_size;
+  size_t c420_v_plane_size = c420_chroma_size;
+  size_t c420_plane_size =
+      c420_y_plane_size + c420_u_plane_size + c420_v_plane_size;
+
+  char pixels[c420_plane_size];
+  int scaled_width, scaled_height, factor;
+
+  factor = gcd(width, height);
+  scaled_width = width / factor;
+  scaled_height = height / factor;
+
+  printf("y_plane_size: %zu, u_plane_size: %zu, v_plane_size: %zu\n",
+         c420_y_plane_size, c420_u_plane_size, c420_v_plane_size);
+
+  //  fprintf(file, "YUV4MPEG2 W%d H%d F%d:1 A%d:%d C420\n", width, height, fps,
+  //  scaled_width, scaled_height);
+  for (int frame = 0; frame < frames_count; frame++) {
+    randomize_color(&red, &green, &blue);
+    space = rgb_conveter(red, green, blue);
+    pixel = pixels;
+    //   fprintf(file, "FRAME\n");
+    memset(pixel, space.y, c420_y_plane_size);
+    memset(pixel += c420_y_plane_size, space.cb, c420_u_plane_size);
+    memset(pixel += c420_u_plane_size, space.cr, c420_v_plane_size);
+    fwrite(pixels, c420_plane_size, 1, file);
+  }
+
+  fclose(file);
+  fprintf(stdout, "Generated output.yuv\n");
+}

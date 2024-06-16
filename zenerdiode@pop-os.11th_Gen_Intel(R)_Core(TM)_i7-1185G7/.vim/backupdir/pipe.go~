@@ -1,0 +1,349 @@
+package main
+
+import (
+	"bufio"
+	"errors"
+	"fmt"
+	"os"
+    "os/exec"
+	"strconv"
+	"strings"
+	"syscall"
+    "sync"
+    "math"
+
+	//	"github.com/BurntSushi/xgb"
+	"github.com/BurntSushi/xgb/xproto"
+	"github.com/BurntSushi/xgbutil"
+	"github.com/BurntSushi/xgbutil/ewmh"
+	"github.com/BurntSushi/xgbutil/xprop"
+)
+
+const BUFSIZE      = 4096
+const EPSILON      = 1.0e-5
+const MIRROR_WIDTH = 128
+
+type XWinInfo struct {
+	name   string
+    ident  byte
+	x      int
+	y      int
+	width  int
+	height int
+}
+
+func mkfifo(path string) error {
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		return syscall.Mkfifo(path, 0666)
+	}
+	return nil
+}
+
+func main() {
+    var wg sync.WaitGroup
+ 	wg.Add(1)
+ 	go runConsumer("pipe.py", &wg)
+
+    err := mkfifo("/tmp/.sync")
+	if err != nil {
+		fmt.Println("Error creating named pipe:", err)
+		return
+	}
+
+	err = mkfifo("/tmp/.chan")
+	if err != nil {
+		fmt.Println("Error creating named pipe:", err)
+		return
+	}
+
+	reader, err := os.OpenFile("/tmp/.chan", os.O_RDWR, os.ModeNamedPipe)
+	if err != nil {
+		fmt.Println("Error opening pipe:", err)
+		return
+	}
+	defer reader.Close()
+
+	writer, err := os.OpenFile("/tmp/.sync", os.O_RDWR, os.ModeNamedPipe)
+	if err != nil {
+		fmt.Println("Error opening pipe:", err)
+		return
+	}
+	defer writer.Close()
+
+	buffer   := make([]byte, BUFSIZE)
+	xwindows := make(map[xproto.Window]string)
+
+	x11, err := xgbutil.NewConn()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for {
+		_, err = writer.WriteString("0")
+		if err != nil {
+			fmt.Println("Error writing to pipe:", err)
+			return
+		}
+
+		// Read from pipe
+		length, err := bufio.NewReader(reader).Read(buffer)
+		if err != nil {
+			fmt.Println("Error reading from pipe:", err)
+			return
+		}
+
+		windows, err := ewmh.ClientListStackingGet(x11)
+		if err != nil {
+			fmt.Printf("error getting windows stack list: %v", err)
+		}   
+
+		for i := 0; i < len(windows); i++ {
+			name, err := getWindowClassName(x11, windows[i])
+			if err != nil || len(name) == 0 {
+	//			fmt.Printf("error getting window name for window:%v error: %v", windows[i], err)
+				continue
+			}
+			xwindows[windows[i]] = name
+            fmt.Printf("%s ", name)
+		}
+        fmt.Println()
+
+		useful   := buffer[:length]
+		xinfo    := buildInfo(string(useful), xwindows, x11)
+        xordered := make([]XWinInfo, len(windows) - 1)
+        for i := len(windows) - 1; i > 0; i-- {
+            xordered[len(windows) - 1 - i] = xinfo[windows[i]]
+        }
+
+        visible := getVisibleWindows(x11, xordered)
+        fmt.Println(visible)
+        fmt.Println()
+	}
+}
+
+func runConsumer(path string, wg *sync.WaitGroup) (error) {
+	defer wg.Done()
+	cmd := exec.Command("python", path)
+	err := cmd.Run()
+    return err
+}
+
+func buildInfo(sequence string, winhash map[xproto.Window]string, 
+               x11 *xgbutil.XUtil) (map[xproto.Window]XWinInfo) {
+    windows := make(map[xproto.Window]XWinInfo)
+    parts   := strings.Split(sequence, ";")
+
+    identifier := byte(1)
+	for _, part := range parts {
+		values := strings.Split(part, " ")
+		xid, err := strconv.Atoi(values[0])
+		if err != nil {
+			fmt.Println("Error parsing xid:", err)
+			continue
+		}
+
+		x, err := strconv.Atoi(values[1])
+		if err != nil {
+			fmt.Println("Error parsing x:", err)
+			continue
+		}
+
+		y, err := strconv.Atoi(values[2])
+		if err != nil {
+			fmt.Println("Error parsing y:", err)
+			continue
+		}
+
+		width, err := strconv.Atoi(values[3])
+		if err != nil {
+			fmt.Println("Error parsing width:", err)
+			continue
+		}
+
+		height, err := strconv.Atoi(values[4])
+		if err != nil {
+			fmt.Println("Error parsing height:", err)
+			continue
+		}
+
+        x, y, width, height, err = cropWindow(x11, x, y, width, height)
+        if err != nil {
+            break
+        }
+
+		windows[xproto.Window(xid)] = XWinInfo{name: winhash[xproto.Window(xid)], 
+           ident: identifier, x: x, y: y, width: width, height: height}
+
+        identifier++
+	}
+
+	return windows
+}
+
+func getWindowClassName(X *xgbutil.XUtil, win xproto.Window) (string, error) {
+	wmClass, err := xprop.PropValStrs(xprop.GetProperty(X, win, "WM_CLASS"))
+	if err == nil && (len(wmClass) == 2) {
+		return wmClass[1], nil
+	}
+	return "", nil//fmt.Errorf("error on resolving name for window %d: %v", win, err)
+}
+
+func max[T int | int16 | int32 | int64 | int8 | float32 | float64](a, b T) (T) {
+    if a > b {
+        return a
+    }
+    return b
+}
+
+func min[T int | int16 | int32 | int64 | int8 | float32 | float64](a, b T) (T) {
+    if a < b {
+        return a
+    }
+    return b
+}
+
+func sizeOfTop(x11 *xgbutil.XUtil) (int, int, error) {
+    size, err := xproto.GetGeometry(x11.Conn(), xproto.Drawable(x11.RootWin())).Reply()
+    if err != nil {
+        return -1, -1, err
+    }
+
+    return int(size.Width), int(size.Height), nil
+}
+
+func cropWindow(x11 *xgbutil.XUtil, x, y, width, height int) (int, int, int, int, error) {
+    rt, err := xproto.GetGeometry(x11.Conn(), xproto.Drawable(x11.RootWin())).Reply()
+    if err != nil {
+        return -1, -1, -1, -1, err
+    }
+
+    rX := int(rt.X)
+    rY := int(rt.Y)
+
+    nX := max(rX, x)
+    nY := max(rY, y)
+    nR := min(rX + int(rt.Width) - 1, x + width - 1)
+    nB := min(rY + int(rt.Height) - 1, y + height - 1)
+
+    return nX, nY, nR - nX + 1, nB - nY + 1, nil
+}
+
+func getVisibleWindows(x11 *xgbutil.XUtil, windows []XWinInfo) ([]XWinInfo) {
+    visible := make([]XWinInfo, 0)
+
+    topWidth, topHeight, err := sizeOfTop(x11)
+    if err != nil {
+        return visible
+    }
+    
+    if len(windows) == 0 {
+        return visible
+    }
+
+    scale := float64(topWidth) / float64(topHeight)
+
+    mirror   := make([][]byte, MIRROR_WIDTH)
+    MIRROR_HEIGHT := int(math.Ceil(MIRROR_WIDTH * 1.0 / scale))
+//    fmt.Printf("scale: %.7f, MIRROR_HEIGHT: %d\n", scale, MIRROR_HEIGHT)
+    for i := range mirror {
+        mirror[i] = make([]byte, MIRROR_HEIGHT)
+    }
+    XMIRROR_SCALE := float64(MIRROR_WIDTH) / float64(topWidth)
+    YMIRROR_SCALE := float64(MIRROR_HEIGHT) / float64(topHeight)
+
+    visible = append(visible, windows[0])
+    mapArea(mirror, scaleWindow(windows[0], XMIRROR_SCALE, YMIRROR_SCALE))
+ //   showMirror(mirror, MIRROR_WIDTH, MIRROR_HEIGHT)
+    for j := 1; j < len(windows); j++ {
+        target   := windows[j]
+        no_lap   := 0
+        fill_sum := 0
+        for i := 0; i < len(visible); i++ {
+            reference        := visible[i]
+            overlap, _       := overlapInfo(reference, target)
+            new_segment      := scaleWindow(target, XMIRROR_SCALE, YMIRROR_SCALE)
+            fill_extent      := mapArea(mirror, new_segment)
+            fill_sum += fill_extent
+            fmt.Printf("Overlap: %.7f, ref: %s, tgt: %s\n", overlap, reference.name, target.name)
+            if overlap >= 0.1 || isZero(overlap) {
+                no_lap++
+            } 
+        } 
+
+//        showMirror(mirror, MIRROR_WIDTH, MIRROR_HEIGHT)
+        area := areaOf(scaleWindow(windows[j], XMIRROR_SCALE, YMIRROR_SCALE))
+        coverage := float64(fill_sum) / float64(area)
+        fmt.Printf("area covered: %d, cover: %d(%.7f), no_lap: %d, visible: %d, is cover: %v, window name: %s\n", 
+         area, fill_sum, coverage, no_lap, len(visible), !isZero(coverage), windows[j].name)
+        if no_lap == len(visible) && coverage >= .3 {
+            visible = append(visible, windows[j])
+            mapArea(mirror, scaleWindow(windows[j], XMIRROR_SCALE, YMIRROR_SCALE))
+        }
+    }
+
+    return visible
+}
+
+func showMirror(mirror [][]byte, MIRROR_WIDTH, MIRROR_HEIGHT int) {
+    fmt.Println("\n\n")
+    for j := 0; j < MIRROR_HEIGHT; j++ {
+        for i := 0; i < MIRROR_WIDTH; i++ {
+            color := 30 + mirror[i][j]
+            fmt.Printf("\x1B[%dm%d\x1B[0m", color, mirror[i][j])
+        }
+        fmt.Println()
+    }
+    fmt.Println("\n\n")
+}
+
+
+func areaOf(window XWinInfo) int {
+    return window.width * window.height
+}
+
+func isZero(x float64) bool {
+  return math.Abs(x) < EPSILON
+}
+
+func mapArea(mirror [][]byte, win XWinInfo) int {
+    var conv = map[bool]int{false: 0, true: 1}
+    overlap := 0
+    for j := win.x; j < win.x + win.width; j++ {
+        for i := win.y; i < win.y + win.height; i++ {
+            overlap += conv[mirror[j][i] == 0]
+            mirror[j][i] = win.ident
+        }
+    }
+
+    return overlap
+}
+
+func scaleWindow(win XWinInfo, xscale float64, yscale float64) XWinInfo {
+    return XWinInfo {
+            ident:  win.ident,
+            x:      int(float64(win.x) * xscale),
+            y:      int(float64(win.y) * yscale),
+            width:  int(float64(win.width) * xscale),
+            height: int(float64(win.height) * yscale)}
+}
+
+func overlapBetween(reference XWinInfo, target XWinInfo) XWinInfo {
+    x      := max(target.x, reference.x)
+    y      := max(target.y, reference.y)
+    width  := max(0, min(target.x + target.width - 1, reference.x + reference.width - 1)  - x)
+    height := max(0, min(target.y + target.height - 1, reference.y + reference.height - 1) - y)
+
+    return XWinInfo {ident: target.ident, x: x, y: y, width: width, height: height}
+}
+
+func overlapInfo(reference XWinInfo, target XWinInfo) (float64, XWinInfo) {
+    intersection := overlapBetween(reference, target)
+    overlapArea := float64(intersection.width * intersection.height)
+    tgtArea     := areaOf(target)
+    remainder   := float64(tgtArea) - overlapArea
+//    fmt.Printf("Remainder: %f\n", remainder)
+    ratio       := float64(remainder) / float64(tgtArea)
+
+    return ratio, intersection
+}
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+fasm bootsect.asm
+fasm kernel.asm
+cat bootsect.bin kernel.bin > OS.bin
+bochs -q

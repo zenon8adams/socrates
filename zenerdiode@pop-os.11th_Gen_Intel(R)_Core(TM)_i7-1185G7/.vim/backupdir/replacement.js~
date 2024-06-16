@@ -1,0 +1,184 @@
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generator = require("@babel/generator").default;
+const t = require("@babel/types");
+
+function convertDOMReadyCalls(jsCode) {
+  const ast = parser.parse(jsCode, {
+    sourceType: "module",
+    plugins: ["jsx"],
+  });
+
+  const replacements = [];
+
+  traverse(ast, {
+    CallExpression(path) {
+      if (
+        t.isMemberExpression(path.node.callee) &&
+        t.isIdentifier(path.node.callee.object, { name: "document" }) &&
+        t.isIdentifier(path.node.callee.property, {
+          name: "addEventListener",
+        }) &&
+        t.isStringLiteral(path.node.arguments[0], { value: "DOMContentLoaded" })
+      ) {
+        replacements.push({
+          path: path,
+          type: "CallExpression",
+        });
+      }
+    },
+    AssignmentExpression(path) {
+      if (
+        t.isMemberExpression(path.node.left) &&
+        t.isIdentifier(path.node.left.object, { name: "document" }) &&
+        t.isIdentifier(path.node.left.property, { name: "onDOMContentLoaded" })
+      ) {
+        // const callback = path.node.right;
+        replacements.push({
+          path: path,
+          type: "AssignmentExpression",
+        });
+        /*
+                path.replaceWith(
+                    t.ifStatement(
+                        t.binaryExpression("===", t.memberExpression(t.identifier("document"), t.identifier("readyState")), t.stringLiteral("loading")),
+                        t.blockStatement([
+                            t.expressionStatement(
+                                t.assignmentExpression(
+                                    "=",
+                                    t.memberExpression(t.identifier("document"), t.identifier("onDOMContentLoaded")),
+                                    callback
+                                )
+                            )
+                        ]),
+                        t.blockStatement([t.expressionStatement(callback)])
+                    )
+                ); */
+      }
+    },
+  });
+
+  for (const replacement of replacements) {
+    const { path, type } = replacement;
+    switch (type) {
+      case "CallExpression":
+        {
+          const callback = path.node.arguments[1];
+          path.replaceWith(
+            t.ifStatement(
+              t.binaryExpression(
+                "===",
+                t.memberExpression(
+                  t.identifier("document"),
+                  t.identifier("readyState"),
+                ),
+                t.stringLiteral("loading"),
+              ),
+              t.blockStatement([
+                t.expressionStatement(
+                  t.callExpression(
+                    t.memberExpression(
+                      t.identifier("document"),
+                      t.identifier("addEventListener"),
+                    ),
+                    [t.stringLiteral("DOMContentLoaded"), callback],
+                  ),
+                ),
+              ]),
+              t.blockStatement([t.expressionStatement(callback)]),
+            ),
+          );
+        }
+        break;
+      case "AssignmentExpression":
+        {
+          const callback = path.node.right;
+          path.replaceWith(
+            t.ifStatement(
+                    t.binaryExpression("===", t.identifier("x"), t.numericLiteral(10)), // condition
+                    t.blockStatement([t.expressionStatement(t.stringLiteral("x is 10"))]), // if block
+                    t.blockStatement([t.expressionStatement(t.stringLiteral("x is not 10"))]) // else block
+            ),
+            /*
+            t.ifStatement(
+              t.binaryExpression(
+                "===",
+                t.memberExpression(
+                  t.identifier("document"),
+                  t.identifier("readyState"),
+                ),
+                t.stringLiteral("loading"),
+              ),
+              t.blockStatement([
+                t.expressionStatement(
+                  t.callExpression(
+                    callback,
+                    [], // arguments
+                  ),
+                ), // function body
+              ]),
+              t.blockStatement([t.expressionStatement(callback)]),
+            ), */
+          );
+        }
+        break;
+    }
+  }
+
+  const newCode = generator(ast).code;
+  return newCode;
+}
+
+const code = `document.onDOMContentLoaded = () => {
+  console.log('sc-loading.js');
+                      new ApexCharts(document.querySelector("#reportsChart"), {
+                        series: [{
+                          name: 'Sales',
+                          data: [31, 40, 28, 51, 42, 82, 56],
+                        }, {
+                          name: 'Revenue',
+                          data: [11, 32, 45, 32, 34, 52, 41]
+                        }, {
+                          name: 'Customers',
+                          data: [15, 11, 32, 18, 9, 24, 11]
+                        }],
+                        chart: {
+                          height: 350,
+                          type: 'area',
+                          toolbar: {
+                            show: false
+                          },
+                        },
+                        markers: {
+                          size: 4
+                        },
+                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100]
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false
+                        },
+                        stroke: {
+                          curve: 'smooth',
+                          width: 2
+                        },
+                        xaxis: {
+                          type: 'datetime',
+                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                        },
+                        tooltip: {
+                          x: {
+                            format: 'dd/MM/yy HH:mm'
+                          },
+                        }
+                      }).render();
+                    };`;
+
+console.log(convertDOMReadyCalls(code));

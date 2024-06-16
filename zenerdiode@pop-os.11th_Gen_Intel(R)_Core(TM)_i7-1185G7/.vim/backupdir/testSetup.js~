@@ -1,0 +1,7 @@
+import chai from 'chai';
+
+import cv from '../index.js';
+
+const expect = chai.expect;
+
+export {expect, cv};

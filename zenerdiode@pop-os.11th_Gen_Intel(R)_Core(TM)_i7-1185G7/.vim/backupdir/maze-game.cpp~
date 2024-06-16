@@ -1,0 +1,189 @@
+﻿#include "utility.hpp"
+#include <algorithm>
+#include <cstring>
+#include <deque>
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#define INT_MIN ~0 & ~(~0U >> 1)
+
+using Graph = std::map<std::string, std::unordered_set<std::string>>;
+
+struct Coord {
+  int x = INT_MIN, y = INT_MIN;
+};
+
+bool operator==(const Coord &l, const Coord &r) {
+  return l.x == r.x && l.y == r.y;
+}
+
+struct CoordHash {
+  std::size_t operator()(const Coord &coord) const {
+    return std::hash<int>{}(coord.x) ^ std::hash<int>{}(coord.y);
+  }
+};
+
+Coord Dim(const char *maze) {
+  if (*maze == 0)
+    return {0, 0};
+  size_t row = 1, col = 1;
+  while (*maze && *maze++ != '\n')
+    ++row;
+  while (*maze)
+    if (*maze++ == '\n')
+      ++col;
+  return {(int)row, (int)col};
+}
+
+class Maze {
+public:
+  using Graph = std::map<Coord, std::vector<Coord>>;
+
+  Maze(const char *m) : m_maze(strdup(m)) {
+    auto dim = Dim(m_maze);
+    m_row = dim.x;
+    m_col = dim.y;
+  }
+  auto &operator[](int idx) { return m_maze[idx]; }
+  auto &operator[](const Coord &pos) { return m_maze[pos.y * m_row + pos.x]; }
+  auto &operator[](int idx) const { return m_maze[idx]; }
+  auto &operator[](const Coord &pos) const {
+    return m_maze[pos.y * m_row + pos.x];
+  }
+  bool is_obstacle(char c) { return strchr(obstacles, c); }
+  std::vector<Coord> freeDirection(Coord pos) {
+    int rd[] = {-1, +1, 0, 0}, cd[] = {0, 0, -1, +1};
+    std::vector<Coord> corners;
+    for (int i = 0; i < 4; ++i) {
+      Coord newp{rd[i] + pos.x, cd[i] + pos.y};
+      if (newp.x < 0 || newp.y < 0)
+        continue;
+      if (newp.x >= m_row || newp.y >= m_col)
+        continue;
+      if (is_obstacle((*this)[newp]))
+        continue;
+      corners.push_back(newp);
+    }
+    return corners;
+  }
+
+  auto makeCoord(int idx) const {
+    int x = idx % m_row, y = (idx - x) / m_row;
+    return Coord{x, y};
+  }
+
+  auto playerPos() const {
+    int idx = strchr(m_maze, player) - m_maze;
+    return makeCoord(idx);
+  }
+
+  auto destPos() const {
+    int idx = strchr(m_maze, dest) - m_maze;
+    return makeCoord(idx);
+  }
+
+  bool validCoord(Coord pos) {
+    Coord invalid;
+    return pos.x != invalid.x && pos.y != invalid.y;
+  }
+
+  auto findPath() {
+    std::vector<Coord> path(1, playerPos());
+    std::unordered_map<Coord, Coord, CoordHash> link;
+    for (size_t i = 0; i < path.size(); ++i) {
+      for (const auto &freep : freeDirection(path[i])) {
+        if (std::find(path.cbegin(), path.cend(), freep) == path.cend()) {
+          path.push_back(freep);
+          link[freep] = path[i];
+        }
+      }
+    }
+    std::deque<Coord> shortest;
+    for (auto p = link[destPos()]; validCoord(p); p = link[p])
+      shortest.push_front(p);
+    if (!shortest.empty())
+      shortest.push_back(destPos());
+    return shortest;
+  }
+
+  void animate(int fps) {
+    CLS();
+    auto paths{findPath()};
+    Coord prev = playerPos();
+    for (const auto &pos : paths) {
+      std::cout << m_maze;
+      (*this)[prev] = path;
+      (*this)[prev = pos] = player;
+      pause(fps);
+      CLS();
+    }
+    std::cout << m_maze;
+  }
+
+private:
+  char *m_maze;
+  size_t m_row, m_col;
+  static constexpr const char *obstacles = "#";
+  static const char player = '*';
+  static const char dest = '$';
+  static const char path = ' ';
+};
+
+class MazeGame {
+public:
+  MazeGame(std::istream &strm) : m_strm(strm) {}
+
+  void setGameSpeed(int fps) { m_game_speed = fps > 0 ? fps : m_game_speed; }
+
+  void play() {
+    size_t level = 0, time_control = 1000;
+    for (auto map = nextMap(); !map.empty(); map = nextMap()) {
+      CLS();
+      std::cout << "Level " << ++level << ":\n";
+      pause(2 * time_control);
+      Maze maze(map.c_str());
+      maze.animate(m_game_speed);
+      pause(time_control);
+    }
+  }
+
+private:
+  void ltrim(std::string &str) {
+    auto idx = str.find_first_not_of(" \n");
+    if (idx == std::string::npos)
+      return;
+    str = str.substr(idx);
+  }
+
+  std::string nextMap() {
+    std::string map;
+    for (std::string line; std::getline(m_strm, line);) {
+      ltrim(line);
+      if (line.empty() || !std::isprint(line[0]))
+        continue;
+      else if (line[0] == '=')
+        break;
+      map += line + '\n';
+    }
+    return map;
+  }
+
+  int m_game_speed = 1000 / 10;
+  std::istream &m_strm;
+};
+
+int main() {
+  std::ifstream mapfile("maze_file.txt");
+  if (mapfile) {
+    MazeGame game(mapfile);
+    game.setGameSpeed(1000 / 3);
+    game.play();
+  }
+}

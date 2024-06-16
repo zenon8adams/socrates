@@ -1,0 +1,24 @@
+#include "unp.h"
+
+int main()
+{
+    union {
+        short s;
+        char c [sizeof(short)];
+    } un;
+
+    un.s = 0x102;
+    printf( "%s: ", CPU_VENDOR_OS);
+    if constexpr(sizeof(short) == 2)
+    {
+        if( un.c[0] == 1 and un.c[1] == 2)
+            printf( "big-endian\n");
+        else if( un.c[0] == 2 && un.c[1] == 1)
+            printf( "little-endian");
+        else
+            printf( "unknown\n");
+    }
+    else
+        printf( "sizeof(short) = %hd\n", sizeof( short));
+
+}

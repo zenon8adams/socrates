@@ -1,0 +1,772 @@
+#include <chrono>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <optional>
+#include <random>
+#include <set>
+#include <vector>
+
+#define CATCH_CONFIG_MAIN
+#include <catch2/catch.hpp>
+
+template <typename K, typename V> class interval_map {
+  friend void IntervalMapTest();
+  V m_valBegin;
+  std::map<K, V> m_map;
+
+public:
+  // constructor associates whole range of K with val
+  interval_map(V const &val) : m_valBegin(val) {}
+
+  auto lower(typename std::map<K, V>::iterator current, V const &key) {
+    auto start = current;
+    while (current != m_map.end() && current->first < key)
+      ++current;
+    return start == current ? m_map.end() : current;
+  }
+
+  auto upper(typename std::map<K, V>::iterator current, V const &key) {
+    auto start = current;
+    while (current != m_map.end() && key > current->first)
+      ++current;
+    return start == current ? m_map.end() : current;
+  }
+
+  // Assign value val to interval [keyBegin, keyEnd).
+  // Overwrite previous values in this interval.
+  // Conforming to the C++ Standard Library conventions, the interval
+  // includes keyBegin, but excludes keyEnd.
+  // If !( keyBegin < keyEnd ), this designates an empty interval,
+  // and assign must do nothing.
+  void assign(K const &keyBegin, K const &keyEnd, V const &val) {
+    if (!(keyBegin < keyEnd))
+      return;
+
+    constexpr auto END_INDICATOR = V{};
+    if (m_map.empty()) {
+      m_map.emplace(keyBegin, val);
+      m_map.emplace(keyEnd, END_INDICATOR);
+      print();
+      return;
+    }
+    // Insert both begin and end deal with effect later.
+    auto [insertion_start, start_inserted] = m_map.insert({keyBegin, val});
+    auto [insertion_end, end_inserted] = m_map.insert({keyEnd, END_INDICATOR});
+
+    // Keep previous value in case it represents an interval broken
+    by the current insertion.auto previous_value = V{};
+    if (!start_inserted) {
+      previous_value = insertion_start->second;
+      insertion_start->second = val;
+    }
+
+    // Adjust previous entry versus start entry or start entry
+    versus next entry that have same
+        value if (insertion_start != m_map.begin() &&
+                  std::prev(insertion_start)->second == insertion_start->second)
+            insertion_start = std::prev(m_map.erase(insertion_start));
+    // don't remove duplicate entry std::next( insertion_start) if
+    the end insertion failed
+        .else if (insertion_start != m_map.end() && end_inserted &&
+                  std::next(insertion_start)->second == insertion_start->second)
+            m_map.erase(std::next(insertion_start));
+
+    auto gap = std::distance(insertion_start, insertion_end) - 1;
+    if (gap == 0) {
+      // Insertion occurs at the beginning and insertion of
+      `keyBegin` failed,
+          // update the end value with the value
+          // stored previously at `keyBegin`
+          if (insertion_start == m_map.begin() && !start_inserted &&
+              end_inserted &&
+              previous_value != std::prev(insertion_end)->second)
+              insertion_end->second = previous_value;
+      // Expand the interval since after deleting duplicate
+      entries, the intervals were same else if (insertion_start->second ==
+                                                insertion_end->second)
+                   std::advance(insertion_end, 1);
+      // Insertion occured at the middle of an interval which
+      divided a previous whole interval
+          // into two, restart the range from `keyEnd`.
+          else if (insertion_start != m_map.begin() &&
+                   std::next(insertion_end) != m_map.end())
+              insertion_end->second = std::prev(insertion_start)->second;
+      // If there exists duplicate element between the
+      `keyBegin` and the next element after `keyEnd`,
+          // remove it since `keyEnd` points to END_INDICATOR
+          else if (insertion_start == m_map.begin() &&
+                   std::next(insertion_end) != m_map.end() &&
+                   std::next(insertion_end)->second == insertion_start->second)
+              m_map.erase(std::next(insertion_end));
+    } else if (gap >= 1 && std::next(insertion_end) != m_map.end())
+      insertion_end->second = std::prev(insertion_end)->second;
+
+    m_map.erase(std::next(insertion_start), insertion_end);
+    // Delete duplicate END_INDICATORs
+    if (insertion_end->second == END_INDICATOR) {
+      if (std::next(insertion_end) != m_map.end() &&
+          insertion_end->second == std::next(insertion_end)->second)
+        m_map.erase(insertion_end);
+      else if (std::prev(insertion_end)->second == insertion_end->second)
+        m_map.erase(std::prev(insertion_end));
+      else if (std::next(insertion_end) != m_map.end())
+        m_map.erase(insertion_end);
+    }
+    // If end insertion fails and the newly inserted start is same
+    as the end after shrinking,
+        // delete the end sentinel
+        else if (!end_inserted &&
+                 insertion_end->second == insertion_start->second)
+            m_map.erase(insertion_end);
+
+    print();
+  }
+
+  void print() const {
+    for (auto &[k, v] : m_map)
+      std::cout << '[' << k << ":" << v << "]\n";
+    std::cout << '\n';
+  }
+
+  // look-up of the value associated with key
+  V const &operator[](K const &key) const {
+    auto it = m_map.upper_bound(key);
+    if (it == m_map.begin()) {
+      return m_valBegin;
+    } else {
+      return (--it)->second;
+    }
+  }
+};
+
+/*
+#include <map>
+template <typename K, typename V> class interval_map {
+  friend void IntervalMapTest();
+  V m_valBegin;
+
+public:
+  // constructor associates whole range of K with val
+  interval_map(V const &val) : m_valBegin(val) {
+    //
+m_map.insert(m_map.end(),std::make_pair(std::numeric_limits<K>::lowest(),val));
+  }
+
+  // Assign value val to interval [keyBegin, keyEnd).
+  // Overwrite previous values in this interval.
+  // Conforming to the C++ Standard Library conventions, the interval
+  // includes keyBegin, but excludes keyEnd.
+  // If !( keyBegin < keyEnd ), this designates an empty interval,
+  // and assign must do nothing.
+  void assign(K const &keyBegin, K const &keyEnd, V const &val) {
+    if (!(keyBegin < keyEnd))
+      return;
+
+    typename decltype(m_map)::iterator upper = m_map.lower_bound(keyEnd);
+    bool is_inserted;
+    if (upper == m_map.cend()) {
+      // Every element in m_map is less than keyEnd
+      std::tie(upper, is_inserted) = m_map.insert({keyBegin, val});
+      // If element at interval exists, replace with current
+      if (!is_inserted)
+        upper->second = val;
+      // Check if previous element is same as just inserted element
+      if (std::prev(upper) != m_map.end() && std::prev(upper)->second == val)
+        upper = std::prev(upper);
+      m_map.erase(std::next(upper), m_map.cend());
+      // If inserted value is same as start value, erase inserted value.
+      if (std::prev(upper) == m_map.end() && m_valBegin == val)
+        m_map.erase(upper, m_map.cend());
+      // Restore the closed interval from the end.
+      m_map.insert({keyEnd, m_valBegin});
+
+      return;
+    }
+
+    typename decltype(m_map)::iterator lower = m_map.upper_bound(keyBegin);
+    if (lower != m_map.cend())
+      lower = std::prev(lower);
+
+    if (lower == m_map.cend()) {
+      if (m_valBegin != val)
+        lower = m_map.insert(m_map.begin(), {keyBegin, val});
+    } else {
+      if (std::prev(lower) != m_map.cend()) {
+      }
+    }
+
+    if (m_map.empty()) {
+      m_map.emplace(keyBegin, val);
+      m_map.emplace(keyEnd, m_valBegin);
+      print();
+      return;
+    }
+    std::pair<typename decltype(m_map)::iterator, bool> selector;
+    // Insert both begin and upper deal with effect later.
+    typename decltype(m_map)::iterator insertion_start, insertion_end;
+    bool start_inserted, end_inserted;
+    std::tie(insertion_start, start_inserted) = m_map.insert({keyBegin, val});
+    std::tie(insertion_end, end_inserted) = m_map.insert({keyEnd, m_valBegin});
+
+    // Keep previous value in case it represents an interval broken by the
+    // current insertion.
+    V previous_value = insertion_start->second;
+    if (!start_inserted)
+      insertion_start->second = val;
+
+    // Adjust previous entry versus start entry or start entry versus next entry
+    // that have same value
+    if (insertion_start != m_map.begin() &&
+        std::prev(insertion_start)->second == insertion_start->second)
+      insertion_start = std::prev(m_map.erase(insertion_start));
+    // don't remove duplicate entry std::next( insertion_start) if the upper
+    // insertion failed.
+    else if (insertion_start != m_map.upper() &&
+             std::next(insertion_start) != insertion_end &&
+             std::next(insertion_start)->second == insertion_start->second)
+      m_map.erase(std::next(insertion_start));
+
+    typename decltype(m_map)::difference_type gap =
+        std::distance(insertion_start, insertion_end) - 1;
+    if (gap == 0) {
+      // Insertion occurs at the beginning and insertion of `keyBegin` failed,
+      // update the upper value with the value
+      // stored previously at `keyBegin`
+      if (insertion_start == m_map.begin() && !start_inserted && end_inserted &&
+          previous_value != std::prev(insertion_end)->second)
+        insertion_end->second = previous_value;
+      // Expand the interval since after deleting duplicate entries, the
+      // intervals were same
+      else if (insertion_start->second == insertion_end->second)
+        std::advance(insertion_end, 1);
+      // Insertion occured at the middle of an interval which divided a previous
+      // whole interval into two, restart the range from `keyEnd`.
+      else if (insertion_start != m_map.begin() &&
+               std::next(insertion_end) != m_map.upper())
+        insertion_end->second = std::prev(insertion_start)->second;
+      // If there exists duplicate element between the `keyBegin` and the next
+      // element after `keyEnd`, remove it since `keyEnd` points to
+      // END_INDICATOR
+      else if (insertion_start == m_map.begin() &&
+               std::next(insertion_end) != m_map.upper() &&
+               std::next(insertion_end)->second == insertion_start->second)
+        m_map.erase(std::next(insertion_end));
+    } else if (gap >= 1 && std::next(insertion_end) != m_map.upper())
+      insertion_end->second = std::prev(insertion_end)->second;
+
+    m_map.erase(std::next(insertion_start), insertion_end);
+    // Delete duplicate END_INDICATORs
+    if (insertion_end->second == m_valBegin) {
+      if (std::next(insertion_end) != m_map.upper() &&
+          insertion_end->second == std::next(insertion_end)->second)
+        m_map.erase(insertion_end);
+      else if (std::prev(insertion_end)->second == insertion_end->second)
+        insertion_end = std::prev(m_map.erase(insertion_end));
+      else if (std::next(insertion_end) != m_map.upper())
+        m_map.erase(insertion_end);
+    }
+    // If upper insertion fails and the newly inserted start is same as the
+    // upper after shrinking, delete the upper sentinel
+    else if (!end_inserted && insertion_end->second == insertion_start->second)
+      m_map.erase(insertion_end);
+    print();
+  }
+
+  void print() const {
+    for (auto [k, v] : m_map)
+      std::cout << '[' << k << ":" << v << "]\n";
+    std::cout << '\n';
+  }
+
+  // look-up of the value associated with key
+  V const &operator[](K const &key) const {
+    auto it = m_map.upper_bound(key);
+    if (it == m_map.begin()) {
+      return m_valBegin;
+    } else {
+      return (--it)->second;
+    }
+  }
+
+  std::map<K, V> m_map;
+}; */
+
+/*
+#include <iterator> // std::prev, std::next
+#include <limits>   // std::numeric_limits
+#include <map>      // std::map
+
+template <typename K, typename V>
+class IntervalMap
+{
+private:
+        std::map<K, V> my_map;
+
+public:
+        inline IntervalMap() : IntervalMap(0) {}
+
+        // create interval map with default v
+        inline IntervalMap(const V& v) {
+                clear(v);
+        }
+
+        // map [begin, end) -> v
+        // O(log N)
+        void set_interval(const K& begin, const K& end, const V& v) {
+                if (begin >= end) return;
+
+                // get end intersector (inclusive)
+                auto end_intersect = --my_map.upper_bound(end);
+
+                // if required, insert at end
+                auto inserted_end = my_map.end();
+                if (end_intersect->second != v) {
+                        inserted_end = my_map.insert_or_assign(end_intersect,
+end, end_intersect->second);
+                }
+
+                // get begin intersector (inclusive)
+                auto begin_intersect = --my_map.upper_bound(begin);
+
+                // if required, insert at start
+                auto inserted_start = my_map.end();
+                if (begin_intersect->second != v) {
+                        inserted_start =
+my_map.insert_or_assign(begin_intersect, begin, v);
+                }
+
+                // delete everyone inside
+                auto del_start = inserted_start != my_map.end() ? inserted_start
+: begin_intersect; if (del_start->first < begin || (del_start->first == begin &&
+std::prev(del_start)->second != v)) { del_start++;
+                }
+
+                auto del_end = inserted_end != my_map.end() ? inserted_end :
+end_intersect; if (del_end != my_map.end() && del_end->first == end &&
+std::next(del_end) != my_map.end() && del_end->second == v) { del_end++;
+                }
+
+                if (del_start != my_map.end() && (del_end == my_map.end() ||
+del_start->first < del_end->first)) { my_map.erase(del_start, del_end);
+                }
+
+//		print();
+        }
+
+        void print() const
+        {
+                for( auto& [k,v] : my_map)
+                        std::cout << '[' << k << ":" << v <<")\n";
+                putchar('\n');
+        }
+
+        // iterator which traverses elements in sorted order (smallest to
+largest)
+        // O(1)
+        inline auto begin() {
+                return my_map.begin();
+        }
+
+        // end of elements
+        // O(1)
+        inline auto end() {
+                return my_map.end();
+        }
+
+        // get iterator containing key `k`
+        // O(log N)
+        inline auto get_interval(K const& k) {
+                return --my_map.upper_bound(k);
+        }
+
+        // get value at key `k`
+        // O(log N)
+        const inline V& operator[](K const& k) const {
+                return (--my_map.upper_bound(k))->second;
+        }
+
+        // clear
+        inline void clear(V const& v) {
+                my_map.clear();
+                my_map.insert(my_map.end(), { std::numeric_limits<K>::lowest(),
+v });
+        }
+
+        // get num intervals overall
+        // always at least 1
+        inline auto num_intervals() {
+                return my_map.size();
+        }
+
+        // get number of intervals in a range
+        // UNTESTED
+        inline auto num_intervals(const K& start, const K& end) {
+                return get_interval(end) - get_interval(start);
+        }
+};
+*/
+
+// Many solutions we receive are incorrect. Consider using a randomized test
+// to discover the cases that your implementation does not handle correctly.
+// We recommend to implement a test function that tests the functionality of
+// the interval_map, for example using a map of int intervals to char.
+
+std::tuple<int, int, char> generateInterval() {
+  std::random_device rdev;
+  std::uniform_int_distribution<int> dist(0, +50);
+  std::mt19937_64 rGen{rdev()};
+
+  auto start_v = dist(rGen), end_v = start_v + dist(rGen);
+  return {start_v, end_v, 'A' + rand() % 26};
+}
+
+// Many solutions we receive are incorrect. Consider using a randomized test
+// to discover the cases that your implementation does not handle correctly.
+// We recommend to implement a test function that tests the functionality of
+// the interval_map, for example using a map of unsigned int intervals to
+// char.
+
+/*int main()
+{
+//	interval_map<TestKeyType, TestValueType> m('A');
+        interval_map<int, char> m( 'A');
+        m.assign(3, 6, 'B');
+        m.assign(2, 5, 'C');
+        m.assign(4, 7, 'A');
+*/
+/*	boost::icl::interval_map<int, char, boost::icl::partial_absorber,
+   std::less, boost::icl::inplace_erase, boost::icl::inplace_erase> m;
+      m.insert( {
+   boost::icl::interval<int>::open(std::numeric_limits<int>::min(),
+   std::numeric_limits<int>::max()), 'A'}); m.insert( {
+   boost::icl::interval<int>::right_open( 3, 6), 'B'}); m.insert( {
+   boost::icl::interval<int>::right_open( 2, 5), 'C'}); m.insert( {
+   boost::icl::interval<int>::right_open( 4, 7), 'A'}); std::cout << m;*/
+/*
+}*/
+
+struct TestKeyType {
+  unsigned int val;
+  constexpr TestKeyType(unsigned int val) : val(val) {}
+  constexpr bool operator<(const TestKeyType &other) const {
+    return val < other.val;
+  }
+};
+
+namespace std {
+template <> class numeric_limits<TestKeyType> {
+public:
+  static constexpr TestKeyType lowest() {
+    return TestKeyType(numeric_limits<unsigned int>::lowest());
+  }
+  // static constexpr TestKeyType lowest() { return TestKeyType(-250); }
+};
+} // namespace std
+
+using TestValueType = char;
+
+struct TestFloatKeyType {
+  float val;
+
+  TestFloatKeyType() = default;
+
+  TestFloatKeyType(float val) : val(val) {}
+  bool operator<(TestFloatKeyType other) const {
+    return other.val - val > 1.e-4f;
+  }
+};
+
+namespace std {
+template <> class numeric_limits<TestFloatKeyType> {
+public:
+  static TestFloatKeyType lowest() {
+    return TestFloatKeyType(numeric_limits<float>::lowest());
+  }
+};
+} // namespace std
+
+TEST_CASE("EmptyRange") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(3, 3, 'B');
+  REQUIRE(m.m_map.count(3) == 0);
+
+  m.assign(3, 2, 'B');
+  REQUIRE(m.m_map.count(2) == 0);
+  REQUIRE(m.m_map.count(3) == 0);
+}
+
+TEST_CASE("TrivialRange") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 10, 'B');
+  REQUIRE(m[0] == 'A');
+  for (int i = 1; i < 10; i++) {
+    REQUIRE(m[static_cast<unsigned int>(i)] == 'B');
+  }
+  REQUIRE(m[10] == 'A');
+}
+
+TEST_CASE("TrivialTwoRange") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 3, 'B');
+  m.assign(6, 8, 'C');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'A');
+  REQUIRE(m[4] == 'A');
+  REQUIRE(m[5] == 'A');
+  REQUIRE(m[6] == 'C');
+  REQUIRE(m[7] == 'C');
+  REQUIRE(m[8] == 'A');
+}
+
+TEST_CASE("OverwriteLowest") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(std::numeric_limits<TestKeyType>::lowest(), 10000, 'B');
+  REQUIRE(m[0] == 'B');
+  REQUIRE(m[9999] == 'B');
+  REQUIRE(m[10000] == 'A');
+}
+
+TEST_CASE("Merge") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(std::numeric_limits<TestKeyType>::lowest(), 10, 'B');
+  m.assign(10, 20, 'B');
+  REQUIRE(m[0] == 'B');
+  REQUIRE(m[10] == 'B');
+  REQUIRE(m[19] == 'B');
+  REQUIRE(m[20] == 'A');
+}
+
+TEST_CASE("FloatKey") {
+  interval_map<TestFloatKeyType, TestValueType> m('A');
+  m.assign(1.f, 5.f, 'B');
+  REQUIRE(m[0.f] == 'A');
+  REQUIRE(m[.999999999f] == 'B');
+  REQUIRE(m[1.f] == 'B');
+  REQUIRE(m[4.999f] == 'B');
+  REQUIRE(m[5.f] == 'A');
+}
+
+TEST_CASE("OverlappingRangeComplete") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(3, 5, 'B');
+  m.assign(1, 6, 'C');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'C');
+  REQUIRE(m[2] == 'C');
+  REQUIRE(m[3] == 'C');
+  REQUIRE(m[4] == 'C');
+  REQUIRE(m[5] == 'C');
+  REQUIRE(m[6] == 'A');
+}
+
+TEST_CASE("OverlappingRangeInner") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 6, 'C');
+  m.assign(3, 5, 'B');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'C');
+  REQUIRE(m[2] == 'C');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'B');
+  REQUIRE(m[5] == 'C');
+  REQUIRE(m[6] == 'A');
+}
+
+TEST_CASE("OverlappingRangeSmallToLarge") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 5, 'B');
+  m.assign(3, 6, 'C');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'C');
+  REQUIRE(m[4] == 'C');
+  REQUIRE(m[5] == 'C');
+  REQUIRE(m[6] == 'A');
+}
+
+TEST_CASE("OverlappingRangeLargeToSmall") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(3, 6, 'C');
+  m.assign(1, 5, 'B');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'B');
+  REQUIRE(m[5] == 'C');
+  REQUIRE(m[6] == 'A');
+}
+
+TEST_CASE("ExtendingRangeBegin") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(3, 5, 'B');
+  m.assign(1, 4, 'B');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'B');
+  REQUIRE(m[5] == 'A');
+}
+
+TEST_CASE("ExtendingRangeEnd") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 5, 'B');
+  m.assign(3, 6, 'B');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'B');
+  REQUIRE(m[5] == 'B');
+  REQUIRE(m[6] == 'A');
+}
+
+TEST_CASE("ExtendingRangeBothBeginEnd") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(2, 3, 'B');
+  m.assign(1, 5, 'B');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'B');
+  REQUIRE(m[5] == 'A');
+}
+
+TEST_CASE("OverwriteEndValueSafety") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(2, 5, 'B');
+  m.assign(5, 8, 'C');
+  m.assign(4, 5, 'A');
+}
+
+TEST_CASE("ReusingExistingRangeBothBeginEnd") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 5, 'B');
+  m.assign(2, 3, 'B');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'B');
+  REQUIRE(m[5] == 'A');
+}
+
+TEST_CASE("ReusingEnd") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 5, 'B');
+  m.assign(4, 6, 'A');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'B');
+  REQUIRE(m[2] == 'B');
+  REQUIRE(m[3] == 'B');
+  REQUIRE(m[4] == 'A');
+  REQUIRE(m[5] == 'A');
+}
+
+TEST_CASE("RestoringInitial") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 5, 'B');
+  m.assign(1, 5, 'A');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'A');
+  REQUIRE(m[2] == 'A');
+  REQUIRE(m[3] == 'A');
+  REQUIRE(m[4] == 'A');
+  REQUIRE(m[5] == 'A');
+}
+
+TEST_CASE("RestoringInitial2") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(1, 5, 'B');
+  m.assign(0, 7, 'A');
+  REQUIRE(m[0] == 'A');
+  REQUIRE(m[1] == 'A');
+  REQUIRE(m[2] == 'A');
+  REQUIRE(m[3] == 'A');
+  REQUIRE(m[4] == 'A');
+  REQUIRE(m[5] == 'A');
+}
+
+TEST_CASE("VeryComplex") {
+  interval_map<TestKeyType, TestValueType> m('A');
+  m.assign(3, 6, 'B');
+  m.assign(2, 5, 'C');
+  m.assign(4, 7, 'A');
+
+  m.print();
+  REQUIRE(m[1] == 'A');
+  REQUIRE(m[2] == 'C');
+  REQUIRE(m[3] == 'C');
+  REQUIRE(m[4] == 'A');
+  REQUIRE(m[5] == 'A');
+  REQUIRE(m[6] == 'A');
+  REQUIRE(m[7] == 'A');
+}
+
+/*
+
+int main() {
+
+  // IntervalMap<uint8_t, std::string> moo("A");
+  // moo.set_interval(1, 15, "B");
+  // std::cout << moo[255];
+
+  /\*std::array iterations{ 200, 300, 400, 500, 600, 700, 800, 900,
+1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 100000,
+200000, 300000, 400000, 500000}; for( auto& iteration : iterations)
+  {
+          IntervalMap<int, char> map{ 'P'};
+          auto start = std::chrono::system_clock::now();
+          for( size_t i = 0; i < iteration; ++i)
+          {
+                  auto [ begin, end, val] = generateInterval();
+                  map.set_interval( begin, end, val);
+          }
+          auto end = std::chrono::system_clock::now();
+          std::cout << iteration << ',' <<
+std::chrono::duration_cast<std::chrono::milliseconds>( end -
+start).count()
+                            <<'\n';
+  } *\/
+  interval_map<uint8_t, char> map('A');
+  map.assign(3, 5, 'B');
+  map.assign(4, 9, 'C');
+  map.assign(2, 4, 'D');
+  map.assign(1, 9, 'E');
+  map.assign(3, 7, 'E');
+  map.assign(2, 4, 'D');
+  map.assign(0, 9, 'D');
+  map.assign(0, 6, 'D');
+  map.assign(0, 4, 'B');
+  map.assign(0, 8, 'B');
+  map.assign(3, 7, 'B');
+  map.assign(3, 4, 'E');
+  map.assign(4, 9, 'E');
+  map.assign(0, 10, 'C');
+  map.assign(3, 9, 'A');
+  map.assign(3, 9, 'C');
+  map.assign(0, 2, 'C');
+  map.assign(2, 10, 'D');
+  map.assign(1, 5, 'B');
+  map.assign(3, 6, 'B');
+  map.assign(11, 14, 'B');
+  map.assign(-3, 0, 'C');
+  map.assign(-4, 14, 'C');
+  map.assign(7, 11, 'B');
+  map.assign(0, 10, 'C');
+  map.assign(-5, 0, 'X');
+  map.assign(2, 11, 'F');
+  map.assign(1, 7, 'F');
+  map.assign(0, 10, 'E');
+  //	std::cout << map[ -12] <<'\n';
+  return 0;
+}
+*/

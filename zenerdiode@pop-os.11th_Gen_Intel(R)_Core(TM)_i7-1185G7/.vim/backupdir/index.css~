@@ -1,0 +1,15 @@
+.gjs-clm-tags {'{
+       display: none;
+    }'}
+
+    .gjs-four-color {'{
+      color: #f45e43;
+    }'}
+
+    .gjs-logo-version {'{
+      background-color: #4b4e54;
+    }'}
+
+    .cke_toolbar.cke_toolbar {'{
+      min-height: 33px;
+    }'}

@@ -1,0 +1,77 @@
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+void insertInterval(map<int, pair<int, string>> &intervals, int start, int end,
+                    const string &label) {
+  // Find the position to insert the new interval
+  auto it = intervals.lower_bound(start);
+
+  // Adjust overlapping intervals
+  if (it != intervals.begin()) {
+    auto prev = std::prev(it);
+    if (prev->second.first > start) {
+      if (prev->second.first > end) {
+        int prevEnd = prev->second.first;
+        string prevLabel = prev->second.second;
+        prev->second.first = start;
+        intervals[end] = {prevEnd, prevLabel};
+      }
+      prev->second.first = start;
+    }
+  }
+
+  while (it != intervals.end() && it->first < end) {
+    if (it->first == start) {
+      it->second.first = start;
+      it = intervals.erase(it);
+    } else if (it->second.first <= end) {
+      it = intervals.erase(it);
+    } else {
+      it = intervals.erase(it);
+    }
+  }
+
+  intervals[start] = {end, label};
+}
+
+void printIntervals(const map<int, pair<int, string>> &intervals) {
+  for (const auto &interval : intervals) {
+    cout << interval.second.second << " [" << interval.first << ", "
+         << interval.second.first << ")\n";
+  }
+}
+
+int main() {
+  map<int, pair<int, string>> intervals;
+  // Initial interval covering the entire range
+  intervals[-std::numeric_limits<int>::max()] = {
+      std::numeric_limits<int>::max(), "X"};
+
+  insertInterval(intervals, 2, 7, "A");
+  insertInterval(intervals, 1, 4, "B");
+  insertInterval(intervals, 7, 9, "C");
+
+  cout << "Intervals after first set of insertions:\n";
+  printIntervals(intervals);
+
+  // Second set of test cases
+  intervals.clear();
+  intervals[-std::numeric_limits<int>::max()] = {
+      std::numeric_limits<int>::max(), "X"};
+
+  insertInterval(intervals, 2, 5, "A");
+  insertInterval(intervals, 1, 4, "B");
+  insertInterval(intervals, 7, 9, "C");
+  insertInterval(intervals, 6, 9, "B");
+  insertInterval(intervals, 9, 13, "B");
+
+  cout << "\nIntervals after second set of insertions:\n";
+  printIntervals(intervals);
+
+  return 0;
+}

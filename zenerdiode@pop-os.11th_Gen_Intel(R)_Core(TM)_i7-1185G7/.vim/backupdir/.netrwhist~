@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/zenerdiode/.vim'
+let g:netrw_dirhist_4='/home/zenerdiode/Downloads/church-builder/public'
+let g:netrw_dirhist_3='/tmp/assets'
+let g:netrw_dirhist_2='/home/zenerdiode/Desktop/SandBox/NCursesWorks/Clock Project'
+let g:netrw_dirhist_1='/etc/ssh'
+let g:netrw_dirhist_0='/home/zenerdiode/.config/fish'
+let g:netrw_dirhist_9='/home/zenerdiode/.config/fish/completions'
+let g:netrw_dirhist_8='/home/zenerdiode/.config/fish'
+let g:netrw_dirhist_7='/home/zenerdiode/.config/fish/conf.d'
+let g:netrw_dirhist_6='/home/zenerdiode/.config/fish'

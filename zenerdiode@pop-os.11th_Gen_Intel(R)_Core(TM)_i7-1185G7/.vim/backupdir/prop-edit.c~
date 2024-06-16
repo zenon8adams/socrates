@@ -1,0 +1,79 @@
+#include <MagickCore/MagickCore.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+int main(int argc, char **argv) {
+  ExceptionInfo *exception;
+
+  Image *image, *images, *resize_image, *thumbnails;
+
+  ImageInfo *image_info;
+
+  if (argc != 3) {
+    (void)fprintf(stdout, "Usage: %s image thumbnail\n", argv[0]);
+    exit(0);
+  }
+  /*
+    Initialize the image info structure and read an image.
+  */
+  MagickCoreGenesis(*argv, MagickTrue);
+  exception = AcquireExceptionInfo();
+  image_info = CloneImageInfo((ImageInfo *)NULL);
+  (void)strcpy(image_info->filename, argv[1]);
+  images = ReadImage(image_info, exception);
+  if (exception->severity != UndefinedException)
+    CatchException(exception);
+  if (images == (Image *)NULL)
+    exit(1);
+
+  /*
+    Convert the image to a thumbnail.
+  */
+  thumbnails = NewImageList();
+  while ((image = RemoveFirstImageFromList(&images)) != (Image *)NULL) {
+    //  resize_image =
+    //    CloneImage(image, image->rows, image->columns, MagickTrue, exception);
+    resize_image = ResizeImage(image, image->columns, image->rows,
+                               LanczosFilter, exception);
+    if (resize_image == (Image *)NULL)
+      MagickError(exception->severity, exception->reason,
+                  exception->description);
+
+    ResetImagePropertyIterator(resize_image);
+    const char *property = GetNextImageProperty(resize_image);
+    if (property != (const char *)NULL) {
+      /*
+        Display image properties.
+      */
+      (void)FormatLocaleFile(stdout, "  Properties:\n");
+      while (property != (const char *)NULL) {
+        (void)FormatLocaleFile(stdout, "    %s: ", property);
+        const char *value = GetImageProperty(resize_image, property, exception);
+        if (strcmp(property, "label") == 0 && strstr(value, "This")) {
+          SetImageProperty(resize_image, property,
+                           "This is How it is done here!", exception);
+        }
+        if (value != (const char *)NULL)
+          (void)FormatLocaleFile(stdout, "%s\n", value);
+        property = GetNextImageProperty(resize_image);
+      }
+    }
+    (void)AppendImageToList(&thumbnails, resize_image);
+    DestroyImage(image);
+  }
+  /*
+    Write the image thumbnail.
+  */
+  (void)strcpy(thumbnails->filename, argv[2]);
+  WriteImage(image_info, thumbnails, exception);
+  /*
+    Destroy the image thumbnail and exit.
+  */
+  thumbnails = DestroyImageList(thumbnails);
+  image_info = DestroyImageInfo(image_info);
+  exception = DestroyExceptionInfo(exception);
+  MagickCoreTerminus();
+  return (0);
+}

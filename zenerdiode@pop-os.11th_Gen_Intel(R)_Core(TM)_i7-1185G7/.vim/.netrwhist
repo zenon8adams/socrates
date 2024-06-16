@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/zener-diode/.vim/bundle/.vundle'
+let g:netrw_dirhist_9='/home/zener-diode/.vim/bundle/YouCompleteMe'
+let g:netrw_dirhist_8='/home/zener-diode/.vim/bundle'
+let g:netrw_dirhist_7='/home/zener-diode/CLionProjects/chalk/chalk'
+let g:netrw_dirhist_6='/home/zener-diode/CLionProjects/chalk/source/vendor/ansi-styles'
+let g:netrw_dirhist_5='/home/zener-diode/CLionProjects/chalk/source/vendor/supports-color'
+let g:netrw_dirhist_4='/home/zener-diode/Desktop/SandBox/Device Workspace/Misc/copywrite'
+let g:netrw_dirhist_3='/home/zener-diode/Desktop/SandBox/CPPLessons/Testings/Audinary/build'
+let g:netrw_dirhist_2='/home/zener-diode/Desktop/SandBox/CPPLessons/Testings/Audinary/include/server'
+let g:netrw_dirhist_1='/home/zener-diode/Desktop/SandBox/CPPLessons/Testings/Audinary/include'

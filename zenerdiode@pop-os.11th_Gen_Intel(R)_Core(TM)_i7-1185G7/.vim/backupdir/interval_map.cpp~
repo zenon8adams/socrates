@@ -1,0 +1,83 @@
+#include <iostream>
+#include <map>
+
+template <typename K, typename V> class interval_map {
+  V m_valBegin;
+
+public:
+  // constructor associates whole range of K with val
+  interval_map(V const &val) : m_valBegin(val) {
+    //		m_map.insert(m_map.end(),std::make_pair(std::numeric_limits<K>::lowest(),val));
+  }
+
+  // Assign value val to interval [keyBegin, keyEnd).
+  // Overwrite previous values in this interval.
+  // Conforming to the C++ Standard Library conventions, the interval
+  // includes keyBegin, but excludes keyEnd.
+  // If !( keyBegin < keyEnd ), this designates an empty interval,
+  // and assign must do nothing.
+  void assign(K const &keyBegin, K const &keyEnd, V const &val) {
+    if (!(keyBegin < keyEnd))
+      return;
+
+    auto ptr = m_map.lower_bound(keyBegin);
+    if (ptr == m_map.end()) {
+      m_map.emplace(keyBegin, val);
+      m_map.emplace(keyEnd, m_valBegin);
+      return;
+    }
+
+    auto begin = ptr;
+    auto next = ptr;
+    do {
+      if (next == m_map.end()) {
+        break;
+      }
+      if (keyEnd <= next->first) {
+        break;
+      }
+      ptr = next++;
+    } while (next != m_map.end());
+
+    auto is_first = ptr == m_map.begin();
+    auto is_endless = ptr == m_map.end();
+    // begin >= keyBegin
+    auto same_as_start = begin->first == keyBegin ? begin->second == val
+                         : is_first               ? m_valBegin == val
+                                                  : --begin->second == val;
+    auto same_as_end = is_endless ? m_valBegin == val : ptr->second == val;
+    if (same_as_start && same_as_end) {
+      // The endpoint spans into ++ptr.
+      m_map.erase(std::next(begin), is_endless ? ptr : std::next(ptr));
+    } else if (same_as_start) {
+      m_map.emplace(keyEnd, is_endless ? m_valBegin : ptr->second);
+      m_map.erase(ptr, is_endless ? ptr : std::next(ptr));
+    } else if (same_as_end) {
+      auto [pos, _] = m_map.emplace(keyBegin, val);
+      m_map.erase(std::next(pos), is_endless ? ptr : std::next(ptr));
+    } else {
+      auto [b, _] = m_map.emplace(keyBegin, val);
+      auto [e, __] =
+          m_map.emplace(keyEnd, is_first ? m_valBegin : begin->second);
+      m_map.erase(std::next(b), e);
+    }
+  }
+
+  void print() const {
+    for (auto [k, v] : m_map)
+      std::cout << '[' << k << ":" << v << "]\n";
+    std::cout << '\n';
+  }
+
+  // look-up of the value associated with key
+  V const &operator[](K const &key) const {
+    auto it = m_map.upper_bound(key);
+    if (it == m_map.begin()) {
+      return m_valBegin;
+    } else {
+      return (--it)->second;
+    }
+  }
+
+  std::map<K, V> m_map;
+};

@@ -1,0 +1,25 @@
+import readline from "node:readline/promises";
+import { createWorker, OEM } from "tesseract.js";
+
+(async () => {
+  const worker = await createWorker("eng", OEM.LSTM_ONLY);
+  const link = await prompt("Enter image url/path: ");
+  console.log("given link:", link);
+  const ret = await worker.recognize(link);
+  const blocks = ret.data.blocks;
+  console.log('Number of blocks:', blocks.length);
+  blocks.forEach((block) => {
+    console.log(`Block text: ${block.text}`, `Block bounding box: ${block.bbox}`);
+  });
+  await worker.terminate();
+  process.exit(0);
+})();
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+async function prompt(question) {
+  return await rl.question(question);
+}

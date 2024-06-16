@@ -1,0 +1,3 @@
+[submodule "zenerdiode@pop-os.11th_Gen_Intel(R)_Core(TM)_i7-1185G7/zenerdiode@pop-os.11th_Gen_Intel(R)_Core(TM)_i7-1185G7/.vim/bundle/ListToggle"]
+	path = zenerdiode@pop-os.11th_Gen_Intel(R)_Core(TM)_i7-1185G7/zenerdiode@pop-os.11th_Gen_Intel(R)_Core(TM)_i7-1185G7/.vim/bundle/ListToggle
+	url = https://github.com/Valloric/ListToggle.git

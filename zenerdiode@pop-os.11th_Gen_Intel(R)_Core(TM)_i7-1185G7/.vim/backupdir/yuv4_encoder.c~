@@ -1,0 +1,110 @@
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define WIDTH 800
+#define HEIGHT 600
+#define FPS 25
+#define DURATION 40
+#define MAX_DR 255
+#define FRAMES_COUNT (FPS * DURATION)
+#define PIXELS_SIZE (WIDTH * HEIGHT)
+
+typedef struct {
+  int y, cb, cr;
+} YCbCr;
+
+typedef struct {
+  int r, g, b;
+} Rgb;
+
+typedef struct {
+  int rx, ry, rw, rh;
+} Rect;
+
+Rect vrect(int rx, int ry, int rw, int rh) {
+  return (Rect){
+      .rx = rx,
+      .ry = ry,
+      .rw = rw,
+      .rh = rh,
+  };
+}
+
+YCbCr rgb_conveter(int r, int g, int b) {
+  return (YCbCr){
+      .y = 16 + (65.738 * r + 129.057 * g + 25.064 * b) / 256,
+      .cb = 128 + (-37.945 * r - 74.494 * g + 112.439 * b) / 256,
+      .cr = 128 + (112.439 * r - 94.154 * g - 18.285 * b) / 256,
+  };
+}
+
+void fill_rect_rgb(char canvas[], Rect rect, int color) {
+  for (int dy = 0; dy < rect.rh; dy++) {
+    for (int dx = 0; dx < rect.rw; dx++) {
+      int x = rect.rx + dx;
+      int y = rect.ry + dy;
+
+      if (WIDTH <= x && HEIGHT <= y) {
+        canvas[y * WIDTH + x] = color;
+      }
+    }
+  }
+}
+
+int lerp(int begin, int end, float fraction) {
+  return begin * fraction + (1.0f - fraction) * end;
+}
+
+void lerp_color(const Rgb *begin, const Rgb *end, float fraction, Rgb *color) {
+  color->r = lerp(begin->r, end->r, fraction);
+  color->g = lerp(begin->g, end->g, fraction);
+  color->b = lerp(begin->b, end->b, fraction);
+}
+
+void randomize_color(Rgb *color) {
+  color->r = rand() % MAX_DR;
+  color->g = rand() % MAX_DR;
+  color->b = rand() % MAX_DR;
+}
+
+int main(void) {
+  char canvas[WIDTH * HEIGHT];
+  YCbCr ycbcr;
+  FILE *file;
+  Rgb start_color, mid_color, end_color;
+  char pixels[PIXELS_SIZE];
+
+  file = fopen("output.y4m", "w");
+
+  srand(time(NULL));
+  randomize_color(&start_color);
+  randomize_color(&end_color);
+
+  fprintf(file, "YUV4MPEG2 W%d H%d F%d:1 Ip A1:1 C444\n", WIDTH, HEIGHT, FPS);
+  for (int frame = 0; frame < FRAMES_COUNT; frame++) {
+    fprintf(file, "FRAME\n");
+
+    randomize_color(&mid_color);
+    //   lerp_color(&start_color, &end_color, (float)frame / FRAMES_COUNT,
+    //              &mid_color);
+    ycbcr = rgb_conveter(mid_color.r, mid_color.g, mid_color.b);
+    memset(pixels, ycbcr.y, sizeof(pixels));
+    fwrite(pixels, sizeof(pixels), 1, file);
+
+    memset(pixels, ycbcr.cb, sizeof(pixels));
+    fwrite(pixels, sizeof(pixels), 1, file);
+
+    memset(pixels, ycbcr.cr, sizeof(pixels));
+    fwrite(pixels, sizeof(pixels), 1, file);
+
+    float progess = round((float)frame / FRAMES_COUNT * 100);
+    printf("%f%%\r", progess);
+    fflush(stdout);
+  }
+
+  fclose(file);
+  fprintf(stdout, "Generated output.y4m\n");
+}

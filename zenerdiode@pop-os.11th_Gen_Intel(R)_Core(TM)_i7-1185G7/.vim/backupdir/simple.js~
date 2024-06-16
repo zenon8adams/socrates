@@ -1,0 +1,21 @@
+const readline = require('readline');
+
+function readConsole() {
+    const rl = readline.createInterface(
+        {input: process.stdin, output: process.stdout});
+
+    return new Promise(resolve => {
+        rl.question('Enter your input:', (answer) => {
+            resolve(answer);
+            rl.close();
+        });
+    });
+}
+
+async function processInput() {
+    const input = await readConsole();
+    console.log(`You entered: ${input}`);
+}
+
+processInput();
+processInput();

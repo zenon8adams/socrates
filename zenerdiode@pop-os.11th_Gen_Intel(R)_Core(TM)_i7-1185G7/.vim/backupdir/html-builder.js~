@@ -1,0 +1,38 @@
+const Reader = Object.freeze({
+    TOKEN_START: Symbol('<'),
+    TOKEN_NAME: Symbol('[A-ZA-z_-]+'),
+    TOKEN_SINGLE_SCOPE: Symbol('\''),
+    TOKEN_DOUBLE_SCOPE: Symbol('"'),
+    TOKEN_TICK_SCOPE: Symbol('`'),
+    TOKEN_ESCAPE: Symbol('\\'),
+    TOKEN_PASS: Symbol(''),
+    TOKEN_PREPARE_END: Symbol('/'),
+    TOKEN_END: Symbol('>'),
+});
+
+const Machine = {
+
+};
+
+export function tryFix(source) {
+    const levelTracker = [];
+    const infoTracker  = {line: 0, tag: ''};
+
+    for (let i = 0; i < source.length; ++i) {
+        const value = source[i];
+    }
+}
+
+function makeTokenFrom(strm, index) {
+    if (strm[index] === Reader.TOKEN_START.description) {
+        return Reader.TOKEN_START;
+    } else if (strm[index] === Reader.TOKEN_PREPARE_END.description) {
+        return Reader.TOKEN_PREPARE_END;
+    } else if (strm[index] == Reader.TOKEN_END.description) {
+        return Reader.TOKEN_END;
+    } else if (isValidTagName(strm[index])) {
+        return Reader.TOKEN_NAME;
+    }
+
+    return Reader.TOKEN_PASS;
+}

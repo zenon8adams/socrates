@@ -1,0 +1,103 @@
+import gi
+import cairo
+gi.require_version("Gtk", "3.0")
+gi.require_version("GLib", "2.0")
+from gi.repository import Gtk, GLib, Gdk, GdkPixbuf
+import argparse
+
+MIN_MAX_WIDTH  = None
+MIN_MAX_HEIGHT = None
+
+class ImageViewer(Gtk.Window):
+    def __init__(self, image_path):
+        Gtk.Window.__init__(self, title="Image Viewer")
+        self.set_default_size(MIN_MAX_WIDTH, MIN_MAX_HEIGHT)
+
+        self.image = Gtk.Image()
+        self.add(self.image)
+        self.load_image(image_path)
+
+        self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, [], Gdk.DragAction.COPY)
+        self.drag_source_add_uri_targets()
+        self.connect("drag-data-get", self.on_drag_data_get)
+
+        self.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
+        self.drag_dest_add_uri_targets()
+        self.connect("drag-data-received", self.on_drag_data_received)
+
+    def do_get_preferred_height(self):
+        print('get_preffered_height') # So you can see when it's called
+        return MIN_MAX_HEIGHT, MIN_MAX_HEIGHT
+
+    def do_get_preferred_width(self):
+        print('get_preffered_width') # So you can see when it's called
+        return MIN_MAX_WIDTH, MIN_MAX_WIDTH
+
+    def do_get_request_mode(self):
+        print('do_get_request_mode')
+        return Gtk.SizeRequestMode.CONSTANT_SIZE
+    
+    def on_drag_data_received(self, widget, drag_context, x, y, data, info, time):
+        uris = data.get_uris()
+        if uris:
+            uri = uris[0]
+            self.load_image(uri)
+            drag_context.finish(True, False, time)
+
+    def load_image(self, path):
+        path = GLib.uri_unescape_string(path)
+        if path[-3:] == '://':
+            path = path[7:]
+
+        self.pixbuf = GdkPixbuf.Pixbuf.new_from_file(path)
+        self.image.set_from_pixbuf(self.pixbuf)
+
+    def on_drag_data_get(self, widget, drag_context, data, info, time):    
+        data.set_pixbuf(self.pixbuf)    
+
+def screen_changed(widget, old_screen, userdata=None):
+    global supports_alpha
+
+    screen = widget.get_screen()
+    visual = screen.get_rgba_visual()    
+    
+    if visual is None:    
+        print("Your screen does not support alpha channels!")    
+        visual = screen.get_system_visual()    
+        supports_alpha = False    
+    else:    
+        print("Your screen supports alpha channels!")    
+        supports_alpha = True    
+    
+    widget.set_visual(visual) 
+
+cmdline = argparse.ArgumentParser(description='An overlay window for dnd in pixzzle gnome extension')
+cmdline.add_argument('x', type=int, help='set window x position')
+cmdline.add_argument('y', type=int, help='set window y position')
+cmdline.add_argument('width', type=int, help='set window width')
+cmdline.add_argument('height', type=int, help='set window height')
+cmdline.add_argument('image', type=str, help='set image file to overlay')
+
+args = cmdline.parse_args()
+MIN_MAX_WIDTH  = args.width
+MIN_MAX_HEIGHT = args.height
+image_path     = args.image
+X_POS          = args.x
+Y_POS          = args.y
+
+print(f'width: {MIN_MAX_WIDTH}, height: {MIN_MAX_HEIGHT}, image: {image_path}')
+
+prov = Gtk.CssProvider()
+prov.load_from_path('style.css')
+
+win = ImageViewer(image_path)
+win.move(X_POS, Y_POS)
+win.get_style_context().add_provider(prov, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+#win.set_app_paintable(True)
+win.set_decorated(False)
+#win.connect("draw", expose_draw)
+win.connect("screen-changed", screen_changed)
+screen_changed(win, None, None)
+win.connect("destroy", Gtk.main_quit)
+win.show_all()
+Gtk.main()

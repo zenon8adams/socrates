@@ -1,0 +1,6 @@
+FROM ghcr.io/blakeblackshear/frigate:stable
+
+RUN python3 -m pip install --upgrade openvino
+
+ENTRYPOINT ["/init"]
+CMD []

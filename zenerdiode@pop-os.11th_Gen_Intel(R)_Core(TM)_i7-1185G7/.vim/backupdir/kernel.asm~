@@ -1,0 +1,39 @@
+;;; Basic kernel
+
+    ;;; Set video mode
+    mov ah, 0x00			 ; int 0x10/ ah 0x00 = set video mode
+    mov al, 0x02			 ; 80X25 text mode
+    int 0x10
+
+    ;; Set color palette
+    mov ah, 0x0b
+    mov bh, 0x00
+    mov bl, 0x01
+    int 0x10
+
+    mov ah, 0x0e            ; int 0x10/ ah 0x0e BIOS teletype output
+
+    mov bx, str0
+    call print_string
+
+    mov bx, str1
+    call print_string
+
+    mov bx, str2
+    call print_string
+
+    mov bx, 0x0123
+    call print_hex
+
+    ;; end program
+    hlt
+
+	include 'print-string.asm'
+	include 'print-hex.asm'
+    include 'disk-load.asm'
+
+str0: db 'Hello World!', 0xA, 0xD, 0
+str1: db 'This is how BIOS programming is done.', 0xA, 0xD, 0
+str2: db 'Hex code: ', 0
+
+    times 510-($-$$) db 0  ; pads out 0s until it reachs 510th byte

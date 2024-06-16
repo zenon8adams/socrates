@@ -1,0 +1,18 @@
+{
+  "name": "pixzzle",
+  "description": "Your interactive screenshot manager",
+  "uuid": "pixzzle@zenon8adams.gmail.com",
+  "schema_name": "org.gnome.shell.extensions.pixzzle",
+  "gettext-domain": "pixzzle",
+  "shell-version": [
+<<<<<<< Updated upstream
+    "42"
+=======
+    "42",
+    "41",
+    "40"
+>>>>>>> Stashed changes
+  ],
+  "url": "https://github.com/zenon8adams/pixzzle",
+  "version": "v1-alpha3"
+}

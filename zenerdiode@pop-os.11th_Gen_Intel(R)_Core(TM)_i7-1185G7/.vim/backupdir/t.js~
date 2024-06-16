@@ -1,0 +1,20 @@
+const shortpath = '/usr/bin/file.png';
+const base      = 'file.png';
+for (let i = 0; i < 10; ++i) {
+    process.stdout.write(
+        '\x1B[2K' +
+        'The file found at ' + shortpath +
+        '\x1B[1B\x1B[10000D\x1B[2Khas been selected as a match for the file: ' +
+        base + ' with version: ' +
+        'v2.13.0' +
+        '\x1B[1A\x1B[10000D');
+    sleep(100);
+}
+process.stdout.write('\x1B[2B\x1B[2K');
+
+function sleep(ms) {
+    var start = new Date().getTime(), expire = start + ms;
+    while (new Date().getTime() < expire) {
+    }
+    return;
+}

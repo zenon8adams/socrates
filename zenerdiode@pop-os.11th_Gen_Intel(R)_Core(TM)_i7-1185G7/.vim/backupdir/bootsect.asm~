@@ -1,0 +1,23 @@
+;;; Simple boot loader
+	org 0x7c00			    ; Origin of boot code
+
+    ;; set up DX register for disk loading
+    mov dh, 1               ; # of sectors to load into memory
+    mov dl, 0               ; driver number to load
+
+    ;; set up ES:BX memory address segment:offset to load sector(s) into
+    mov bx, 0x1000          ; load sector to memory address 0x1000
+    mov es, bx
+    mov bx, 0               ; ES:BX = 0x1000:0
+    call disk_load          ; loads kernel into memory
+
+    mov ax, 0x1000
+    mov ds, ax
+    jmp 0x1000:0x00
+
+    include 'printer/print-string.asm'
+    include 'disk-load.asm'
+
+    times 510-($-$$) db 0
+
+    dw 0xaa55

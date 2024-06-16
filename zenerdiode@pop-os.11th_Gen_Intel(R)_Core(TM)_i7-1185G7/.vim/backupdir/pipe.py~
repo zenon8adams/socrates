@@ -1,0 +1,62 @@
+import os
+import gi   
+import time
+gi.require_version('Gtk', '3.0')    
+gi.require_version('Wnck', '3.0')
+from gi.repository import Gtk, Wnck, GLib
+
+
+if not os.path.exists('/tmp/.sync'):
+    os.mkfifo('/tmp/.sync')
+if not os.path.exists('/tmp/.chan'):
+    os.mkfifo('/tmp/.chan')
+
+# Open in read-write mode
+# reader = os.open('/tmp/.sync', os.O_RDONLY)
+# writer = os.open('/tmp/.chan', os.O_WRONLY)
+timeout_id = None
+
+def do_window_opened(this_screen: Wnck.Screen, opened_window: Wnck.Window):    
+    print('hello')                                
+    app: Wnck.Application = opened_window.get_application()    
+    app_name = app.get_name()    
+    print('app name -> ' + app_name)                   
+    print('window name -> ' + opened_window.get_name())    
+                        
+def do_window_closed(this_screen: Wnck.Screen, opened_window: Wnck.Window):    
+    print('hello')                                
+    app: Wnck.Application = opened_window.get_application()    
+    print('window name -> ', opened_window.get_xid())    
+                        
+def repeat_action(screen: Wnck.Screen):
+    global timeout_id, extension
+    try:
+        os.read(reader, 1)
+        windows = []
+        for window in screen.get_windows():    
+            print(window.get_name(), window.get_geometry()) 
+            xid = window.get_xid()
+            x, y, width, height = window.get_geometry()
+            windows.append(str(xid) + ' ' + str(x) + ' ' + str(y) + ' ' + str(width) + ' ' + str(height))
+
+        os.write(writer, str.encode(';'.join(windows)))
+
+        GLib.Source.remove(timeout_id)
+        timeout_id = GLib.timeout_add(2000, repeat_action, screen)
+    except BrokenPipeError:
+        exit(-1)
+
+Gtk.init([])  # necessary only if not using a Gtk.main() loop    
+screen: Wnck.Screen = Wnck.Screen.get_default()    
+screen.force_update()
+screen.connect('window-opened', do_window_opened)     
+screen.connect('window-closed', do_window_closed)
+
+timeout_id = GLib.timeout_add(300, repeat_action, screen)
+print("Initialized...")
+
+Gtk.main()
+
+window = None                                                            
+screen = None                                                              
+Wnck.shutdown()                                                          

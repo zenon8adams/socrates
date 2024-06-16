@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <linux/netlink.h>
+#include <linux/sock_diag.h>
+#include <linux/inet_diag.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+
+int main() {
+	int fd;
+	struct sockaddr_nl sa;
+	struct {
+		struct nlmsghdr nlh;
+		struct inet_diag_req_v2 r;
+	} req;
+
+	fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_SOCK_DIAG);
+	if (fd == -1) {
+		perror("socket");
+		return EXIT_FAILURE;
+	}
+
+	memset(&sa, 0, sizeof(sa));
+	sa.nl_family = AF_NETLINK;
+
+	memset(&req, 0, sizeof(req));
+	req.nlh.nlmsg_len	 = NLMSG_LENGTH(sizeof(req.r));
+	req.nlh.nlmsg_type	 = SOCK_DIAG_BY_FAMILY;
+	req.nlh.nlmsg_flags	 = NLM_F_DUMP | NLM_F_REQUEST;
+	req.r.sdiag_family	 = AF_UNSPEC;	// Listen to all families
+	req.r.sdiag_protocol = IPPROTO_TCP; // Only interested in TCP sockets
+	req.r.idiag_states	 = -1;			// All states
+
+	if (sendto(fd, &req, sizeof(req), 0, (struct sockaddr *)&sa, sizeof(sa)) ==
+		-1) {
+		perror("sendto");
+		return EXIT_FAILURE;
+	}
+
+	while (1) {
+		char buf[8192];
+		struct nlmsghdr *nh;
+		size_t len;
+
+		len = recv(fd, buf, sizeof(buf), 0);
+		if (len == -1U) {
+			perror("recv");
+			continue; // If there's an error, try again
+		}
+
+		for (nh = (struct nlmsghdr *)buf; NLMSG_OK(nh, len);
+			 nh = NLMSG_NEXT(nh, len)) {
+			struct inet_diag_msg *msg = (struct inet_diag_msg *)NLMSG_DATA(nh);
+			struct sockaddr_in src, dst;
+
+			memset(&src, 0, sizeof(src));
+			memset(&dst, 0, sizeof(dst));
+			src.sin_family = dst.sin_family = msg->idiag_family;
+			memcpy(&src.sin_addr, &msg->id.idiag_src[0], sizeof(src.sin_addr));
+			memcpy(&dst.sin_addr, &msg->id.idiag_dst[0], sizeof(dst.sin_addr));
+
+			printf("Source IP: %s\n", inet_ntoa(src.sin_addr));
+			printf("Destination IP: %s\n", inet_ntoa(dst.sin_addr));
+			printf("Source Port: %d\n", ntohs(msg->id.idiag_sport));
+			printf("Destination Port: %d\n", ntohs(msg->id.idiag_dport));
+			printf("Socket inode: %u\n", msg->idiag_inode);
+		}
+
+		sleep(1); // Wait for a second before the next iteration
+	}
+
+	close(fd);
+	return EXIT_SUCCESS;
+}

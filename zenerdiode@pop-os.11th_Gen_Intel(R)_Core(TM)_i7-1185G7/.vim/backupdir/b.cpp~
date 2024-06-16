@@ -1,0 +1,8 @@
+#include "point.h"
+
+constexpr Point createPoint( double x, double y)
+{
+    return { x, y};
+}
+
+constinit Point center = createPoint( 100, 200);

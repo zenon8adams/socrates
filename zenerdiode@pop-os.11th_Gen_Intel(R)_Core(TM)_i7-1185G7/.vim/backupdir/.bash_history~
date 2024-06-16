@@ -1,0 +1,500 @@
+yarn run dev
+cd ~/~Mk./external/WebApp/backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+set -o allexport; source .env; set +o allexport
+yarn dev
+ls
+fish
+set -o allexport; source .env; set +o allexport
+git status
+git restore --staged .env
+cat .env
+git status
+git resotre .env
+git restore .env
+vim .env
+cat .env
+git rm -fd .env
+git rm -f .env
+git status
+ls
+vim .env
+vim .gitignore 
+cd env/
+ls
+cd ..
+ls
+git status
+git add .gitignore 
+ls
+set -o allexport; source .env; set +o allexport
+yarn dev
+vim v
+vim .env
+set -o allexport; source .env; set +o allexport
+yarn dev
+git log
+fish
+set -o allexport; source .env; set +o allexport
+yarn dev
+yarn install
+history
+history533
+npx prisma migrate dev
+fish
+npx prisma migrate dev
+ls
+git status
+yarn seed
+git status
+set -o allexport; source .env; set +o allexport
+yarn dev
+code .
+fish
+npx prisma migrate dev
+yarn dev
+npx prisma migrate dev
+ls
+psql -U postgres
+npx prisma migrate dev
+set -o allexport; source .env; set +o allexport
+yarn dev
+yarn seed
+yarn dev
+psql -U postgres
+set -o allexport; source .env; set +o allexport
+npx prisma migrate dev
+yarn seed
+yarn dev
+exit
+set -o allexport; source .env; set +o allexport
+cd backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+clear
+yarn dev
+clear
+yarn dev
+npx ts-node '/home/zenerdiode/Mk./external/WebApp/backend/src/services/forcast-service/dto.forcasts.ts'
+yarn dev
+clear
+yarn dev
+yarn seed
+yarn dev
+man a
+man printf
+clear
+yarn dev
+set -o allexport; source .env; set +o allexport
+yarn dev
+set -o allexport; source .env; set +o allexport
+yarn dev
+clear
+yarn dev
+clear
+yarn dev
+set -o allexport; source .env; set +o allexport
+clear
+npx prisma migrate dev
+yarn seed
+clear
+yarn dev
+npx prisma migrate dev
+./dbCodegen.sh 
+clear
+yarn dev
+go install tbls
+go install tbls@latest
+go install github.com/k1LoW/tbls@latest
+go install github.com/k1LoW/tbls
+go install github.com/k1LoW/tbls@latest
+npx prisma migrate dev
+./dbCodegen.sh 
+go install github.com/k1LoW/tbls@1.70
+go install github.com/k1LoW/tbls@1.71.1
+go install github.com/k1LoW/tbls@1
+go install github.com/k1LoW/tbls@v1.70
+vim ~/.bashrc
+source ~/.bashrc
+yq
+locate yq
+find ~/go/ -iname "yq*"
+/home/zenerdiode/go/pkg/mod/github.com/mikefarah/yq
+file /home/zenerdiode/go/pkg/mod/cache/download/github.com/mikefarah/yq
+file /home/zenerdiode/go/pkg/mod/cache/download/sumdb/sum.golang.org/lookup/github.com/mikefarah/yq
+tail ~/.bashrc
+go run yq
+file /usr/lib/go-1.18/src/yq
+ls /usr/lib/go-1.18/src/yq
+go run yq
+go mod yq
+go help
+go install yq
+go install yq@latest
+wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq &&    chmod +x /usr/bin/yq
+sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq &&    chmod +x /usr/bin/yq
+sudo VERSION=v4.2.0 BINARY=yq_linux_amd64 wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |  tar xz && mv ${BINARY} /usr/bin/yq
+VERSION=v4.2.0 BINARY=yq_linux_amd64 wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O -
+sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&    chmod +x /usr/bin/yq
+file /usr/bin/yq
+yq
+sudo chomd +x /usr/bin/yq
+sudo chmod +x /usr/bin/yq
+yq
+$ go install github.com/k1LoW/tbls@latest
+go install github.com/k1LoW/tbls@latest
+go install github.com/k1LoW/tbls@v1.73.3
+go install github.com/k1LoW/tbls@v1.72
+go install github.com/k1LoW/tbls@v1.72.1
+which go
+sudo rm -rf /usr/bin/go && tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
+wget https://go.dev/dl/go1.22.1.linux-amd64.tar.gz /tmp
+ls
+sudo rm -rf /usr/bin/go && tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
+sudo rm -rf /usr/bin/go
+xdg-open go1.22.1.linux-amd64.tar.gz 
+fish
+source ~/.bashrc
+history
+go install github.com/k1LoW/tbls@v1.72.1
+go install github.com/k1LoW/tbls@latest
+tbls
+set -o allexport; source .env; set +o allexport
+./dbCodegen.sh 
+yarn dev
+set -o allexport; source .env; set +o allexport
+yarn dev
+clear
+set -o allexport; source .env; set +o allexport
+yarn dev
+clear
+set -o allexport; source .env; set +o allexport
+cd backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+clear
+clear && yarn dev
+clear
+clear && yarn dev
+clear
+exit
+redis-cli
+clear
+sudo apt install lsb-release curl gpg
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+sudo apt-get update
+sudo apt-get install redis
+redis-cli
+systemctl restart redis
+set -o allexport; source .env; set +o allexport
+cd backend/
+set -o allexport; source .env; set +o allexport
+clear && yarn dev
+set -o allexport; source .env; set +o allexport
+clear && yarn dev
+clear
+clear && yarn dev
+set -o allexport; source .env; set +o allexport
+clear && yarn dev
+history 
+/home/zenerdiode/~Mk./external/WebApp/backend
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+ls
+set -o allexport; source .env; set +o allexport
+yarn dev
+set -o allexport; source .env; set +o allexport
+cd backend/
+set -o allexport; source .env; set +o allexport
+npx prisma migrate dev
+./dbCodegen.sh 
+tbls
+locate tbls
+find ~/go -iname "tbls"
+vim ~/.bashrc
+source ~/.bashrc
+tlbs
+tbls
+./dbCodegen.sh 
+yarn seed
+yarn dev
+exit
+cd /home/zenerdiode/~Mk./external/WebApp/
+set -o allexport; source .env; set +o allexport
+cd backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+yarn seed
+ls
+tput 
+ls
+fish
+set -o allexport; source .env; set +o allexport
+pwd
+vim .env
+fish
+set -o allexport; source .env; set +o allexport
+yarn dev
+fish
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+set -o allexport; source .env; set +o allexport
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+set -o allexport; source .env; set +o allexport
+yarn dev
+set -o allexport; source .env; set +o allexport
+yarn seed
+cat package.json
+yarn migrate
+yarn seed
+yarn dev
+yarn migrate && yarn seed && yarn dev
+yarn migrate && yarn generate && yarn dev
+history
+yarn seed
+yarn dev
+tput reset
+yarn migrate && yarn seed && yarn dev
+git status
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+ls
+set -o allexport; source .env; set +o allexport
+ls
+la
+ls -l
+ls
+git status
+fish
+set -o allexport; source .env; set +o allexport
+ls
+cat > .env
+ls
+set -o allexport; source .env; set +o allexport
+yarn dev
+yarn install
+npm install
+yarn install
+fish
+ls
+yarn dev
+vim .env
+psql -u postgres
+psql -U postgres
+set -o allexport; source .env; set +o allexport
+yarn dev
+~/~Mk./external/WebApp/
+cd ~/~Mk./external/WebApp/
+set -o allexport; source .env; set +o allexport
+cd backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp
+ls
+set -o allexport; source .env; set +o allexport
+ls
+cd backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+set -o allexport; source .env; set +o allexport
+yarn dev
+cd ~/~Mk./external/WebApp/
+ls
+set -o allexport; source .env; set +o allexport
+yarn dev
+cd backend/
+set -o allexport; source .env; set +o allexport
+yarn dev
+psql -U postgres
+history
+yarn migrate && yarn seed && yarn dev
+git pull
+git
+psql -U postgres
+yarn migrate && yarn seed && yarn dev
+psql -U postgres
+yarn migrate && yarn seed && yarn dev
+fish
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+ls
+set -o allexport; source .env; set +o allexport
+yarn dev
+ls
+git status
+ls
+fish
+set -o allexport; source .env; set +o allexport
+yarn migrate && yarn seed && yarn dev
+code .
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+ls
+set -o allexport; source .env; set +o allexport
+yarn dev
+fish
+printf '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg\n%.0s' {1..60}
+ls
+fish
+ls
+cd \~runners/
+ls
+printf '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg\n%.0s' {1..60} | ./y4m in.y4m
+printf '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg\n%.0s' {1} | ./y4m in.y4m
+printf '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg\n' | ./y4m in.y4m
+echo '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg' | ./y4m in.y4m
+echo '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg' | ./y4m 
+echo '/home/zenerdiode/Downloads/world-earth-planet-globe-45208.jpeg' | ./y4m in.y4m
+fish
+clear
+set -o allexport; source .env; set +o allexport;
+cd backend/
+set -o allexport; source .env; set +o allexport;
+npx prisma migrate dev
+npm install -g npm@10.5.2
+yarn dev
+yarn seed
+yarn dev
+clear
+set -o allexport; source .env; set +o allexport;
+yarn dev
+clear
+yarn dev
+clear
+yarn dev
+clear
+yarn dev
+clear
+set -o allexport; source .env; set +o allexport;
+yarn dev
+set -o allexport; source .env; set +o allexport;
+yarn dev
+clear
+yarn dev
+clear
+yarn dev
+cd /home/zenerdiode/~Mk./external/WebApp/backend
+ls
+set -o allexport; source .env; set +o allexport;
+yarn dev
+git pull
+ls
+psql -U postgres
+npx prisma migrate dev
+tput reset
+psql -U postgres
+npx prisma migrate dev
+ls
+fish
+set -o allexport; source .env; set +o allexport;
+npx prisma migrate dev
+yarn seed
+yarn dev
+set -o allexport; source .env; set +o allexport;
+yarn seed
+set -o allexport; source .env; set +o allexport;
+yarn seed
+echo $DEBUG_SQL
+yarn dev
+set -o allexport; source .env; set +o allexport;
+yarn dev
+. /opt/RubyMine-2023.3.6/bin/rubymine.sh
+cd ~Mk./external/WebApp/backend/
+set -o allexport; source .env; set +o allexport;
+yarn seed
+clear
+fish
+LC_ALL=C LD_LIBRARY_PATH='' PATH=/app/bin:/usr/bin HOME=/home/zenerdiode USER=zenerdiode LOGNAME=zenerdiode XDG_CACHE_HOME=/home/zenerdiode/.var/app/org.gnome.Boxes/config/libvirt/qemu/lib/domain-6-gnomenightly-2/.cache /app/bin/qemu-system-x86_64 -name guest=gnomenightly-2,debug-threads=on -S -object '{"qom-type":"secret","id":"masterKey0","format":"raw","file":"/home/zenerdiode/.var/app/org.gnome.Boxes/config/libvirt/qemu/lib/domain-6-gnomenightly-2/master-key.aes"}' -blockdev '{"driver":"file","filename":"/app/share/qemu/edk2-x86_64-secure-code.fd","node-name":"libvirt-pflash0-storage","auto-read-only":true,"discard":"unmap"}' -blockdev '{"node-name":"libvirt-pflash0-format","read-only":true,"driver":"raw","file":"libvirt-pflash0-storage"}' -blockdev '{"driver":"file","filename":"/home/zenerdiode/.var/app/org.gnome.Boxes/config/libvirt/qemu/nvram/gnomenightly-2_VARS.fd","node-name":"libvirt-pflash1-storage","auto-read-only":true,"discard":"unmap"}' -blockdev '{"node-name":"libvirt-pflash1-format","read-only":false,"driver":"raw","file":"libvirt-pflash1-storage"}' -machine pc-q35-7.2,usb=off,smm=on,dump-guest-core=off,memory-backend=pc.ram,pflash0=libvirt-pflash0-format,pflash1=libvirt-pflash1-format -accel kvm -cpu host,migratable=on -global driver=cfi.pflash01,property=secure,value=on -m 4096 -object '{"qom-type":"memory-backend-ram","id":"pc.ram","size":4294967296}' -overcommit mem-lock=off -smp 8,sockets=1,dies=1,cores=4,threads=2 -uuid b2b0b0ff-a0e5-42aa-bfd0-b42e3a96b5d4 -no-user-config -nodefaults -chardev socket,id=charmonitor,fd=23,server=on,wait=off -mon chardev=charmonitor,id=monitor,mode=control -rtc base=localtime,driftfix=slew -global kvm-pit.lost_tick_policy=delay -no-hpet -no-shutdown -global ICH9-LPC.disable_s3=1 -global ICH9-LPC.disable_s4=1 -boot menu=on,strict=on -device '{"driver":"pcie-root-port","port":16,"chassis":1,"id":"pci.1","bus":"pcie.0","multifunction":true,"addr":"0x2"}' -device '{"driver":"pcie-root-port","port":17,"chassis":2,"id":"pci.2","bus":"pcie.0","addr":"0x2.0x1"}' -device '{"driver":"pcie-root-port","port":18,"chassis":3,"id":"pci.3","bus":"pcie.0","addr":"0x2.0x2"}' -device '{"driver":"pcie-root-port","port":19,"chassis":4,"id":"pci.4","bus":"pcie.0","addr":"0x2.0x3"}' -device '{"driver":"pcie-root-port","port":20,"chassis":5,"id":"pci.5","bus":"pcie.0","addr":"0x2.0x4"}' -device '{"driver":"ich9-usb-ehci1","id":"usb","bus":"pcie.0","addr":"0x1d.0x7"}' -device '{"driver":"ich9-usb-uhci1","masterbus":"usb.0","firstport":0,"bus":"pcie.0","multifunction":true,"addr":"0x1d"}' -device '{"driver":"ich9-usb-uhci2","masterbus":"usb.0","firstport":2,"bus":"pcie.0","addr":"0x1d.0x1"}' -device '{"driver":"ich9-usb-uhci3","masterbus":"usb.0","firstport":4,"bus":"pcie.0","addr":"0x1d.0x2"}' -device '{"driver":"virtio-serial-pci","id":"virtio-serial0","bus":"pci.2","addr":"0x0"}' -blockdev '{"driver":"file","filename":"/home/zenerdiode/.var/app/org.gnome.Boxes/data/gnome-boxes/images/gnomenightly-2","node-name":"libvirt-2-storage","cache":{"direct":false,"no-flush":false},"auto-read-only":true,"discard":"unmap"}' -blockdev '{"node-name":"libvirt-2-format","read-only":false,"discard":"unmap","cache":{"direct":false,"no-flush":false},"driver":"qcow2","file":"libvirt-2-storage","backing":null}' -device '{"driver":"virtio-blk-pci","bus":"pci.3","addr":"0x0","drive":"libvirt-2-format","id":"virtio-disk0","bootindex":1,"write-cache":"on"}' -device '{"driver":"ide-cd","bus":"ide.2","id":"sata0-0-2"}' -netdev '{"type":"user","id":"hostnet0"}' -device '{"driver":"virtio-net-pci","netdev":"hostnet0","id":"net0","mac":"52:54:00:66:6f:93","bus":"pci.1","addr":"0x0"}' -chardev pty,id=charserial0 -device '{"driver":"isa-serial","chardev":"charserial0","id":"serial0","index":0}' -chardev spicevmc,id=charchannel0,name=vdagent -device '{"driver":"virtserialport","bus":"virtio-serial0.0","nr":1,"chardev":"charchannel0","id":"channel0","name":"com.redhat.spice.0"}' -chardev spiceport,id=charchannel1,name=org.spice-space.webdav.0 -device '{"driver":"virtserialport","bus":"virtio-serial0.0","nr":2,"chardev":"charchannel1","id":"channel1","name":"org.spice-space.webdav.0"}' -device '{"driver":"usb-tablet","id":"input0","bus":"usb.0","port":"1"}' -audiodev '{"id":"audio1","driver":"spice"}' -spice port=0,disable-ticketing=on,image-compression=off,seamless-migration=on -device '{"driver":"virtio-vga","id":"video0","max_outputs":1,"bus":"pcie.0","addr":"0x1"}' -device '{"driver":"ich9-intel-hda","id":"sound0","bus":"pcie.0","addr":"0x1b"}' -device '{"driver":"hda-duplex","id":"sound0-codec0","bus":"sound0.0","cad":0,"audiodev":"audio1"}' -chardev spicevmc,id=charredir0,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir0","id":"redir0","bus":"usb.0","port":"2"}' -chardev spicevmc,id=charredir1,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir1","id":"redir1","bus":"usb.0","port":"3"}' -chardev spicevmc,id=charredir2,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir2","id":"redir2","bus":"usb.0","port":"4"}' -chardev spicevmc,id=charredir3,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir3","id":"redir3","bus":"usb.0","port":"5"}' -device '{"driver":"virtio-balloon-pci","id":"balloon0","bus":"pci.4","addr":"0x0"}' -sandbox on,obsolete=deny,elevateprivileges=deny,spawn=deny,resourcecontrol=deny -msg timestamp=on
+char device redirected to /dev/pts/1 (label charserial0)
+2024-02-14T01:07:53.516275Z qemu-system-x86_64: terminating on signal 15 from pid 30 (/app/sbin/virtqemud)
+2024-02-14 01:07:53.716+0000: shutting down, reason=destroyed
+2024-02-14 01:07:56.272+0000: starting up libvirt version: 9.0.0, qemu version: 7.2.0, kernel: 6.2.6-76060206-generic, hostname: pop-os.localdomain
+LC_ALL=C LD_LIBRARY_PATH='' PATH=/app/bin:/usr/bin HOME=/home/zenerdiode USER=zenerdiode LOGNAME=zenerdiode XDG_CACHE_HOME=/home/zenerdiode/.var/app/org.gnome.Boxes/config/libvirt/qemu/lib/domain-7-gnomenightly-2/.cache /app/bin/qemu-system-x86_64 -name guest=gnomenightly-2,debug-threads=on -S -object '{"qom-type":"secret","id":"masterKey0","format":"raw","file":"/home/zenerdiode/.var/app/org.gnome.Boxes/config/libvirt/qemu/lib/domain-7-gnomenightly-2/master-key.aes"}' -blockdev '{"driver":"file","filename":"/app/share/qemu/edk2-x86_64-secure-code.fd","node-name":"libvirt-pflash0-storage","auto-read-only":true,"discard":"unmap"}' -blockdev '{"node-name":"libvirt-pflash0-format","read-only":true,"driver":"raw","file":"libvirt-pflash0-storage"}' -blockdev '{"driver":"file","filename":"/home/zenerdiode/.var/app/org.gnome.Boxes/config/libvirt/qemu/nvram/gnomenightly-2_VARS.fd","node-name":"libvirt-pflash1-storage","auto-read-only":true,"discard":"unmap"}' -blockdev '{"node-name":"libvirt-pflash1-format","read-only":false,"driver":"raw","file":"libvirt-pflash1-storage"}' -machine pc-q35-7.2,usb=off,smm=on,dump-guest-core=off,memory-backend=pc.ram,pflash0=libvirt-pflash0-format,pflash1=libvirt-pflash1-format -accel kvm -cpu host,migratable=on -global driver=cfi.pflash01,property=secure,value=on -m 4096 -object '{"qom-type":"memory-backend-ram","id":"pc.ram","size":4294967296}' -overcommit mem-lock=off -smp 8,sockets=1,dies=1,cores=4,threads=2 -uuid b2b0b0ff-a0e5-42aa-bfd0-b42e3a96b5d4 -no-user-config -nodefaults -chardev socket,id=charmonitor,fd=23,server=on,wait=off -mon chardev=charmonitor,id=monitor,mode=control -rtc base=localtime,driftfix=slew -global kvm-pit.lost_tick_policy=delay -no-hpet -no-shutdown -global ICH9-LPC.disable_s3=1 -global ICH9-LPC.disable_s4=1 -boot menu=on,strict=on -device '{"driver":"pcie-root-port","port":16,"chassis":1,"id":"pci.1","bus":"pcie.0","multifunction":true,"addr":"0x2"}' -device '{"driver":"pcie-root-port","port":17,"chassis":2,"id":"pci.2","bus":"pcie.0","addr":"0x2.0x1"}' -device '{"driver":"pcie-root-port","port":18,"chassis":3,"id":"pci.3","bus":"pcie.0","addr":"0x2.0x2"}' -device '{"driver":"pcie-root-port","port":19,"chassis":4,"id":"pci.4","bus":"pcie.0","addr":"0x2.0x3"}' -device '{"driver":"pcie-root-port","port":20,"chassis":5,"id":"pci.5","bus":"pcie.0","addr":"0x2.0x4"}' -device '{"driver":"ich9-usb-ehci1","id":"usb","bus":"pcie.0","addr":"0x1d.0x7"}' -device '{"driver":"ich9-usb-uhci1","masterbus":"usb.0","firstport":0,"bus":"pcie.0","multifunction":true,"addr":"0x1d"}' -device '{"driver":"ich9-usb-uhci2","masterbus":"usb.0","firstport":2,"bus":"pcie.0","addr":"0x1d.0x1"}' -device '{"driver":"ich9-usb-uhci3","masterbus":"usb.0","firstport":4,"bus":"pcie.0","addr":"0x1d.0x2"}' -device '{"driver":"virtio-serial-pci","id":"virtio-serial0","bus":"pci.2","addr":"0x0"}' -blockdev '{"driver":"file","filename":"/home/zenerdiode/.var/app/org.gnome.Boxes/data/gnome-boxes/images/gnomenightly-2","node-name":"libvirt-2-storage","cache":{"direct":false,"no-flush":false},"auto-read-only":true,"discard":"unmap"}' -blockdev '{"node-name":"libvirt-2-format","read-only":false,"discard":"unmap","cache":{"direct":false,"no-flush":false},"driver":"qcow2","file":"libvirt-2-storage","backing":null}' -device '{"driver":"virtio-blk-pci","bus":"pci.3","addr":"0x0","drive":"libvirt-2-format","id":"virtio-disk0","bootindex":1,"write-cache":"on"}' -device '{"driver":"ide-cd","bus":"ide.2","id":"sata0-0-2"}' -netdev '{"type":"user","id":"hostnet0"}' -device '{"driver":"virtio-net-pci","netdev":"hostnet0","id":"net0","mac":"52:54:00:66:6f:93","bus":"pci.1","addr":"0x0"}' -chardev pty,id=charserial0 -device '{"driver":"isa-serial","chardev":"charserial0","id":"serial0","index":0}' -chardev spicevmc,id=charchannel0,name=vdagent -device '{"driver":"virtserialport","bus":"virtio-serial0.0","nr":1,"chardev":"charchannel0","id":"channel0","name":"com.redhat.spice.0"}' -chardev spiceport,id=charchannel1,name=org.spice-space.webdav.0 -device '{"driver":"virtserialport","bus":"virtio-serial0.0","nr":2,"chardev":"charchannel1","id":"channel1","name":"org.spice-space.webdav.0"}' -device '{"driver":"usb-tablet","id":"input0","bus":"usb.0","port":"1"}' -audiodev '{"id":"audio1","driver":"spice"}' -spice port=0,disable-ticketing=on,image-compression=off,seamless-migration=on -device '{"driver":"virtio-vga","id":"video0","max_outputs":1,"bus":"pcie.0","addr":"0x1"}' -device '{"driver":"ich9-intel-hda","id":"sound0","bus":"pcie.0","addr":"0x1b"}' -device '{"driver":"hda-duplex","id":"sound0-codec0","bus":"sound0.0","cad":0,"audiodev":"audio1"}' -chardev spicevmc,id=charredir0,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir0","id":"redir0","bus":"usb.0","port":"2"}' -chardev spicevmc,id=charredir1,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir1","id":"redir1","bus":"usb.0","port":"3"}' -chardev spicevmc,id=charredir2,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir2","id":"redir2","bus":"usb.0","port":"4"}' -chardev spicevmc,id=charredir3,name=usbredir -device '{"driver":"usb-redir","chardev":"charredir3","id":"redir3","bus":"usb.0","port":"5"}' -device '{"driver":"virtio-balloon-pci","id":"balloon0","bus":"pci.4","addr":"0x0"}' -sandbox on,obsolete=deny,elevateprivileges=deny,spawn=deny,resourcecontrol=deny -msg timestamp=on
+fish
+cd ~/Downloads/edk2/
+./edksetup.sh
+vim edksetup.sh
+git status
+vim EmulatorPkg/Unix/GdbRun.sh 
+git diff EmulatorPkg/Unix/GdbRun.sh
+fish
+cd ~/~Mk./experiment/hello/
+ls
+file main.efi
+fish
+gnome-extensions disable pixzzle@zenon8adams.gmail.com
+ls
+nome-extensions disable pix
+ls
+gnome-extensions
+gnome-extensions list
+ls
+loadkeys us
+sudo loadkeys us
+gnome-extensions list
+ls ~/.local/share/gnome-shell/extensions/
+gnome-extensions disable pixzzle@zenon8adams.gmail.com
+gnome-extensions disable pixzzle@zenon8adams.gmail.com
+dd if=/media/zenerdiode/Linux/boot/vmlinuz skip=`grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' vmlinuz-3.8.0-19-generic | cut -d: -f 1` bs=1 | zcat > /tmp/vmlinux
+dd if=/media/zenerdiode/Linux/boot/vmlinuz skip=`grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /media/zenerdiode/Linux/boot/vmlinuz | cut -d: -f 1` bs=1 | zcat > /tmp/vmlinux
+sudo dd if=/media/zenerdiode/Linux/boot/vmlinuz skip=`grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /media/zenerdiode/Linux/boot/vmlinuz | cut -d: -f 1` bs=1 | zcat > /tmp/vmlinux
+sudo dd if=/media/zenerdiode/Linux/boot/vmlinuz skip=`sudo grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /media/zenerdiode/Linux/boot/vmlinuz | cut -d: -f 1` bs=1 | zcat > /tmp/vmlinux
+sudo grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /media/zenerdiode/Linux/boot/vmlinuz
+sudo grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /media/zenerdiode/Linux/boot/vmlinuz-5.19.0-76051900-generic 
+grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /boot/vmlinuz
+sudo grep -a -b -o -m 1 -P '\x1f\x8b\x08\x00' /boot/vmlinuz
+cat > extract-vmlinux.sh
+chmod +x extract-vmlinux.sh 
+./extract-vmlinux.sh 
+./extract-vmlinux.sh /media/zenerdiode/Linux/boot/vmlinuz
+sudo ./extract-vmlinux.sh /media/zenerdiode/Linux/boot/vmlinuz
+sudo ./extract-vmlinux.sh /media/zenerdiode/Linux/boot/vmlinuz | readelf
+sudo ./extract-vmlinux.sh /media/zenerdiode/Linux/boot/vmlinuz | readelf -
+sudo ./extract-vmlinux.sh /media/zenerdiode/Linux/boot/vmlinuz > vmlinux
+file vmlinux
+readelf vmlinux
+readelf -t vmlinux
+readelf -a vmlinux
+fish
+exit
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+# Add the repository to Apt sources:
+echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+curl -fsSL https://get.docker.com -o get-docker.sh
+ls
+fish
+exit
+cd /tmp
+/bin/sh -c apt-get -qq update     && apt-get -qq install -y     apt-transport-https     gnupg     wget     && wget -qO- \"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA4285295FC7B1A81600062A9605C66F00D6C9793
+fish
+cat > sources.list <<EOF
+deb http://deb.debian.org/debian bookworm main
+deb-src http://deb.debian.org/debian bookworm main
+
+deb http://deb.debian.org/debian-security/ bookworm-security main
+deb-src http://deb.debian.org/debian-security/ bookworm-security main
+
+deb http://deb.debian.org/debian bookworm-updates main
+deb-src http://deb.debian.org/debian bookworm-updates main
+EOF
+
+cat sources.list 
+grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*
+fish
+exit
+exit
+ls
+fish
+fish
+ls
+ls
+fish

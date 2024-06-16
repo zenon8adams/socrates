@@ -1,0 +1,229 @@
+﻿class Maze
+{
+    static START_CODE = 65; // 'A's ASCII code
+    constructor(rows, cols, start, walls)
+    {
+        this.rows  = rows;
+        this.cols  = cols;
+        this.walls = this.buildWalls(walls);
+        this.start = start;
+        this.stops = this.collateStops();
+    }
+
+	/*
+	 * Memoize given walls structure to
+	 * prevent O(n) check of if current
+	 * node is a wall.
+	 */
+    buildWalls(walls)
+    {
+        const localWalls = {};
+        for(const wall of walls)
+            localWalls[wall] = true;
+        return localWalls;
+    }
+
+	/*
+	 * Detect probable end points.
+	 * These are the final nodes
+	 * in the maze that are 
+	 * not walls.
+	 */
+    collateStops()
+    {
+        const stops = {};
+        for(let i = 0; i < this.rows; ++i)
+        {
+            const code = this.encode({x: i, y: this.cols - 1});
+            stops[code] = !this.walls[code];
+        }
+
+        return stops;
+    }
+
+    /*
+     * Lazily run a path finding algorithm
+     * such as a breadth-first-search.
+     * Return the longest of the shortest
+     * path if there are multiple exit points.
+     */
+    findPaths()
+    {
+        // link: holds the inverted tree structure.
+        const link = {};
+        let path = [this.decode(this.start)];
+        const visited = {[this.start]: true};
+		/*
+		 * Run breadth-first-search.
+		 * simulate insertion at the
+		 * front of _path_
+		 */
+        for(let i = 0; i < path.length; ++i)
+        {
+            const from = this.encode(path[i]);
+            for(const free of this.freePaths(path[i]))
+            {
+                const code = this.encode(free);
+                if(!this.walls[code] && !visited[code])
+                {
+                    path.push(free);
+                    // The inverted tree is created from here.
+                    link[code] = this.encode(path[i]);
+                    visited[code] = true;
+                }
+            }
+        }
+
+        // Recreate path(s) constructed in _link_.
+        const fullPaths = [];
+        for(const code in this.stops)
+        {
+            const newPath = this.reconstructPath(code, link);
+            if(newPath.length !== 0)
+                fullPaths.push(newPath);
+        }
+
+        if(fullPaths.length === 1)
+        {
+            /*
+             * Oops! The only way to find the longest path
+             * is to brute-force. We can't do that since
+             * we will run into a complexity of O(2^n).
+             * The problem is NP-Hard since we are currently
+             * working on a graph that is cyclic.
+             * We are going to get as close as possible to
+             * the longest path by using a depth-first-search.
+             * See: _freePaths()_ documentation.
+             */
+            // This is the end point we are trying to reach.
+            const lastPoint = fullPaths[0][fullPaths[0].length - 1];
+            const visited = {[this.start]: true};
+            path.splice(1, path.length - 1);
+            while(path.length !== 0)
+            {
+                const p = path.pop();
+                const from = this.encode(p);
+                visited[from] = true;
+                for(const free of this.freePaths(p))
+                {
+                    const code = this.encode(free);
+                    if(!this.walls[code] && !visited[code])
+                    {
+                        path.push(free);
+                        link[code] = from;
+                        visited[code] = true;
+                    }
+                }
+            }
+            const longerPath = this.reconstructPath(lastPoint, link);
+            if(longerPath.length !== 0)
+                fullPaths.push(longerPath);
+        }
+
+		/* Re-arrange the recorded paths
+		 * minPath: fullPaths.first
+		 * maxPath: fullPaths.last
+		 */
+        fullPaths.sort((one, other) => one.length < other.length);
+
+        return fullPaths;
+    }
+
+	/*
+	 * the _link_ structure can be visualized 
+	 * as an inverted tree having the root 
+	 * node as the only leaf. traverse from 
+	 * _endPoint_ till the root(leaf)
+	 * is reached.
+	 */
+    reconstructPath(endPoint, link)
+    {
+        const path = [];
+        for(let p = link[endPoint];  p && this.isValid(p); p = link[p])
+        {
+            /* Insert in front of _path_ structure to avoid having to 
+             * reverse the structure.
+             */
+            path.unshift(p);
+        }
+
+        if(path.length !== 0)
+            path.push(endPoint);
+
+        return path;
+    }
+
+    freePaths(pos)
+    {
+        /*
+         * Collate paths that are reachable
+         * from current coordinate _pos_
+         * _rd_ and _cd_ holds adjustments
+         * that can be applied to _pos_
+         * (0, 1), (0, -1), (1, 0), (-1, 0).
+         * These stands for moving South,
+         * North, East and West respectively.
+         * NB! The order of movement matters
+         * for the depth-first-search routine
+         * we might have to spawn.
+         */
+        const rd = [0,  0, +1, -1];
+        const cd = [+1, -1,  0,  0];
+        const corners = [];
+        for(let i = 0; i < 4; ++i)
+        {
+            const dir = {x: rd[i] + pos.x,
+                          y: cd[i] + pos.y };
+            if(dir.x < 0 || dir.y < 0) continue;
+            if(dir.x >= rows || dir.y >= cols) continue;
+            if(this.walls[this.encode(dir)]) continue;
+            corners.push(dir);
+        }
+
+        return corners;
+    }
+
+    isValid(code)
+    {
+        const pos = this.decode(code);
+        return pos.x >= 0 && pos.x < this.rows
+               && pos.y >= 0 && pos.y < this.cols;
+    }
+
+	/*
+	 * Convert from the `A#` coding scheme to
+	 * coordinate scheme.
+	 */
+    decode(code)
+    {
+		// Convert code in form of 'A3' into (x,y) coordinate
+        return {
+            x: code.charCodeAt(0) - Maze.START_CODE,
+            y: parseInt(code.slice(1)) - 1
+        };
+    }
+
+	/*
+	 * Convert from coordinate scheme to `A#` scheme.
+	 */
+    encode(pos)
+    {
+        const code = String.fromCharCode(Maze.START_CODE + pos.x) 
+					 + (pos.y + 1);
+        return code;
+    }
+}
+
+const walls = ["C1", "F8", "C7", "G8", 
+                "G2", "C3", "E3", "B4", "C4", 
+                "G4", "B5", "E5", "E2", "A8",
+                "D6", "E6", "G6", "E8",
+                "B7", "D7", "G7", "B8"];
+
+const rows = 8;
+const cols = 8;
+const start = "A1";
+
+const maze = new Maze(rows, cols, start, walls);
+const paths = maze.findPaths();
+console.log(paths);

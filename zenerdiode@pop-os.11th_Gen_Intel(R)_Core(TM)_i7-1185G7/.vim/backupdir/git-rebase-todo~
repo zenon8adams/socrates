@@ -1,0 +1,64 @@
+pick 508a6b1 CHORE: linter fix
+pick 9bd692a FIX: Add await jsonResponse calls
+pick 395f181 FIX: Add recordingArea field to Get many spots
+pick 97ead91 FIX: Update spot factory to include additional forecast data
+pick c5e0811 FIX: Added Forcasts History
+pick 305459b WIP: Synchronize Spots Data
+pick 26ee63c FIX: Update endpoints to meet new requirements
+pick 6946dd8 FEAT: Integrate provided endpoints into application
+pick e55a58c FIX: Add omitted `locationUrl` for spots
+pick a764d41 FIX: Accept `*.m3u8` streaming format
+pick c914ba6 FIX: updated  seeder to match document
+pick c1a4f99 FIX: Load location marker on google map
+pick 4fa7820 FIX: incorrect format of date and time
+pick 35b4e46 FIX: incorrect format of date and time
+pick 3c84a98 FEAT: Add tooltip and direct navigation to page
+pick b1693ef FEAT: Add tooltip and direct navigation to map
+pick 7f5d1a8 FIX: Fix Spots Data
+pick f702026 FIX: Refactor tide extension logic and fix time formatting
+pick efaa75e MINOR: Implement bouncing animation for maps
+pick b6591d2 fix- add sort functionality for item,date,location,surfdate
+pick 583bcea upd- item type
+pick 0bc528e fix- coupon modals dropdown
+pick e13c191 upd- user panel and db params
+pick 793f746 table mobile view
+pick d4b58c6 fix: scope tailwindcss styles
+pick 41b2601 client feedback webview
+pick 534f853 fix: scope preflight styles into components layer
+pick 1b9f074 fix: revert base url to relative one
+pick e82d835 add error hanlding
+pick 8b6f90e added local test script
+pick 7192b68 fix: box sizing not adding to base layer
+pick 42b3f71 fixed bug
+pick 3f0070e FIX: resolve race condition when playing video
+
+# Rebase 20cd34f..3f0070e onto 20cd34f (33 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
+#                    commit's log message, unless -C is used, in which case
+#                    keep only this commit's message; -c is same as -C but
+#                    opens the editor
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+#         create a merge commit using the original merge commit's
+#         message (or the oneline, if no original merge commit was
+#         specified); use -c <commit> to reword the commit message
+# u, update-ref <ref> = track a placeholder for the <ref> to be updated
+#                       to this position in the new commits. The <ref> is
+#                       updated at the end of the rebase
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#

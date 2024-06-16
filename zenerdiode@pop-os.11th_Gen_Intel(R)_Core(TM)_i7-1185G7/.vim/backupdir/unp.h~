@@ -1,0 +1,53 @@
+#ifndef UNP_H
+#define UNP_H
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <string_view>
+#include <cstdio>
+#include <cstdlib>
+
+#define MAYBE_UNSED [[maybe_unused]]
+#define DAYTIME_SAVING_PORT 13
+
+#define SA(...) reinterpret_cast<struct sockaddr *>\
+                ( __VA_ARGS__)
+
+static constexpr inline auto LISTENQ [[maybe_unused]] = 10;
+static constexpr inline auto MAXLINE [[maybe_unused]] = 1024;
+
+template <typename... Args>
+void err_quit( const char *fmt, 
+               Args&&... params)
+{
+    if constexpr( sizeof...(params) > 0)
+        std::printf( fmt, params...);
+    else
+        std::puts( fmt);
+    exit( EXIT_FAILURE);
+}
+
+void err_sys( std::string_view message);
+
+int Socket(int domain, int type, int protocol);
+
+int Bind(int sockfd, const struct sockaddr *addr,
+         socklen_t addrlen);
+
+int Listen(int sockfd, int backlog);
+
+int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+
+ssize_t Write(int fd, const void *buf, size_t count);
+
+int Close(int fd);
+
+int Inet_pton(int af, const char *src, void *dst, 
+              const char *err_pfx = nullptr);
+
+int Connect(int sockfd, const struct sockaddr *addr,
+                   socklen_t addrlen);
+
+char *sock_ntop(const struct sockaddr *sa, socklen_t sa_len);
+
+#endif

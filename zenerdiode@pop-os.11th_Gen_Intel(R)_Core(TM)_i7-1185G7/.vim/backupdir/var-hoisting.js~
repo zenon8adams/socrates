@@ -1,0 +1,70 @@
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const t = require("@babel/types");
+const generate = require("@babel/generator").default;
+const hoistVariables = require("@babel/helper-hoist-variables").default;
+
+function hoistVarDeclarations(code) {
+    const ast = parser.parse(code, {sourceType: "module"});
+
+    traverse(ast, {
+        Function(path) {
+            const outerScope = path.scope.getProgramParent();
+            console.log('oScope:',outerScope);
+            hoistVariables(
+            path.get("body"),
+            id => {
+              // Use Scope#push to register a `var` binding in
+              // the outer scope
+              console.log('id:', id, 'references:', outerScope.globals);
+              outerScope.push({ id });
+            },
+            "var");
+            
+            /*
+            const varDeclarations = [];
+            path.traverse({
+                VariableDeclaration(innerPath) {
+                    if (innerPath.node.kind === 'var') {
+                        varDeclarations.push(...innerPath.node.declarations);
+                        console.log(Object.getPrototypeOf(innerPath));
+                       // innerPath.remove();
+                    }
+                }
+            });
+
+            console.log('varDeclarations:', varDeclarations);
+            if (varDeclarations.length > 0) {
+                const letDeclaration = t.variableDeclaration('let', varDeclarations);
+
+ //               console.dir(letDeclaration);
+                path.node.body.body.unshift(letDeclaration);
+            } */
+        }
+    });
+
+    return generate(ast).code;
+}
+
+const code = `
+var y = 7;
+function bar() {
+function foo() {
+    console.log(x, y); // undefined, undefined
+    var x = 1;
+    if (true) {
+        var y = 2;
+        if(true) {
+        var z = false;
+        }
+    }
+    var p = 7;
+    if(p) {
+        var p = 8;
+    }
+}
+}
+`;
+
+console.log(hoistVarDeclarations(code));
+

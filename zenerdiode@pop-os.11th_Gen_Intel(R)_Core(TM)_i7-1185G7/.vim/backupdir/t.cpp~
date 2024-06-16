@@ -1,0 +1,37 @@
+
+    enum Type{
+        DOUBLE,
+        INT,
+        CHAR
+    };
+struct Wrapper
+{
+    union {
+        double a;
+        int b;
+        char c;
+    };
+
+    enum Type current_type;
+};
+
+void set_value(Wrapper& w, double value) {
+    w.a = value;
+    w.current_type = DOUBLE;
+}
+
+void get_value(const Wrapper& w, double **value) {
+    if(w.current_type == DOUBLE) {
+        **value = w.a;
+        return;
+    }
+    *value = nullptr;
+}
+
+int main() {
+    Wrapper w;
+    set_value(w, 3);
+
+    double stored, *p = &stored;
+    get_value(w, &p);
+}

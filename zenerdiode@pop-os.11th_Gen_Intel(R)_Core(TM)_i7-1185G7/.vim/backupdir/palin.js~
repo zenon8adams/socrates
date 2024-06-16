@@ -1,0 +1,41 @@
+function palin_count(s, idx, len) {
+    let count = 1;
+    for(; idx + count < len && idx - count >= 0;) {
+        if((idx - count) % 2 === 0)
+            ++count;
+        else if(s[norm(idx - count)] === s[norm(idx + count)])
+            ++count;
+        else
+            break;
+    }
+
+    return --count;
+}
+
+function norm(idx) {
+    return idx - Math.floor((idx + 2) / 2);
+}
+
+function longestPalin(s) {
+    const n_elm = s.length;
+    const expansion_length = 2 * n_elm + 1;
+    const palin = (new Array(expansion_length)).fill(0);
+
+    for( let i = 1; i < expansion_length; ++i) {
+        palin[i] = palin_count(s, i ,expansion_length);
+    }
+
+    let required = '';
+    const maxElement = Math.max(...palin);
+    const max_idx = palin.findIndex(p => p === maxElement);
+    const limit = norm(maxElement * 2 + 1);
+
+    let idx = norm(max_idx - palin[max_idx] + 1);
+    for(let i = 0; i < limit && idx < n_elm; ++i, ++idx) {
+        required += s[idx];
+    }
+    
+    return required;
+}
+
+console.log(longestPalin("abbcbbabaa"));

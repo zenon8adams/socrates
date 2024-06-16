@@ -1,0 +1,190 @@
+#include <functional>
+#include <iostream>
+#include <map>
+#include <optional>
+#include <stdexcept>
+#include <string>
+
+namespace fub {
+template <typename Key, typename T, typename Compare = std::less<Key>,
+          typename Allocator =
+              std::allocator<std::pair<const Key, std::optional<T>>>>
+class IntervalMap {
+private:
+  using map_type = std::map<Key, std::optional<T>, Compare, Allocator>;
+  map_type map_;
+
+public:
+  // CONSTRUCTORS
+
+  IntervalMap() noexcept(std::is_nothrow_default_constructible_v<map_type>)
+      : IntervalMap{Compare()} {}
+
+  explicit IntervalMap(
+      const Compare &comp,
+      const Allocator &alloc =
+          Allocator()) noexcept(std::
+                                    is_nothrow_default_constructible_v<
+                                        map_type>)
+      : map_{comp, alloc} {}
+
+  IntervalMap(const IntervalMap &) = default;
+
+  IntervalMap(const IntervalMap &other, const Allocator &alloc)
+      : map_{other.map_, alloc} {}
+
+  IntervalMap(IntervalMap &&) = default;
+
+  IntervalMap(IntervalMap &&other, const Allocator &alloc) noexcept(
+      std::is_nothrow_move_constructible_v<map_type>)
+      : map_{std::move(other.map_), alloc} {}
+
+  ~IntervalMap() = default;
+
+  IntervalMap &operator=(const IntervalMap &) = default;
+
+  IntervalMap &operator=(IntervalMap &&) = default;
+
+  // ACCESSORS
+
+  const map_type &std_map() const &noexcept { return map_; }
+
+  std::optional<std::reference_wrapper<const T>>
+  operator[](const Key &key) const & {
+    auto ub = map_.upper_bound(key);
+    if (ub == map_.begin()) {
+      return {};
+    }
+    return (--ub)->second;
+  }
+
+  const T &at(const Key &key) const & {
+    auto ub = this->operator[](key);
+    if (!ub.has_value()) {
+      throw std::out_of_range{"IntervalMap::at: index is out of bounds."};
+    }
+    return *ub;
+  }
+
+  // CAPACITY
+
+  bool empty() const noexcept { return map_.empty(); }
+
+  // MODIFIERS
+
+  /// \brief assigns a `value` to a given interval [lower, upper).
+  /// \note `T` needs to be `CopyConstructible` for `insert_upper_bound`
+  void insert(Key lower, Key upper, T value) {
+    if (!compare(lower, upper)) {
+      return;
+    }
+    auto last = insert_upper_bound(std::move(upper));
+    auto first = map_.lower_bound(lower);
+    map_.erase(first, last);
+    map_.insert(last, std::make_pair(std::move(lower), std::move(value)));
+  }
+
+  /// \brief removes all values in the given interval [lower, upper).
+  /// \note this requires that `T` is `CopyConstructible`
+  void remove(Key lower_key, Key upper_key) {
+    if (!compare(lower_key, upper_key)) {
+      return;
+    }
+    auto first = map_.lower_bound(lower_key);
+    auto last = map_.upper_bound(upper_key);
+    if (last != map_.begin()) {
+      auto prev = std::prev(last);
+      last =
+          map_.insert(last, std::make_pair(std::move(upper_key), prev->second));
+    }
+    if (first == map_.begin() || !has_value(std::prev(first))) {
+      map_.erase(first, last);
+    } else {
+      first = map_.insert(
+          first, std::make_pair(std::move(lower_key), std::optional<T>()));
+      first->second.reset();
+      map_.erase(std::next(first), last);
+    }
+    erase_if_empty(last);
+  }
+
+private:
+  /// \brief compares to key values with maps comparator
+  bool compare(const Key &lhs, const Key &rhs) const {
+    return std::invoke(map_.key_comp(), lhs, rhs);
+  }
+
+  /// \brief inserts an upper bound such that super sets are valid
+  /// \note this is a helper function for `insert()`
+  /// \note `T` needs to be `CopyConstructible`
+  auto insert_upper_bound(Key &&upper) {
+    auto last = map_.upper_bound(uper);
+    if (last == map_.begin()) {
+      return map_.insert(last,
+                         std::make_pair(std::move(upper), std::optional<T>{}));
+    }
+    auto &&value_before = std::prev(last)->second;
+    return map_.insert(last, std::make_pair(std::move(upper), value_before));
+  }
+
+  /// \brief tests if there is a value at the given position.
+  /// \note iterator has to be deferencable
+  bool has_value(typename map_type::const_iterator iterator) const noexcept {
+    return iterator->second.has_value();
+  }
+
+  /// \brief erases the iterator if it points to an empty optional.
+  /// \note if the optional is empty the iterator is a pure upper bound.
+  /// \note this function is a helper function for `remove()`
+  void erase_if_empty(typename map_type::const_iterator iterator) noexcept {
+    if (iterator != map_.end() && !has_value(iterator)) {
+      map_.erase(iterator);
+    }
+  }
+};
+
+template <typename Key, typename T, typename Comp, typename Allocator>
+bool operator==(const IntervalMap<Key, T, Comp, Allocator> &lhs,
+                const IntervalMap<Key, T, Comp, Allocator> &rhs) {
+  return lhs.map() == rhs.map();
+}
+
+template <typename Key, typename T, typename Comp, typename Allocator>
+bool operator!=(const IntervalMap<Key, T, Comp, Allocator> &lhs,
+                const IntervalMap<Key, T, Comp, Allocator> &rhs) {
+  return lhs.map() != rhs.map();
+}
+
+} // namespace fub
+
+void print(std::ostream &out,
+           const std::map<int, std::optional<std::string>> &map) {
+  for (auto &&[key, mapped] : map) {
+    out << '{' << key << ", ";
+    if (mapped.has_value()) {
+      out << *mapped;
+    } else {
+      out << "{}";
+    }
+    out << "}\n";
+  }
+  out << '\n';
+}
+
+int main() {
+  std::cout << std::boolalpha;
+  auto map = fub::IntervalMap<int, std::string>{};
+
+  map.insert(0, 10, "foo");
+  print(std::cout, map.std_map());
+  std::cout << "map.at(0) = " << map.at(0) << '\n';
+  std::cout << "map[10].has_value() = " << map[10].has_value() << "\n\n";
+
+  map.insert(3, 7, "bar");
+  print(std::cout, map.std_map());
+  std::cout << "map.at(5) = " << map.at(5) << "\n\n";
+
+  map.remove(2, 8);
+  print(std::cout, map.std_map());
+  std::cout << "map[5].has_value() = " << map[5].has_value() << '\n';
+}

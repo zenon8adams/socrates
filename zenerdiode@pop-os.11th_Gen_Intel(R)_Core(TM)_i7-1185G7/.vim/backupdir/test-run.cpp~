@@ -1,0 +1,57 @@
+#include <algorithm>
+#include <cassert>
+#include <fmt/core.h>
+#include <fstream>
+#include <iostream>
+#include <numeric>
+#include <unordered_map>
+#include <vector>
+
+int main() {
+  std::ifstream strm("./originofspecies.txt", std::ios::in);
+  assert(strm.good());
+
+  std::unordered_map<std::string, std::size_t> occurrences;
+  std::vector<std::string> uniq;
+  std::string word;
+
+  for (auto ch = strm.get(); strm.good(); ch = strm.get()) {
+    if (std::isalnum(ch) || ch == '.')
+      word += ch;
+    else if (!word.empty()) {
+      occurrences[word]++;
+      word.clear();
+    }
+  }
+
+  if (!word.empty())
+    occurrences[word]++;
+
+  constexpr auto nth_word = 25;
+  constexpr auto LONGER_THAN = 5;
+  const std::string VARIETIES = "varieties";
+  std::transform(occurrences.begin(), occurrences.end(),
+                 std::back_inserter(uniq), [](auto &elm) { return elm.first; });
+
+  auto varieties_end =
+      std::stable_partition(uniq.begin(), uniq.end(), [&VARIETIES](auto &elm) {
+        return elm.find(VARIETIES) != std::string::npos;
+      });
+
+  auto n_varieties = std::accumulate(
+      uniq.begin(), varieties_end, 0,
+      [&](auto current, auto &elm) { return current + occurrences[elm]; });
+
+  fmt::print("Number of `{}` occurrence: {}\n", VARIETIES, n_varieties);
+
+  std::sort(uniq.begin(), uniq.end(), [&](auto &one, auto &other) {
+    return occurrences[one] > occurrences[other];
+  });
+
+  fmt::print("{}th most used word: {}\n", nth_word, uniq[nth_word - 1]);
+
+  std::stable_partition(uniq.begin(), uniq.end(),
+                        [&](auto &one) { return one.size() > LONGER_THAN; });
+
+  fmt::print("Most used word longer than {}: {}\n", LONGER_THAN, *uniq.begin());
+}

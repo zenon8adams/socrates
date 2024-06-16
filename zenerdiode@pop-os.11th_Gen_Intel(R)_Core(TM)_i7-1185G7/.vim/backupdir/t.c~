@@ -1,0 +1,16 @@
+
+    enum Type{
+        DOUBLE,
+        INT,
+        CHAR
+    };
+struct Wrapper
+{
+    union {
+        double a;
+        int b;
+        char c;
+    };
+
+    enum Type current_type;
+};

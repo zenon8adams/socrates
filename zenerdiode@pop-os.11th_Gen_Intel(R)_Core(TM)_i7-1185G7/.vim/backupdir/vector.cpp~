@@ -1,0 +1,160 @@
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <iostream>
+
+template <typename Object> class Vector {
+  struct Iterator {
+    using iterator_category = std::bidirectional_iterator_tag;
+    using difference_type = std::ptrdiff_t;
+    using pointer = std::remove_cv_t<Object> *;
+    using value_type = std::remove_cv_t<Object>;
+    using reference = std::remove_cv_t<Object> &;
+
+    explicit Iterator(Object *p) : ptr_(p) {}
+
+    reference operator*() { return *ptr_; }
+    pointer operator->() { return ptr_; }
+
+    Iterator &operator++() {
+      ++ptr_;
+      return *this;
+    }
+    Iterator operator++(int) {
+      auto cpy = *this;
+      ++this;
+      return cpy;
+    }
+
+    friend bool operator==(const Iterator &one, const Iterator &other) {
+      return one.ptr_ == other.ptr_;
+    }
+
+    friend bool operator!=(const Iterator &one, const Iterator &other) {
+      return !(one == other);
+    }
+
+  protected:
+    Object *ptr_;
+  };
+
+  struct ConstIterator : public Iterator {
+    explicit ConstIterator(Object *ptr) : Iterator(ptr) {}
+    const Iterator::reference operator*() const { return *Iterator::ptr_; }
+    const Iterator::pointer operator->() const { return Iterator::ptr_; }
+  };
+
+public:
+  using iterator = Iterator;
+  using const_iterator = ConstIterator;
+
+  explicit Vector(std::size_t initial_size = 0)
+      : capacity_(initial_size + INITIAL_CAPACITY) {
+    buffer_ = new Object[capacity_];
+  }
+
+  Vector(const Vector &other) : capacity_(other.capacity_), size_(other.size_) {
+    buffer_ = new Object[capacity_];
+    std::copy(buffer_, buffer_ + size_, other.buffer_);
+  }
+
+  Vector &operator=(const Vector &other) {
+    Vector copy = other;
+    std::swap(*this, copy);
+
+    return *this;
+  }
+
+  void swap(Vector &other) {
+    using std::swap;
+    swap(buffer_, other.buffer_);
+    swap(capacity_, other.capacity_);
+    swap(size_, other.size_);
+  }
+
+  Vector(Vector &&other) noexcept
+      : capacity_(other.capacity_), size_(other.size_), buffer_(other.buffer_) {
+    other.size_ = other.capacity_ = 0;
+    other.buffer_ = nullptr;
+  }
+
+  Vector &operator=(Vector &&other) {
+    capacity_ = other.capacity_;
+    size_ = other.size_;
+    buffer_ = other.buffer_;
+    other.size_ = 0;
+    other.capacity_ = 0;
+    other.buffer_ = nullptr;
+
+    return *this;
+  }
+
+  void push_back(Object &&element) {
+    if (size_ >= capacity_) {
+      resize(capacity_ * 2);
+    }
+    buffer_[size_++] = std::forward<Object>(element);
+  }
+
+  void pop_back() {
+    assert(size_ >= 0);
+    size_--;
+  }
+
+  Object &back() const noexcept { return buffer_[size_ - 1]; }
+
+  std::size_t size() const noexcept { return size_; }
+
+  std::size_t capacity() const noexcept { return capacity_; }
+
+  Iterator begin() noexcept { return Iterator(buffer_); }
+
+  Iterator end() noexcept { return Iterator(buffer_ + size_); }
+
+  ConstIterator cbegin() const noexcept { return ConstIterator(buffer_); }
+
+  ConstIterator cend() const noexcept { return ConstIterator(buffer_ + size_); }
+
+  void resize(std::size_t new_cap) {
+    Vector new_v(new_cap);
+    std::move(buffer_, buffer_ + size_, new_v.buffer_);
+    using std::swap;
+    swap(new_v, *this);
+  }
+
+  ~Vector() noexcept {
+    delete[] buffer_;
+    size_ = capacity_ = 0;
+  }
+
+private:
+  std::size_t size_{0}, capacity_;
+  Object *buffer_{nullptr};
+  static const std::size_t INITIAL_CAPACITY = 10;
+};
+
+template <typename Object> auto &begin(Vector<Object> &&v) { return v.begin(); }
+template <typename Object> auto &end(Vector<Object> &&v) { return v.end(); }
+
+int main() {
+
+  Vector<int> v(5);
+  v.push_back(3);
+  v.push_back(5);
+  v.push_back(7);
+  v.push_back(11);
+  v.push_back(14);
+  v.push_back(17);
+
+  for (auto &elm : v) {
+    std::cout << elm << ' ';
+  }
+  putchar('\n');
+  std::cout << v.size() << '\n';
+
+  for (Vector<int>::const_iterator begin = v.cbegin(); begin != v.cend();
+       ++begin) {
+    std::cout << *begin << ' ';
+  }
+  putchar('\n');
+}

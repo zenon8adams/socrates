@@ -1,0 +1,42 @@
+from typing import List, Tuple
+
+def calculate_uncovered_area(base_rect: Tuple[int, int], overlapping_rects: List[Tuple[int, int, int, int]]) -> int:
+    base_width, base_height = base_rect
+    base_area = base_width * base_height
+
+    # Sort the overlapping rectangles by their x-coordinate
+    overlapping_rects.sort(key=lambda rect: rect[0])
+
+    # Create a list to store the non-overlapping vertical slices
+    vertical_slices = [(0, base_width, base_height)]  # Initialize with the entire width and height
+
+    for x, y, width, height in overlapping_rects:
+        new_slices = []
+        for x1, x2, y1 in vertical_slices:
+            # Check if the current vertical slice overlaps with the current rectangle
+            if x2 <= x:
+                # No overlap, add the slice to the new list
+                new_slices.append((x1, x2, y1))
+            elif x + width <= x1:
+                # No overlap, add the slice to the new list
+                new_slices.append((x1, x2, y1))
+            else:
+                # Overlap, split the slice into two non-overlapping parts
+                if y1 < y:
+                    new_slices.append((x1, x, y1))
+                    new_slices.append((x1, min(x2, x + width), y - y1))
+                if y + height < y1:
+                    new_slices.append((max(x1, x + width), x2, y1 - y - height))
+        vertical_slices = new_slices
+
+    # Calculate the uncovered area from the remaining vertical slices
+    uncovered_area = sum((x2 - x1) * y1 for x1, x2, y1 in vertical_slices)
+
+    return base_area - uncovered_area
+
+# Example usage
+base_rect = (10, 10)  # Width = 10, Height = 10
+overlapping_rects = [(2, 2, 4, 4), (6, 6, 3, 3)]  # (x, y, width, height)
+
+uncovered_area = calculate_uncovered_area(base_rect, overlapping_rects)
+print(f"Uncovered area: {uncovered_area}")

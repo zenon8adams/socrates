@@ -1,0 +1,109 @@
+#include <iostream>
+#include <map>
+
+template <typename K, typename V> class interval_map {
+  V m_valBegin;
+  std::map<K, V> m_map;
+
+public:
+  // constructor associates whole range of K with val
+  interval_map(V const &val) : m_valBegin(val) {}
+
+  // Assign value val to interval [keyBegin, keyEnd).
+  // Overwrite previous values in this interval.
+  // Conforming to the C++ Standard Library conventions, the interval
+  // includes keyBegin, but excludes keyEnd.
+  // If !( keyBegin < keyEnd ), this designates an empty interval,
+  // and assign must do nothing.
+  void assign(K const &keyBegin, K const &keyEnd, V const &val) {
+    if (!(keyBegin < keyEnd)) {
+      return;
+    }
+
+    auto itBegin = m_map.lower_bound(keyBegin);
+    auto itEnd = m_map.upper_bound(keyEnd);
+
+    // Adjust lower bound if necessary
+    if (itBegin != m_map.begin()) {
+      auto prev = std::prev(itBegin);
+      if (prev->second == val) {
+        keyBegin = prev->first;
+        itBegin = prev;
+      } else if (prev->first < keyBegin) {
+        m_map[keyBegin] = prev->second;
+      }
+    }
+
+    // Adjust upper bound if necessary
+    if (itEnd != m_map.begin()) {
+      auto prev = std::prev(itEnd);
+      if (prev->second == val) {
+        keyEnd = prev->first;
+        itEnd = prev;
+      } else if (prev->first < keyEnd) {
+        m_map[keyEnd] = prev->second;
+      }
+    }
+
+    // Erase the range
+    m_map.erase(itBegin, itEnd);
+
+    // Insert the new interval
+    m_map[keyBegin] = val;
+
+    // Merge with next interval if necessary
+    auto it = m_map.find(keyBegin);
+    auto next = std::next(it);
+    if (next != m_map.end() && next->second == val) {
+      m_map.erase(next);
+    }
+
+    // Merge with previous interval if necessary
+    if (it != m_map.begin()) {
+      auto prev = std::prev(it);
+      if (prev->second == val) {
+        m_map.erase(it);
+      }
+    }
+  }
+
+  // look-up of the value associated with key
+  V const &operator[](K const &key) const {
+    auto it = m_map.upper_bound(key);
+    if (it == m_map.begin()) {
+      return m_valBegin;
+    } else {
+      return (--it)->second;
+    }
+  }
+
+  void print_map() const {
+    for (const auto &entry : m_map) {
+      std::cout << "[" << entry.first << "] -> " << entry.second << "\n";
+    }
+  }
+};
+
+int main() {
+  interval_map<int, char> imap('X');
+
+  imap.assign(2, 7, 'A');
+  imap.assign(1, 4, 'B');
+  imap.assign(7, 9, 'C');
+
+  std::cout << "Map after first set of assignments:\n";
+  imap.print_map();
+
+  interval_map<int, char> imap2('X');
+
+  imap2.assign(2, 5, 'A');
+  imap2.assign(1, 4, 'B');
+  imap2.assign(7, 9, 'C');
+  imap2.assign(6, 9, 'B');
+  imap2.assign(9, 13, 'B');
+
+  std::cout << "\nMap after second set of assignments:\n";
+  imap2.print_map();
+
+  return 0;
+}

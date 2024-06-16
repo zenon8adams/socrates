@@ -1,0 +1,377 @@
+//Import the clutter class form the gi repository (the object introspection repository)
+//imports.gi.versions.Clutter = "10";
+imports.gi.versions.Soup = "3.0";
+const Clutter = imports.gi.Clutter;
+const GLib = imports.gi.GLib;
+const Cairo = imports.cairo;
+const GdkPixbuf = imports.gi.GdkPixbuf;
+const Soup = imports.gi.Soup;
+// Initialize clutter
+Clutter.init(null);
+
+/*
+function foo_key_pressed_cb(actor, event, data) {
+    console.log('data:',data);
+}
+
+const script = Clutter.Script.new();
+script.load_from_file('./script.json');
+script.connect_signals(script);
+const stage = script.get_object('stage');
+stage.connect('key-press-event', foo_key_pressed_cb);
+console.log('stage:', stage);
+*/
+const STAGE_WIDTH = 1000;
+const STAGE_HEIGHT = 800;
+const STATIC_BOX_RADIUS = 100;
+const ROTATING_BOX_RADIUS = 0.4 * STATIC_BOX_RADIUS;
+const ROTATING_BOX_OFFSET = 20;
+const RADIAN_CONV = Math.PI / 180.0;
+let timeoutId = 0;
+const stage = new Clutter.Stage();
+Clutter.grab_pointer(stage);
+const canvas = new Clutter.Canvas({
+  width: stage.width,
+  height: stage.height,
+});
+stage.set_size(STAGE_WIDTH, STAGE_HEIGHT);
+stage.set_background_color(Clutter.Color.new(0, 0, 0, 255));
+stage.set_content(canvas);
+
+const center = {
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+};
+let angle = 360;
+const edgeOffset = STATIC_BOX_RADIUS - ROTATING_BOX_OFFSET - 2 * ROTATING_BOX_RADIUS;
+//console.log(Cairo);
+canvas.connect("draw", (canvas, context) => {
+  context.setSourceRGBA(1, 1, 1, 1);
+ // context.setFillRule(Cairo.FillRule.EVEN_ODD);
+  context.moveTo(center.x, center.y);
+  context.arc(center.x, center.y, STATIC_BOX_RADIUS, 0, 2 * Math.PI);
+  context.fill();
+  context.setSourceRGBA(0, 0, 1, 1);
+  context.arc(
+    (center.x - edgeOffset) + ROTATING_BOX_RADIUS * Math.cos(angle * RADIAN_CONV),
+    (center.y - edgeOffset) + ROTATING_BOX_RADIUS * Math.sin(angle * RADIAN_CONV),
+    ROTATING_BOX_RADIUS,
+    0,
+    2 * Math.PI,
+  );
+  context.fill();
+  angle = (angle + 1) % 360;
+  //animate();
+});
+/* canvas.connect("draw", (canvas, context) => {
+  context.save();
+  context.setOperator(Cairo.Operator.CLEAR);
+  context.paint();
+  context.restore();
+  context.setSourceRGBA(0.39, 0.549, 0.902, 0.5);
+  context.setFillRule(Cairo.FillRule.EVEN_ODD);
+
+  const linear = new Cairo.LinearGradient(0, 0, 1, 1);
+  linear.addColorStopRGB(0, 0, 0.3, 0.8);
+  linear.addColorStopRGB(1, 0, 0.8, 0.3);
+
+  //context.mask(radial);
+
+  //context.newPath();
+  //context.moveTo(canvas.width / 2, canvas.height / 2);
+  const nArcs = 2;
+  const spacing = 0.05 * Math.PI;
+  const arcLength = (2 * Math.PI - spacing * nArcs) / nArcs;
+  const outerRadius = 200;
+  const innerRadius = 100;
+  const ANCHOR_ANGLE = 0.2;
+  const samples = [];
+  const arcSamples = 20;
+  const joinSamples = 10;
+
+  const radial = new Cairo.RadialGradient(
+    canvas.width / 2,
+    canvas.height / 2,
+    outerRadius,
+    canvas.width / 2,
+    canvas.height / 2,
+    innerRadius,
+  );
+  radial.addColorStopRGBA(0.4, 0.39, 0.549, 0.902, 0.6);
+  radial.addColorStopRGBA(0.5, 0, 0, 0, 0);
+ // context.setSource(radial);
+
+  for (let i = 0, angle = Math.PI / 2; i < nArcs; ++i) {
+    context.newPath();
+    angle += spacing;
+
+    // Draw to outer arc,
+    context.arc(
+      canvas.width / 2,
+      canvas.height / 2,
+      outerRadius,
+      angle,
+      angle + arcLength,
+    );
+    // Use a cubic beizer to simulate quadratic beizer
+    context.curveTo(
+      canvas.width / 2 +
+        (outerRadius - innerRadius / 2) *
+          Math.cos(angle + ANCHOR_ANGLE + arcLength),
+      canvas.height / 2 +
+        (outerRadius - innerRadius / 2) *
+          Math.sin(angle + ANCHOR_ANGLE + arcLength),
+      canvas.width / 2 +
+        (outerRadius - innerRadius / 2) *
+          Math.cos(angle + ANCHOR_ANGLE + arcLength),
+      canvas.height / 2 +
+        (outerRadius - innerRadius / 2) *
+          Math.sin(angle + ANCHOR_ANGLE + arcLength),
+      canvas.width / 2 + innerRadius * Math.cos(angle + arcLength),
+      canvas.height / 2 + innerRadius * Math.sin(angle + arcLength),
+    );
+    // Draw the inner arc
+    context.arcNegative(
+      canvas.width / 2,
+      canvas.height / 2,
+      innerRadius,
+      angle + arcLength,
+      angle,
+    );
+    // Join with another beizer at the endpoint
+    context.curveTo(
+      canvas.width / 2 +
+        (outerRadius - innerRadius / 2) * Math.cos(angle + ANCHOR_ANGLE),
+      canvas.height / 2 +
+        (outerRadius - innerRadius / 2) * Math.sin(angle + ANCHOR_ANGLE),
+      canvas.width / 2 +
+        (outerRadius - innerRadius / 2) * Math.cos(angle + ANCHOR_ANGLE),
+      canvas.height / 2 +
+        (outerRadius - innerRadius / 2) * Math.sin(angle + ANCHOR_ANGLE),
+      canvas.width / 2 + outerRadius * Math.cos(angle),
+      canvas.height / 2 + outerRadius * Math.sin(angle),
+    );
+
+    /*\
+     * For our cursor detection, we want to take `sample count` of
+     * all points along the shape then use this to compute a point intersection
+     * algorithm.
+    \*\/
+    const arcSamplingInterval = arcLength / arcSamples;
+    samples[i] = [];
+    for (
+      let j = 0, theta = 0;
+      j < arcSamples;
+      ++j, theta += arcSamplingInterval
+    ) {
+      samples[i][j] = {
+        x: canvas.width / 2 + outerRadius * Math.cos(theta + angle),
+        y: canvas.height / 2 + outerRadius * Math.sin(theta + angle),
+      };
+
+      const offset = arcSamples + 2 * joinSamples;
+      samples[i][j + offset] = {
+        x: canvas.width / 2 + innerRadius * Math.cos(angle + arcLength - theta),
+        y:
+          canvas.height / 2 + innerRadius * Math.sin(angle + arcLength - theta),
+      };
+    }
+    /*\
+     * Now do the samples of the beizer curves.
+     * Since we are in a sense using a quadratic beizer curve,
+     * A * (1-t)^2 + 2*t*B*(1-t) + C*t^2 gives the point
+     * where the pen will be when drawing the curve.
+     * This is a second order Bernstein polynomial where
+     * `A` is the start point, `B` is the next anchor point 
+     * and `C` is the stop point.
+    \*\/
+    for (let j = 1; j < joinSamples - 1; ++j) {
+      if (j == joinSamples / 2) continue;
+
+      const t = j / joinSamples;
+      {
+        const pointA = {
+          x: canvas.width / 2 + outerRadius * Math.cos(angle + arcLength),
+          y: canvas.height / 2 + outerRadius * Math.sin(angle + arcLength),
+        };
+        const pointB = {
+          x:
+            canvas.width / 2 +
+            (outerRadius - innerRadius / 2) *
+              Math.cos(angle + ANCHOR_ANGLE + arcLength),
+          y:
+            canvas.height / 2 +
+            (outerRadius - innerRadius / 2) *
+              Math.sin(angle + ANCHOR_ANGLE + arcLength),
+        };
+        const pointC = {
+          x: canvas.width / 2 + innerRadius * Math.cos(angle + arcLength),
+          y: canvas.height / 2 + innerRadius * Math.sin(angle + arcLength),
+        };
+        const offset = arcSamples + joinSamples;
+        samples[i][j + offset] = {
+          x:
+            pointA.x * (1 - t) * (1 - t) +
+            2 * t * pointB.x * (1 - t) +
+            pointC.x * t * t,
+          y:
+            pointA.y * (1 - t) * (1 - t) +
+            2 * t * pointB.y * (1 - t) +
+            pointC.y * t * t,
+        };
+      }
+      {
+        const pointA = {
+          x: canvas.width / 2 + innerRadius * Math.cos(angle),
+          y: canvas.height / 2 + innerRadius * Math.sin(angle),
+        };
+        const pointB = {
+          x:
+            canvas.width / 2 +
+            (innerRadius + innerRadius / 2) * Math.cos(angle + ANCHOR_ANGLE),
+          y:
+            canvas.height / 2 +
+            (innerRadius + innerRadius / 2) * Math.sin(angle + ANCHOR_ANGLE),
+        };
+        const pointC = {
+          x: canvas.width / 2 + outerRadius * Math.cos(angle),
+          y: canvas.height / 2 + outerRadius * Math.sin(angle),
+        };
+        const offset = arcSamples;
+        samples[i][j + offset] = {
+          x:
+            pointA.x * (1 - t) * (1 - t) +
+            2 * t * pointB.x * (1 - t) +
+            pointC.x * t * t,
+          y:
+            pointA.y * (1 - t) * (1 - t) +
+            2 * t * pointB.y * (1 - t) +
+            pointC.y * t * t,
+        };
+      }
+    }
+
+    angle += arcLength;
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.rotate(-Math.PI / 4);
+    context.translate(-canvas.width / 2, -canvas.height / 2);
+    context.fill();
+  }
+
+ /*
+  for (const sample of samples) {
+    for (const point of sample) {
+      if (!point) continue;
+      const { x, y } = point;
+      context.newPath();
+      context.arc(x, y, 10, 0, 2 * Math.PI);
+      context.fill();
+      console.log("x:", x, "y:", y);
+    }
+  } *\/
+  console.log(canvas.width, canvas.height);
+}); */
+
+canvas.invalidate();
+/*
+const filename =
+  "/home/zenerdiode/Downloads/Orchis-theme/src/gtk-2.0" +
+  "/assets-folder/assets-Pink/checkbox-checked-active.png";
+const pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename);
+const bytes = pixbuf.get_pixels();
+bytes[2303] = 200;
+console.log([2303]);
+*/
+
+/*const textbox = new Clutter.Text({
+  text: "Hello there",
+  reactive: true,
+  editable: true,
+  selectable: true,
+  activatable: true,
+});
+textbox.set_size(300, textbox.height);
+textbox.set_editable(true);
+textbox.cursor_visible = true;
+textbox.cursor_position = 1;
+stage.add_child(textbox);
+*/
+
+// We connect the destroy event to quit from the mainloop when we close the
+// window.
+/*stage.connect("motion-event", (actor, event) => {
+  console.log("x:", event.x, "y:", event.y);
+}); */
+stage.connect("destroy", () => {
+  GLib.source_remove(timeoutId);
+  timeoutId = 0;
+  Clutter.main_quit();
+});
+// Put some title
+stage.title = "Test";
+// Set a color to the stage to show that it is working
+/*
+stage.set_background_color(
+  new Clutter.Color({
+    red: 150,
+    blue: 0,
+    green: 0,
+    alpha: 255,
+  }),
+); */
+// As we say, the stage is also an actor, so we show it to make visible
+stage.show();
+
+function animate() {
+  timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+    canvas.invalidate();
+    return GLib.SOURCE_CONTINUE;
+  });
+}
+// Start a main loop so that the stage can animate its contents and respond to
+// user interaction.
+//
+/*
+const GLib = imports.gi.GLib;
+const Gio = imports.gi.Gio;
+
+let session = new Soup.Session({ ssl_strict: false });
+
+let filename =
+  "/home/zenerdiode/Pictures/Screenshots/Screenshot from 2023-12-27 23-49-18.png";
+let [success, fileContents] = GLib.file_get_contents(filename);
+
+if (success) {
+  let multipart = new Soup.Multipart(Soup.FORM_MIME_TYPE_MULTIPART);
+  /\*multipart.append_form_file(
+    "file",
+    filename,
+    "image/png",
+    Soup.Buffer.new(fileContents),
+  ); *\/
+
+  multipart.append_form_string(
+    "base64Image",
+    "data:image/png;base64," + GLib.base64_encode(fileContents),
+  );
+  multipart.append_form_string("apikey", "helloworld");
+  multipart.append_form_string("OCREngine", "2");
+
+  let message = Soup.form_request_new_from_multipart(
+    "http://api.ocr.space/parse/image",
+    multipart,
+  );
+
+  session.queue_message(message, function (result, task) {
+    if (message.status_code !== 200) {
+      print("Failed to POST data: " + message.status_code);
+      return;
+    }
+
+    const data = JSON.parse(message.response_body.data);
+    print("Response: ", data.ParsedResults[0].ParsedText);
+  });
+}
+
+*/
+Clutter.main();

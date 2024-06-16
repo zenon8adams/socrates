@@ -1,0 +1,313 @@
+import chai from 'chai';
+import path from 'node:path';
+
+import cv from '../index.js';
+
+const expect = chai.expect;
+
+
+describe('ReactifyHTML::Existence', () => {
+    it('should check for argument existence', () => {
+        expect(cv.isEmpty('.')).to.equal(false);
+        expect(cv.isEmpty('')).to.equal(!cv.isNotEmpty(''));
+
+        expect(cv.isNull(null)).to.equal(true);
+        expect(cv.isNull(undefined)).to.equal(false);
+        expect(cv.isNull(null)).to.equal(!cv.isNotNull(null));
+        expect(cv.isNull(0)).to.equal(false);
+
+        expect(cv.isBehaved(null)).to.equal(true);
+        expect(cv.isBehaved(undefined)).to.equal(false);
+        expect(cv.isBehaved(0)).to.equal(true);
+        expect(cv.isBehaved(null)).to.equal(!cv.isNotBehaved(null));
+
+        expect(cv.isDefined(null)).to.equal(false);
+        expect(cv.isDefined(undefined)).to.equal(false);
+        expect(cv.isDefined(0)).to.equal(true);
+        expect(cv.isDefined(0)).to.equal(!cv.isNotDefined(0));
+    });
+});
+
+describe('ReactifyHTML::Url', () => {
+    it('should check if path is a url', () => {
+        expect(cv.isAbsoluteURI(null)).to.equal(false);
+        expect(cv.isAbsoluteURI('/usr/bin')).to.equal(false);
+        expect(cv.isAbsoluteURI('http://')).to.equal(true);
+        expect(cv.isAbsoluteURI('google.com')).to.equal(false);
+    });
+});
+
+describe('ReactifyHTML::Element', () => {
+    it('should return last entry of container', () => {
+        expect(cv.lastEntry([1, 2, 3])).to.equal(3);
+        expect(cv.lastEntry([])).to.equal(undefined);
+    });
+});
+
+describe('ReactifyHTML::Versioning', () => {
+    it('should check if path is versioned', () => {
+        expect(cv.isVersioned('./img-001.jpg?v1.00')).to.equal(true);
+        expect(cv.isVersioned('./img-001.jpg?1.00')).to.equal(false);
+    });
+});
+
+describe('ReactifyHTML::concatenation', () => {
+    it('should join arguments to make one entity', () => {
+        expect(cv.strJoin('reac', 'ti', 'fy', 'H', 'TML', ' '))
+            .to.equal('reac ti fy H TML');
+        expect(cv.strJoin('reac', 'ti', 'fy', 'H', 'TML', '-'))
+            .to.equal('reac-ti-fy-H-TML');
+
+        expect(cv.joinAttrs({color: 'red', shape: 'circle', radius: 10}))
+            .to.equal('color="red" shape="circle" radius="10"');
+        expect(cv.joinAttrs({color: 'red'}, {
+            shape: 'circle'
+        })).to.equal('color="red" shape="circle"');
+        expect(cv.joinAttrs({color: 'red'}, {
+            shape: ''
+        })).to.equal('color="red" shape');
+    });
+});
+
+describe('ReactifyHTML::RegularExpressionSort', () => {
+    it('should sort `re` matches by `index` in descending order', () => {
+        const re      = /([a-z]+)/gm;
+        const expr    = 'split this string into substrings';
+        const indexes = [23, 18, 11, 6, 0];
+        const matches = Array.from(expr.matchAll(re))
+                            .sort(cv.sortIndexDesc)
+                            .map(m => m.index);
+        expect(indexes).deep.to.equal(matches);
+    });
+});
+
+describe('ReactifyHTML::find', () => {
+    it('should search for element occurrence', () => {
+        const expr            = 'It should be know that it is important...';
+        const lastOccurrence  = expr.lastIndexOf('it');
+        const firstOccurrence = expr.indexOf('should');
+        expect(cv.nextOf(2, expr, 'it')).to.equal(lastOccurrence);
+        expect(cv.nextOf(3, expr, 'should')).to.equal(firstOccurrence);
+        expect(cv.nextOf(12, expr, 'be')).to.equal(-1);
+    });
+});
+
+describe('ReactifyHTML::path', () => {
+    it('should return reference to previous directory', () => {
+        expect(cv.bt(path.join('usr', 'local', 'bin')))
+            .to.equal(path.join('usr', 'local'));
+    });
+
+    it('should return absolute path of argument', () => {
+        expect(cv.fullPathOf('.')).to.equal(process.cwd());
+        expect(cv.fullPathOf('..')).to.equal(cv.bt(process.cwd()));
+    });
+
+    it('should check if basename of provided path refers to same file', () => {
+        expect(cv.isSelfReference('/usr/local/my-file.txt', 'my-file.txt'))
+            .to.equal(true);
+        expect(cv.isSelfReference('/usr/local/my-file.txt', 'other-file.txt'))
+            .to.equal(false);
+    });
+
+    it('should remove every back reference in path (..)', () => {
+        expect(cv.removeBackLinks('/usr/../bin')).to.equal('/usr/bin');
+        expect(cv.removeBackLinks('/usr/../')).to.equal('/usr/');
+        expect(cv.removeBackLinks('../..')).to.equal('');
+    });
+
+    it('should return parent path', () => {
+        expect(cv.getRootDirectory('/usr/bin')).to.equal('/usr');
+        expect(cv.getRootDirectory('/')).to.equal('/');
+    });
+
+    it('should break down path details', () => {
+        const os_re = p => p.replace('/', path.sep);
+        const file      = '/home/user/files/img-driver.jpg?v1.23.22';
+        const fileInfo  = cv.parseFile(file);
+
+        expect(fileInfo.original).to.equal(os_re(file));
+        expect(fileInfo.realpath)
+            .to.equal(os_re(file.slice(0, file.indexOf('?'))));
+        expect(fileInfo.extv2)
+            .to.equal(file.slice(file.indexOf('.') + 1, file.indexOf('?')));
+        expect(fileInfo.version).to.equal(file.slice(file.indexOf('?') + 1));
+    });
+});
+
+describe('ReactifyHTML::StringEdit', () => {
+    it('should remove quote from maybe quoted string', () => {
+        expect(cv.unQuote('"This"')).to.equal('This');
+        expect(cv.unQuote('This')).to.equal('This');
+        expect(cv.unQuote('&quot;This')).to.equal('&quot;This');
+        expect(cv.unQuote('This&quot;')).to.equal('This&quot;');
+        expect(cv.unQuote('\\"This\\"')).to.equal('This');
+    });
+
+    it('should convert first character only to upper case', () => {
+        expect(cv.capitalize('Hello')).to.equal('Hello');
+        expect(cv.capitalize('hEllO')).to.equal('Hello');
+        expect(cv.capitalize('h')).to.equal('H');
+        expect(cv.capitalize('')).to.equal('');
+    });
+});
+
+describe('ReactifyHTML::Namespacing', () => {
+    it('should check if attribute is namespaced', () => {
+        expect(cv.isNamespaced(':checked')).to.equal(false);
+        expect(cv.isNamespaced('xmlns:prefix')).to.equal(true);
+    });
+});
+
+describe('ReactifyHTML::generator', () => {
+    it('should generate at most n digits', () => {
+        expect(cv.randomCounter(4)).to.have.lengthOf(4);
+        expect(cv.randomCounter(8)).to.have.lengthOf(8);
+        expect(cv.randomCounter(14)).to.have.lengthOf.at.least(7);
+    });
+
+    it('should check script name matches generated template', () => {
+        const template  = 'sc-1203.js';
+        const non_match = 'sc1211.js';
+        expect(cv.isGeneratedScriptName(template)).to.equal(true);
+        expect(cv.isGeneratedScriptName(non_match)).to.equal(false);
+    });
+});
+
+describe('ReactifyHTML::selfClosingTags', () => {
+    it('should close self unterminated html tags', () => {
+        const expr     = '<input type="text" name="dob">';
+        const expected = expr.slice(0, -1) + '/>';
+
+        expect(cv.closeSelfClosingTags(expr)).to.equal(expected);
+    });
+
+    it('should find the farthest closing tag', () => {
+        const expr = `<input text="text" ` +
+            `value="<<I'am Alice>>" name="<Alice>">`;
+        const expected = expr.lastIndexOf('>');
+        expect(cv.shiftByAttrs(expr, 6)).to.equal(expected);
+    });
+});
+
+describe('ReactifyHTML::uniq', () => {
+    it('should return uniq entries in arguments', () => {
+        const one     = [{Name: 'X', Year: 2013}],
+              another = [{Name: 'Y', Year: 2013}],
+              third   = [{Name: 'Z', Year: 2015}];
+
+        expect(cv.uniquefy(one, another, third, 'Year')).deep.to.equal([
+            {Name: 'X', Year: 2013}, {Name: 'Z', Year: 2015}
+        ]);
+    });
+});
+
+describe('ReactifyHTML::naming', () => {
+    it('should generate name from path', () => {
+        expect(cv.deriveNameFrom('pages/my-home-page.js'))
+            .to.equal('PagesMyHomePage');
+
+        expect(cv.deriveNameFrom('pages/002 my home page'))
+            .to.equal('Pages002MyHomePage');
+
+        expect(cv.deriveNameFrom('002 my home page'))
+            .to.equal('A_002MyHomePage');
+
+        expect(cv.deriveNameFrom('my_home page')).to.equal('MyHomePage');
+    });
+});
+
+describe('ReactifyHTML::extract', () => {
+    it('should extract description from meta tags', () => {
+        const metasMock = [
+            {name: 'description', content: 'This is the required text'},
+            {name: 'viewport', content: 'width=device-width, initial-scale='}
+        ];
+
+        expect(cv.extractDescription(metasMock)).to.equal(metasMock[0].content);
+
+        metasMock.splice(0, 1);
+        expect(cv.extractDescription(metasMock)).to.contain('ReactifyHTML');
+    });
+
+    it('should cut the input string to at most max length', () => {
+        const test = 'The quick brown fox jumps over the lazy dog.';
+
+        expect(cv.clip(test)).to.equal(test);
+        expect(cv.clip(test, 10)).to.equal(test.slice(0, 10) + '...');
+    });
+});
+
+describe('ReactifyHTML::superset', () => {
+    it('should check if first argument contains all of second argument', () => {
+        const base = [
+            'The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy',
+            'dog'
+        ].sort();
+        const other = ['The', 'fox', 'jumps', 'over', 'the', 'dog'].sort();
+        const third = ['The', 'dog', 'jumps', 'over', 'a', 'fox'].sort();
+
+        expect(cv.isSuperSetOf(base, other)).to.be.equal(true);
+        expect(cv.isSuperSetOf(base, third)).to.be.equal(false);
+    });
+});
+
+describe('ReactifyHTML::FindEntryPoint', () => {
+    const file = path.join('examples', 'index');
+    it('should give path to the landing page', async () => {
+        expect(path.parse(await cv.resolveLandingPage(cv.strJoin(file, '.zip')))
+                   .ext)
+            .to.equal('.html');
+        expect(
+            path.parse(await cv.resolveLandingPage(cv.strJoin(file, '.html')))
+                .ext)
+            .to.equal('.html');
+    });
+
+    it('should check given path to landing page by file magic', async () => {
+        expect(path.parse(await cv.resolveLandingPage(file)).ext)
+            .to.equal('.html');
+    });
+});
+
+describe('ReactifyHTML::comments', () => {
+    it('should use replace Js comments with JSX style comments', () => {
+        const expr = `<script>\n
+              const collection = [1, 2, 3];\n
+            /*\n
+             * let sum = 0;\n
+             * for(let i = 0; i < collection.length; ++i) {\n
+             *      sum += collection[i];\n
+             * }\n
+             */\n
+                const sum = collection.reduce((sum, val) => sum + val, 0);\n
+               </script>`;
+
+        const replMock = cv.strJoin(
+            '{ ', expr.slice(expr.indexOf('/*'), expr.indexOf('*/') + 2), ' }',
+            '');
+        const repl = cv.useJSXStyleComments(expr);
+        const actual =
+            repl.slice(repl.indexOf('{ /*'), repl.indexOf('*/ }') + 4);
+
+        expect(actual).to.equal(replMock);
+    });
+
+    it('should use replace html comments with JSX style comments', () => {
+        const expr = `<form action="/action_page.php">
+            <!-- <label for="fname">First name:</label><br>
+              <input type="text" id="fname" name="fname" value="John"><br>
+              <label for="lname">Last name:</label><br> -->
+              <input type="text" id="lname" name="lname" value="Doe"><br><br>
+              <input type="submit" value="Submit">
+               </form>`;
+
+        const replMock = cv.strJoin(
+            '{/* ', expr.slice(expr.indexOf('<!--') + 4, expr.indexOf('-->')),
+            ' */}', '');
+        const repl   = cv.useJSXStyleComments(expr);
+        const actual = repl.slice(repl.indexOf('{/*'), repl.indexOf('*/}') + 3);
+
+        expect(actual).to.equal(replMock);
+    });
+});

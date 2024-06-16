@@ -1,0 +1,143 @@
+class Maze {
+  static START_CODE = 65; // 'A's ASCII code
+  rows: number;
+  cols: number;
+  walls: {[code: string]: boolean};
+  start: string;
+  stops: {[code: string]: boolean};
+
+  constructor(rows: number, cols: number, start: string, walls: string[]) {
+    this.rows = rows;
+    this.cols = cols;
+    this.walls = this.buildWalls(walls);
+    this.start = start;
+    this.stops = this.collateStops();
+  }
+
+  /*
+   * Memoize given walls structure to
+   * prevent O(n) check of if current
+   * node is a wall.
+   */
+  buildWalls(walls: string[]) {
+    const localWalls: {[code: string]: boolean} = {};
+    for (const wall of walls) {
+      localWalls[wall] = true;
+    }
+    return localWalls;
+  }
+
+  /*
+   * Detect probable end points.
+   * These are the final nodes
+   * in the maze that are
+   * not walls.
+   */
+  collateStops() {
+    const stops: {[code: string]: boolean} = {};
+    for (let i = 0; i < this.rows; ++i) {
+      const code = this.encode({ x: i, y: this.cols - 1 });
+      stops[code] = !this.walls[code];
+    }
+
+    return stops;
+  }
+
+  /*
+   * Lazily run a path finding algorithm
+   * such as a breadth-first-search.
+   * Return the longest of the shortest
+   * path if there are multiple exit points.
+   */
+  findPaths() {
+    // link: holds the inverted tree structure.
+    const link: {[key: string]: string} = {};
+    let path: { x: number; y: number }[] = [this.decode(this.start)];
+    const visited: {[key: string]: boolean} = {[this.start]: true};
+    /*
+     * Run breadth-first-search.
+     * simulate insertion at the
+     * front of _path_
+     */
+    for (let i = 0; i < path.length; ++i) {
+      const from = this.encode(path[i]);
+      for (const free of this.freePaths(path[i])) {
+        const code = this.encode(free);
+        if (!this.walls[code] && !visited[code]) {
+          path.push(free);
+          // The inverted tree is created from here.
+          link[code] = this.encode(path[i]);
+          visited[code] = true;
+        }
+      }
+    }
+
+    // Recreate path(s) constructed in _link_.
+    const fullPaths: { x: number; y: number }[][] = [];
+    for (const code in this.stops) {
+      const newPath = this.reconstructPath(code, link);
+      if (newPath.length !== 0) {
+        fullPaths.push(newPath);
+      }
+    }
+
+    if (fullPaths.length === 1) {
+      /*
+       * Oops! The only way to find the longest path
+       * is to brute-force. We can't do that since
+       * we will run into a complexity of O(2^n).
+       * The problem is NP-Hard since we are currently
+       * working on a graph that is cyclic.
+       * We are going to get as close as possible to
+       * the longest path by using a depth-first-search.
+       * See: _freePaths()_ documentation.
+       */
+      // This is the end point we are trying to reach.
+      const lastPoint = fullPaths[0][fullPaths[0].length - 1];
+        const visited: {[key: string]: boolean} = {[this.start]: true};
+        path.splice(1, path.length - 1);
+        while (path.length !== 0) {
+            const p = path.pop() as string;
+            const from = this.encode(p);
+            visited[from] = true;
+            for (const free of this.freePaths(p)) {
+                const code = this.encode(free);
+                if (!this.walls[code] && !visited[code]) {
+                    path.push(free);
+                    link[code] = from;
+                    visited[code] = true;
+                }
+            }
+        }
+        const longerPath = this.reconstructPath(lastPoint, link);
+        if (longerPath.length !== 0) {
+            fullPaths.push(longerPath);
+        }
+    }
+
+    /* Re-arrange the recorded paths
+     * minPath: fullPaths.first
+     * maxPath: fullPaths.last
+     */
+    fullPaths.sort((one, other) => one.length < other.length);
+
+    return fullPaths;
+  }
+
+    reconstructPath(endPoint: string, link: {[key: string]: string}): string[]
+    {
+        const path: string[] = [];
+        for(let p: string? = link[endPoint];  p && this.isValid(p); p = link[p])
+        {
+            /* Insert in front of _path_ structure to avoid having to 
+             * reverse the structure.
+             */
+            path.unshift(p);
+        }
+
+        if(path.length !== 0)
+            path.push(endPoint);
+
+        return path;
+    }
+

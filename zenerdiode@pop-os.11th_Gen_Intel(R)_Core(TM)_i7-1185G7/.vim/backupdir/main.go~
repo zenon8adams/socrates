@@ -1,0 +1,232 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"math"
+
+	"github.com/BurntSushi/xgb"
+	"github.com/BurntSushi/xgb/xproto"
+	"github.com/BurntSushi/xgbutil"
+	"github.com/BurntSushi/xgbutil/ewmh"
+	"github.com/BurntSushi/xgbutil/xprop"
+)
+
+var NamedWindows = make(map[xproto.Window]string)
+
+func min(a, b int) (int) {
+    if a < b {
+        return a
+    }
+    return b
+}
+
+func max(a, b int) (int) {
+    if a > b {
+        return a
+    }
+    return b;
+}
+
+func main() {
+	X, err := xgbutil.NewConn()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	windows, err := ewmh.ClientListStackingGet(X)
+	if err != nil {
+		log.Fatalf("error getting windows stack list: %v", err)
+	}
+
+	for i := 0; i < len(windows); i++ {
+		name, err := getWindowClassName(X, windows[i])
+		if err != nil {
+			fmt.Printf("error getting window name for window:%v error: %v", windows[i], err)
+			continue
+		}
+		fmt.Printf("Window: %d, Name: %s\n", windows[i], name)
+		NamedWindows[windows[i]] = name
+	}
+
+	getVisibleWindow(X.Conn(), X, windows[len(windows)-1], windows[:len(windows)-1])
+
+}
+
+func getVisibleWindow(X *xgb.Conn, X11 *xgbutil.XUtil, activeWindow xproto.Window, otherWindows []xproto.Window) ([]xproto.Window, error) {
+	geomOfActiveWindow, err := xproto.GetGeometry(X, xproto.Drawable(activeWindow)).Reply()
+	if err != nil {
+		return nil, err
+	}
+
+	rootGeom, err := xproto.GetGeometry(X, xproto.Drawable(X11.RootWin())).Reply()
+	if err != nil {
+		return nil, err
+	}
+
+	tanslCoordOfActiveWindow, err := xproto.TranslateCoordinates(X, activeWindow, X11.RootWin(), geomOfActiveWindow.X, geomOfActiveWindow.Y).Reply()
+	if err != nil {
+		return nil, err
+	}
+
+	adjustedAreaOfActiveWindow := clipToScreen(tanslCoordOfActiveWindow, geomOfActiveWindow, rootGeom)
+
+	fullScreen := int(rootGeom.Width) * int(rootGeom.Height)
+
+	coverage := adjustedAreaOfActiveWindow
+
+	returnArray := make([]xproto.Window, 0, len(otherWindows))
+
+	visibleWindows := []string{NamedWindows[activeWindow]}
+
+	var prevGeom *xproto.GetGeometryReply = geomOfActiveWindow
+	var prevTrans *xproto.TranslateCoordinatesReply = tanslCoordOfActiveWindow
+
+	for i := len(otherWindows) - 1; i >= 0; i-- {
+		otherWindow := otherWindows[i]
+
+		attrsOfOtherWindow, err := xproto.GetWindowAttributes(X, otherWindow).Reply()
+		if err != nil {
+			return nil, err
+		}
+
+		if attrsOfOtherWindow.MapState != xproto.MapStateViewable {
+			continue // The window is not mapped, so skip it.
+		}
+
+		geomOfOtherWindow, err := xproto.GetGeometry(X, xproto.Drawable(otherWindow)).Reply()
+		if err != nil {
+			return nil, err
+		}
+
+		translCoordOfOtherWindow, err := xproto.TranslateCoordinates(X, otherWindow, X11.RootWin(), geomOfOtherWindow.X, geomOfOtherWindow.Y).Reply()
+		if err != nil {
+			return nil, err
+		}
+
+		adjustedAreaOfOtherWindow := clipToScreen(translCoordOfOtherWindow, geomOfOtherWindow, rootGeom)
+
+		x_overlap := max(0, min(int(prevTrans.DstX)+int(prevGeom.Width), int(translCoordOfOtherWindow.DstX)+int(geomOfOtherWindow.Width))-max(int(prevTrans.DstX), int(translCoordOfOtherWindow.DstX)))
+		y_overlap := max(0, min(int(prevTrans.DstY)+int(prevGeom.Height), int(translCoordOfOtherWindow.DstY)+int(geomOfOtherWindow.Height))-max(int(prevTrans.DstY), int(translCoordOfOtherWindow.DstY)))
+
+		overlapArea := x_overlap * y_overlap
+
+		fmt.Println(float64(overlapArea), float64(adjustedAreaOfOtherWindow))
+
+		overlapRatio := float64(overlapArea) / float64(adjustedAreaOfOtherWindow)
+
+		if overlapRatio < 0.95 {
+			coverage += adjustedAreaOfOtherWindow - overlapArea
+			visibleWindows = append(visibleWindows, NamedWindows[otherWindow])
+			returnArray = append(returnArray, otherWindow)
+		}
+
+		fmt.Printf("Windows --> %v, last Overlap: %v, stage: %v%%\n", visibleWindows, overlapRatio, int(math.Round(float64(coverage)/float64(fullScreen)*100)))
+
+		if float64(coverage)/float64(fullScreen) >= 0.80 {
+			fmt.Printf("The combination of windows %v covers more than 80%% of the screen\n", visibleWindows)
+			return returnArray, nil
+		}
+
+		prevGeom = geomOfOtherWindow
+		prevTrans = translCoordOfOtherWindow
+	}
+
+	return nil, fmt.Errorf("none of the windows in the slice caused the total coverage to be more than 80%% of the screen")
+}
+
+func clipToScreen(trans *xproto.TranslateCoordinatesReply, geom *xproto.GetGeometryReply, rootGeom *xproto.GetGeometryReply) int {
+	x := int(trans.DstX)
+	y := int(trans.DstY)
+	width := int(geom.Width)
+	height := int(geom.Height)
+	screenWidth := int(rootGeom.Width)
+	screenHeight := int(rootGeom.Height)
+
+	if x < 0 {
+		width += x
+		x = 0
+	}
+	if y < 0 {
+		height += y
+		y = 0
+	}
+	if x+width > screenWidth {
+		width = screenWidth - x
+	}
+	if y+height > screenHeight {
+		height = screenHeight - y
+	}
+	return max(0, width) * max(0, height) // Return the area
+}
+
+func getWindowClassName(X *xgbutil.XUtil, win xproto.Window) (string, error) {
+
+	wmClass, err1 := xprop.PropValStrs(xprop.GetProperty(X, win, "WM_CLASS"))
+	if err1 == nil && (len(wmClass) == 2) {
+		return wmClass[1], nil
+	}
+	return "", fmt.Errorf("error on resolving name for window %d: %v", win, err1)
+}
+
+// func getVisibleWindow(X *xgb.Conn, X11 *xgbutil.XUtil, activeWindow xproto.Window, otherWindows []xproto.Window) (int, error) {
+// 	geom1, err := xproto.GetGeometry(X, xproto.Drawable(activeWindow)).Reply()
+// 	if err != nil {
+// 		return 0, err
+// 	}
+
+// 	rootGeom, err := xproto.GetGeometry(X, xproto.Drawable(X11.RootWin())).Reply()
+// 	if err != nil {
+// 		return 0, err
+// 	}
+
+// 	trans1, err := xproto.TranslateCoordinates(X, activeWindow, X11.RootWin(), geom1.X, geom1.Y).Reply()
+// 	if err != nil {
+// 		return 0, err
+// 	}
+
+// 	// activeArea := int(geom1.Width) * int(geom1.Height)
+// 	activeArea := clipToScreen(trans1, geom1, rootGeom)
+// 	rootArea := int(rootGeom.Width) * int(rootGeom.Height)
+
+// 	coverage := activeArea
+// 	visibleWindows := []string{NamedWindows[activeWindow]}
+
+// 	for i := len(otherWindows) - 1; i >= 0; i-- {
+// 		otherWindow := otherWindows[i]
+// 		geom2, err := xproto.GetGeometry(X, xproto.Drawable(otherWindow)).Reply()
+// 		if err != nil {
+// 			return 0, err
+// 		}
+
+// 		trans2, err := xproto.TranslateCoordinates(X, otherWindow, X11.RootWin(), geom2.X, geom2.Y).Reply()
+// 		if err != nil {
+// 			return 0, err
+// 		}
+
+// 		// area2 := int(geom2.Width) * int(geom2.Height)
+// 		area2 := clipToScreen(trans2, geom2, rootGeom)
+
+// 		x_overlap := max(0, min(int(trans1.DstX)+int(geom1.Width), int(trans2.DstX)+int(geom2.Width))-max(int(trans1.DstX), int(trans2.DstX)))
+// 		y_overlap := max(0, min(int(trans1.DstY)+int(geom1.Height), int(trans2.DstY)+int(geom2.Height))-max(int(trans1.DstY), int(trans2.DstY)))
+
+// 		overlapArea := x_overlap * y_overlap
+
+// 		overlapRatio := float64(overlapArea) / float64(area2)
+// 		fmt.Println(float64(overlapArea), float64(area2))
+
+// 		if overlapRatio < 0.97 {
+// 			coverage += area2 - overlapArea
+// 			visibleWindows = append(visibleWindows, NamedWindows[otherWindow])
+// 		}
+
+// 		fmt.Printf("Windows --> %v, last Overlap: %v, stage: %v%%\n", visibleWindows, overlapRatio, int(math.Round(float64(coverage)/float64(rootArea)*100)))
+
+// 		if float64(coverage)/float64(rootArea) >= 0.80 {
+// 			fmt.Printf("The combination of windows %v covers more than 80%% of the screen\n", visibleWindows)
+// 			return 100, nil
+// 		}
+// 	}
+
+// 	return 0, nil // None of the windows in the slice caused the total coverage to be more than 80% of the screen
+// }

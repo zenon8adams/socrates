@@ -1,0 +1,30 @@
+#include <algorithm>
+#include <array>
+#include <cstring>
+#include <iostream>
+
+template <typename Tp_, int N> int size(Tp_ (&)[N]) { return N; }
+template <typename Tp_, int N>
+int insert(Tp_ (&heap)[N], int divider, int pos) {
+#define PARENT(p) ((N - 2) + ((p) - (divider) + 1) / 2)
+  std::swap(heap[pos], heap[divider]);
+}
+
+int main() {
+
+  int values[] = {4, 5, 7, 2, 1, 3, 1, 6, 8, 4, 9};
+  int partition_point = 5;
+
+  std::make_heap(std::begin(values), std::next(values, partition_point));
+  std::make_heap(
+      std::reverse_iterator(values + size(values)),
+      std::reverse_iterator(values + size(values) - partition_point));
+
+  for (int i = 0; i < partition_point; ++i)
+    std::cout << values[i] << ' ';
+
+  putchar('\n');
+  for (int i = partition_point; i < size(values); ++i)
+    std::cout << values[i] << ' ';
+  putchar('\n');
+}

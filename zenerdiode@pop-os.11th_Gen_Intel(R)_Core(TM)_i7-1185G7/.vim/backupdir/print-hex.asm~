@@ -1,0 +1,33 @@
+;; Print hexadecimal values using register dx
+
+print_hex:
+	pusha
+	mov cx,bx
+	mov bx, hex_string
+	add bx, str_endp
+loop0:
+	mov dl, 'a'
+	mov dh, 10 + '0'
+	mov al, cl
+	and al, 0x0f
+	sub al, 10
+	cmovae dl, dh
+	add al, dl
+	mov [bx], al
+	dec bx
+	shr cx, 4
+	jz end_loop0
+
+	jmp loop0
+
+end_loop0:
+	mov bx, hex_string
+	call print_string
+end_print:
+	popa
+	ret
+
+	;; Data
+hex_string: db '0x0000', 0
+str_endp = $ - hex_string - 2
+
