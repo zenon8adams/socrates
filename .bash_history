@@ -1,1 +1,0 @@
-/home/zenerdiode/.bash_history
